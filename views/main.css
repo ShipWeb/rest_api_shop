@@ -1,0 +1,982 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #1c1c1c;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+}
+
+/*Стили для модуля Header*/
+header {
+	background: #2a2a2a;
+}
+
+.navbar {
+	min-height: 40px;
+}
+
+.navbar.navbar-default {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0;
+	border: 0;
+	background: #000;
+}
+
+.navbar-nav > li > a {
+	padding: 10px 8px;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
+	background: transparent;
+}
+
+.nav.navbar-nav i {
+	font-size: 15px;
+}
+
+.navbar-nav > li > .dropdown-menu {
+	border-radius: 0;
+	border: 0;
+	padding: 0;
+	background: #666;
+}
+
+.dropdown-menu > li > a {
+	color: #eee;
+}
+
+.dropdown-menu > li > a:hover {
+	color: #fff;
+	background: #2bc7e8;
+}
+
+.navbar-toggle {
+	border-radius: 0;
+	margin: 5px 10px 5px 0;
+}
+
+/*Стили для нижней части меню*/
+.logo {
+	padding: 15px;
+}
+
+.search {
+	padding: 32px 0;
+}
+
+#search {
+	border-radius: 2px;
+	padding: 8px 12px;
+	height: 34px;
+	border: 2px solid transparent;
+	transition: .5s;
+}
+
+#search:focus,
+#search:hover,
+#search:active {
+	box-shadow: none;
+	border: 2px solid #2bc7e8;
+}
+
+.form-top-search {
+	position: relative;
+}
+
+.live_search {
+	background: #f1f1f1;
+	padding: 10px;
+	font-size: 15px;
+	border-radius: 2px;
+	position: absolute;
+	width: 130%;
+	top: 40px;
+	z-index: 1000;
+	display: none;
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+}
+
+.display {
+	display: block;
+}
+
+.result {
+	height: 54px;
+	padding: 5px;
+	box-sizing: content-box;
+}
+
+.result:hover {
+	background: #e6e6e6;
+}
+
+hr {
+	margin: 0;
+	border-top: 1px solid #ddd;
+}
+
+.item_name {
+	color: #222;
+	padding: 14px 10px 20px;
+}
+
+.item_name p {
+	margin: 0;
+}
+
+.item_price {
+	padding: 10px 10px 20px;
+	font-size: 15px;
+	color: #111;
+	font-weight: 600;
+}
+
+.valuta {
+	font-size: 12px;
+}
+
+.btn-search {
+	background: transparent;
+	border: 0;
+	color: #f10545;
+	position: absolute;
+	font-size: 15px;
+	right: 8px;
+	top: 5px;
+}
+
+.buttons {
+	padding: 32px 0 0 20px;
+	text-align: right;
+}
+
+.cart,
+.login,
+.reg {
+	height: 34px;
+	border: 0;
+	margin-right: 6px;
+	padding: 1px 15px;
+	font-weight: 600;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.cart {
+	background: #2bc7e8;
+}
+
+.fa-shopping-cart {
+	font-size: 15px;
+	padding-right: 5px;
+}
+
+.cart:hover {
+	background: #1679c6;
+}
+
+.login {
+	background: #2bc7e8;
+}
+
+.login:hover {
+	background: #1679c6;
+}
+
+.reg {
+	background: #f10545;
+}
+
+.reg:hover {
+	background: #9d062f;
+}
+
+.uah {
+	font-weight: 600;
+}
+
+/*Стили для основной части*/
+.main {
+	margin: auto;
+}
+
+.scroll-top {
+	width: 50px;
+	height: 50px;
+	background: #666;
+	border-radius: 5px;
+	border: 1px solid #222;
+	cursor: pointer;
+	padding: 10px 15px;
+	font-size: 18px;
+	color: #2bc7e8;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.aside_menu {
+	background: #151515;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.aside_menu ul {
+	list-style-type: none;
+	padding-left: 23px;
+	font-size: 14px;
+}
+
+.aside_menu li {
+	padding-bottom: 10px;
+}
+
+.aside_menu h4 {
+	margin: 0;
+	padding: 15px 10px 15px 20px;
+}
+
+.aside_menu hr {
+	margin-bottom: 10px;
+	border: 1px solid #222;
+}
+
+.aside_menu a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.aside_menu a:hover {
+	color: #2bc7e8;
+}
+
+.slider {
+	padding: 0;
+}
+
+.row-flex {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.carousel-control {
+	height: 70px;
+	top: 40%;
+	width: 60px;
+	font-size: 50px;
+	opacity: 0.7;
+	display: none;
+	transition-duration: 0.5s;
+	z-index: 10;
+}
+
+.slider:hover .carousel-control {
+	display: block;
+	transition: 0.8s;
+}
+
+.carousel-control:hover {
+	color: #2bc7e8;
+}
+
+.carousel-inner .item img {
+	width: 100%;
+}
+
+.carousel.fade {
+	opacity: 1;
+}
+
+.carousel.fade .item {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	opacity: 0;
+	transition: opacity .7s;
+	z-index: 0;
+}
+
+.carousel.fade .item.active {
+	position: relative;
+	opacity: 1;
+	z-index: 1;
+}
+
+.carousel-caption {
+	left: 0;
+	text-align: left;
+	padding-left: 50px;
+}
+
+.slider_discount,
+.slider_price {
+	display: inline-block;
+	font-size: 19px;
+	padding: 5px 15px;
+	border-radius: 2px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+	text-shadow: none;
+}
+
+.slider_price {
+	background: rgba(241, 5, 69, 1);
+	margin-right: 10px;
+}
+
+.slider_discount {
+	background: #07b14f;
+}
+
+.wrapper > h3 {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.luck {
+	padding: 0;
+}
+
+.luck a {
+	color: #fff;
+	font-size: 14px;
+}
+
+.luck img {
+	width: 100%;
+	position: relative;
+}
+
+.silver,
+.gold,
+.diamond {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.5s, visibility 0s linear 0.5s;
+	padding: 15px;
+	z-index: 10;
+}
+
+.luck h4 {
+	font-weight: 600;
+}
+
+.luck_silver:hover .silver {
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s;
+}
+
+.luck_gold:hover .gold {
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s;
+}
+
+.luck_diamond:hover .diamond {
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s;
+}
+
+.luck_silver h4 {
+	color: silver;
+}
+
+.luck_gold h4 {
+	color: gold;
+}
+
+.luck_diamond h4 {
+	color: #2bc7e8;
+}
+
+.luck_price,
+.luck_discount {
+	display: inline-block;
+	font-size: 15px;
+	padding: 5px 15px;
+	border-radius: 2px;
+}
+
+.luck_price {
+	background: rgba(241, 5, 69, 1);
+	text-decoration: line-through;
+	margin-right: 10px;
+}
+
+.luck_discount {
+	background: #07b14f;
+}
+
+.brands div {
+	padding-top: 40px;
+	padding-bottom: 20px;
+}
+
+.cards div {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+.cards img {
+	width: 100%;
+}
+
+.card {
+	position: relative;
+}
+
+.card_hover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+	background: rgba(43, 199, 232, 0.8);
+	color: #fff;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.5s, visibility 0s linear 0.5s;
+}
+
+.card:hover .card_hover {
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s;
+}
+
+.card_hover h4 {
+	font-size: 24px;
+	margin-top: 80px;
+	margin-bottom: 30px;
+}
+
+.card_hover span {
+	margin: 10px 0 0 0;
+}
+
+/*Стили для модуля вкладок*/
+
+.modul_tab {
+	background: #f1f1f1;
+	margin-top: 30px;
+}
+
+.modul_tab ul {
+	background: #111;
+	border: 0;
+}
+
+.nav.nav-tabs a {
+	color: #fff;
+	border: 0;
+	font-size: 14px;
+}
+
+.nav.nav-tabs a:hover {
+	border: 0;
+	background: transparent;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+	background: #111;
+	color: #fff;
+	border: 0;
+	border-bottom: 6px solid #2bc7e8;
+}
+
+/*Стили для модуля футер*/
+
+footer {
+	margin-top: 60px;
+	background: #111;
+	padding: 30px 0;
+}
+
+.footer_link a {
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 13px;
+}
+
+.footer_link a:hover {
+	color: #2bc7e8;
+}
+
+.footer_link ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.footer_link li {
+	margin-top: 6px;
+}
+
+.pay_types img {
+	float: left;
+	margin: 12px;
+	border-radius: 20px;
+	background: #fff;
+	padding: 2px;
+}
+
+.pay_types {
+	margin: auto;
+}
+
+.pay {
+	overflow: hidden;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.disclamer {
+	clear: both;
+	font-size: 12px;
+	color: #666;
+}
+
+.disclamer span {
+	display: block;
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+.visible_480 {
+	display: none;
+}
+
+/*Оканчание стилей главной страницы*/
+
+/*Стили для страницы каталога игр*/
+.catalog_wrapper {
+	background: #dfdfdf;
+	color: #333;
+	font-size: 14px;
+}
+
+.catalog_wrapper a {
+	text-decoration: none;
+}
+
+.catalog_wrapper > div {
+	padding: 0;
+}
+
+.column {
+	background: #f1f1f1;
+	border-radius: 2px;
+	border: 1px solid #d1d1d1;
+	margin: 15px 4px;
+}
+
+.catalog_top {
+	overflow: visible;
+	height: 40px;
+	border-bottom: 1px solid #e1e1e1;
+	padding: 10px;
+}
+
+.sort .dropdown-menu {
+	padding: 10px;
+	border-radius: 0;
+	left: auto;
+	right: 0;
+	font-size: 14px;
+	width: 250px;
+}
+
+.dropdown-menu a {
+	display: block;
+	color: #333;
+	padding-bottom: 5px;
+}
+
+.dropdown-menu a:hover {
+	color: #04b0db;
+}
+
+.dropdown-toggle {
+	padding-right: 15px;
+	color: #04b0db;
+}
+
+.active_state {
+	color: #999;
+}
+
+#list:hover,
+#net:hover {
+	color: #f10545;
+}
+
+#list, #net {
+	cursor: pointer;
+}
+
+#list {
+	margin-right: 10px;
+}
+
+.rotate {
+	transform: rotate(180deg);
+	transition: all 0.3s;
+}
+
+.search_param {
+	display: block;
+	padding: 10px;
+	font-weight: 600;
+}
+
+.search_param i,
+.search_param {
+	font-size: 16px;
+	color: #666;
+	margin-left: 5px;
+}
+
+.search_param i {
+	color: #999;
+}
+
+.search_param:focus,
+.search_param:hover {
+	color: #666;
+}
+
+.well {
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	margin: 0;
+	box-shadow: none;
+	padding-top: 5px;
+	overflow: hidden;
+}
+
+.filter {
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.reset {
+	display: block;
+	cursor: pointer;
+	text-align: center;
+	padding: 30px;
+	color: #999;
+}
+
+.reset:hover {
+	color: #f10545;
+}
+
+.form-control {
+	border-radius: 2px;
+}
+
+.price_range {
+	width: 42%;
+	float: left;
+	margin-left: 15px;
+}
+
+/*Оформление не стандартных checkbox*/
+.label_check {
+	display: block;
+	font-size: 15px;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+.check {
+	vertical-align: top;
+	font-size: 12px;
+	width: 17px;
+	height: 17px;
+	cursor: pointer;
+}
+
+.check:not(checked) {
+	position: absolute;
+	opacity: 0;
+}
+.label_check{
+	position: relative;
+	padding: 2px 4px 2px 26px;
+	width: 150px;
+}
+.label_check:hover{
+	background: #e9e9e9;
+}
+
+.check:not(checked) + label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 21px;
+	height: 21px;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+
+.check:checked + label:before{
+	border: 1px solid #2bc7e8;
+	content: '\f00c';
+	font-family: FontAwesome;
+	color: #999;
+	padding:0 0 0 2px;
+}
+.collapse .well > div{
+	padding: 0;
+}
+/*Окончание стилей каталога*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width: 1200px) {
+	.live_search {
+		width: 160%;
+	}
+
+	.luck h4 {
+		margin: 0 0 10px;
+	}
+
+	.silver,
+	.gold,
+	.diamond {
+		padding: 10px;
+	}
+
+	.luck p {
+		margin: 0;
+		font-size: 13px;
+	}
+
+	.card_hover h4 {
+		font-size: 19px;
+	}
+
+	.card_hover span {
+		font-size: 14px;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 991px) {
+	.logo {
+		padding: 18px 5px;
+	}
+
+	.live_search {
+		width: 220%;
+		margin-left: -50%;
+		margin-top: 10px;
+	}
+
+	.aside_menu li {
+		padding-bottom: 4px;
+	}
+
+	.aside_menu h4 {
+		padding: 10px 10px 10px 20px;
+	}
+
+	.aside_menu ul {
+		margin: 4px;
+	}
+
+	.slider_discount,
+	.slider_price {
+		font-size: 16px;
+	}
+
+	.carousel-caption {
+		padding-left: 20px;
+		bottom: 0;
+	}
+
+	.silver,
+	.gold,
+	.diamond {
+		bottom: auto;
+	}
+
+	.luck_price,
+	.luck_discount {
+		font-size: 13px;
+		padding: 5px;
+	}
+
+	.uplay {
+		padding-right: 45px;
+	}
+
+	.origin {
+		padding-right: 45px;
+	}
+
+	.buttons {
+		padding-left: 10px;
+	}
+
+	.card_hover h4 {
+		margin-top: 30px;
+		margin-bottom: 15px;
+	}
+
+	.pay_types img {
+		margin: 6px;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 767px) {
+	.logo {
+		padding-bottom: 0;
+	}
+
+	.search {
+		padding-top: 15px;
+		padding-bottom: 10px;
+	}
+
+	.buttons {
+		padding: 10px 0 15px;
+		text-align: left;
+	}
+
+	.live_search {
+		width: 100%;
+		margin: 0;
+	}
+
+	.item_name {
+		font-size: 14px;
+		width: 60%;
+		padding-top: 5px;
+		text-align: left;
+	}
+
+	.item_price{
+		font-size: 12px;
+		width: 20%;
+		text-align: right;
+	}
+
+	.preview{
+		width: 20%;
+		padding-top: 5px;
+	}
+
+	.scroll-top {
+		display: none !important;
+	}
+
+	.aside_menu h4 {
+		text-align: center;
+		padding-left: 0;
+	}
+
+	.carousel-control {
+		display: block;
+	}
+
+	.wrapper > h3 {
+		font-size: 16px;
+	}
+
+	.card_hover h4 {
+		font-size: 24px;
+		margin-top: 60px;
+		margin-bottom: 25px;
+	}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+	.cart,
+	.login,
+	.reg {
+		font-size: 11px;
+		padding: 5px 7px;
+	}
+
+	.item_name{
+		font-size: 12px;
+	}
+
+	.result {
+		height: 60px;
+		overflow: visible;
+	}
+
+	.carousel-control {
+		font-size: 35px;
+		height: 50px;
+		top: 30%;
+	}
+
+	.silver,
+	.gold,
+	.diamond {
+		display: none !important;
+	}
+
+	.uplay {
+		padding-right: 20px;
+	}
+
+	.origin {
+		padding-right: 20px;
+	}
+
+	.brands div {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.card_hover h4 {
+		font-size: 16px;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+
+	.card_hover span {
+		font-size: 12px;
+	}
+
+	.pay_types {
+		display: none;
+	}
+
+	.nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:focus,
+	.nav-tabs > li.active > a:hover {
+		border-bottom: 4px solid #2bc7e8;
+	}
+
+	.visible_480 {
+		display: block;
+	}
+}
+
