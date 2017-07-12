@@ -10,6 +10,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link href="main.css" rel="stylesheet">
+	<link href="jquery.jscrollpane.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -222,13 +223,34 @@
 						</div>
 					</div>
 				</div>
-				<div class="filter">
+				<div class="filter" style="position: relative">
 					<a class="search_param" data-toggle="collapse" href="#collapseDate" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Дата выхода
 					</a>
 					<div class="collapse in" id="collapseDate">
 						<div class="well">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							<div class="drop_scroll">
+								<button type="button" id="btn_start" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<ul id="start" class="hover-menu years_begin scroll-pane">
+									<a href=""><li>1990</li></a>
+									<a href=""><li>2000</li></a>
+									<a href=""><li>2001</li></a>
+									<a href=""><li>2002</li></a>
+									<a href=""><li>2017</li></a>
+									<a href=""><li>2018</li></a>
+								</ul>
+							</div>
+							<div class="drop_scroll">
+								<button type="button" id="btn_end" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<ul id="end" class="hover-menu years_end scroll-pane">
+									<a href=""><li>2000</li></a>
+									<a href=""><li>2001</li></a>
+									<a href=""><li>2002</li></a>
+									<a href=""><li>2016</li></a>
+									<a href=""><li>2017</li></a>
+									<a href=""><li>2018</li></a>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -393,7 +415,7 @@
 			<ul class="pagination">
 				<li>
 					<a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
+						<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
 					</a>
 				</li>
 				<li><a href="#" class="active_page">1</a></li>
@@ -403,7 +425,7 @@
 				<li><a href="#">5</a></li>
 				<li>
 					<a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
+						<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
 					</a>
 				</li>
 			</ul>
@@ -464,10 +486,18 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
-<script src="js/jquery.ui.touch-punch.min.js"></script>
+<!--<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>-->
+<!--<script src="js/jquery.ui.touch-punch.min.js"></script>-->
+<script src="jquery.jscrollpane.min.js" ></script>
+<script src="jquery.mousewheel.js" ></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="scroll.js"></script>
 <script src="js/main.js"></script>
+<script>
+	$(document).ready(function() {
+
+		$('.scroll-pane').jScrollPane();
+	});
+</script>
 </body>
 </html>

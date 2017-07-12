@@ -759,6 +759,52 @@ footer {
 	color: #999;
 	padding:0 0 0 2px;
 }
+.drop_scroll{
+	float:left;
+	margin-right:20px;
+}
+.filter_btn{
+	color: #333;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+.filter_btn:hover,
+.filter_btn:focus,
+.filter_btn:active{
+	border: 1px solid #2bc7e8;
+	box-shadow:0 0 5px rgba(43, 199, 232, 0.5);
+	outline: none;
+}
+.years_begin,
+.years_end{
+	top: 85px;
+	border: 1px solid #ccc;
+	height: 100px;
+	overflow: auto;
+}
+.years_begin{
+	 left:18px;
+ }
+.years_end{
+	left:109px;
+}
+.hover-menu{
+	position: absolute;
+	width:75px;
+	z-index: 100;
+	background: #fff;
+	display: none;
+	border-radius: 3px;
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	border: 1px solid #2bc7e8;
+}
+.hover-menu a{
+	color: #333;
+}
+.hover-menu li{
+	padding:5px 0 5px 10px;
+}
+
 .collapse .well > div{
 	padding: 0;
 }
@@ -807,20 +853,25 @@ footer {
 .pagination li a{
 	margin:5px;
 	background: transparent;
-	border: 2px solid #aaa;
+	border: 1px solid #aaa;
 	border-radius: 4px;
 	color: #333;
 	padding:4px 10px;
 }
 .pagination li a:hover,
 .pagination li a:focus{
-	border:2px solid #2bc7e8;
+	border:1px solid #2bc7e8;
 	background: transparent;
 	background: #eaeaea;
 }
 .pagination .active_page{
-	border:2px solid #2bc7e8;
+	border:1px solid #2bc7e8;
 	background: #eaeaea;
+	color: #333;
+}
+
+.pagination i{
+	font-size:12px;
 }
 
 /*Окончание стилей каталога*/
@@ -933,6 +984,15 @@ footer {
 	}
 	.preview{
 		 width: 20%;
+	}
+	.drop_scroll{
+		margin-right:10px;
+	}
+	.price_range{
+		margin-left:5px;
+	}
+	.years_end{
+		left:98px;
 	}
 }
 

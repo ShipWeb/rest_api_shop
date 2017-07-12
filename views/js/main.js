@@ -70,6 +70,25 @@ $("document").ready(function () {
 		$('.pagination li a').removeClass('active_page');
 		$(this).children("a").addClass('active_page');
 	});
+
+	$('#btn_start').click(function () {
+		$('#start').toggle();
+		$('#end').hide();
+		$('.scroll-pane').jScrollPane();
+	});
+
+	$('#btn_end').click(function () {
+		$('#end').toggle();
+		$('#start').hide();
+		$('.scroll-pane').jScrollPane();
+	});
+	$('#btn_start').blur(function () {
+		$('#start').hide();
+	});
+	$('#btn_end').blur(function () {
+		$('#end').hide();
+	});
 });
+
 
 
