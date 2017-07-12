@@ -596,7 +596,7 @@ footer {
 	background: #f1f1f1;
 	border-radius: 2px;
 	border: 1px solid #d1d1d1;
-	margin: 15px 4px;
+	margin: 15px 4px 0px;
 	overflow: hidden;
 	padding:0 10px 25px 10px ;
 }
@@ -795,6 +795,34 @@ footer {
 	border-radius: 3px;
 	margin-left:10px;
 }
+/*Пагинация*/
+
+.page_nav{
+	width:100%;
+	text-align: center;
+}
+.pagination{
+	border-radius: 0;
+}
+.pagination li a{
+	margin:5px;
+	background: transparent;
+	border: 2px solid #aaa;
+	border-radius: 4px;
+	color: #333;
+	padding:4px 10px;
+}
+.pagination li a:hover,
+.pagination li a:focus{
+	border:2px solid #2bc7e8;
+	background: transparent;
+	background: #eaeaea;
+}
+.pagination .active_page{
+	border:2px solid #2bc7e8;
+	background: #eaeaea;
+}
+
 /*Окончание стилей каталога*/
 
 /* Large Devices, Wide Screens */
