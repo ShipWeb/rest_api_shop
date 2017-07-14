@@ -106,7 +106,8 @@ header {
 .display {
 	display: block;
 }
-.displayNone{
+
+.displayNone {
 	display: none;
 }
 
@@ -115,11 +116,13 @@ header {
 	padding: 5px;
 	box-sizing: content-box;
 }
-.result_main{
+
+.result_main {
 	height: 65px;
 	padding: 8px;
 	box-sizing: content-box;
 }
+
 .result_main:hover {
 	background: #e6e6e6;
 }
@@ -598,7 +601,7 @@ footer {
 	border: 1px solid #d1d1d1;
 	margin: 15px 4px 0px;
 	overflow: hidden;
-	padding:0 10px 25px 10px ;
+	padding: 0 10px 25px 10px;
 }
 
 .catalog_top {
@@ -732,12 +735,14 @@ footer {
 	position: absolute;
 	opacity: 0;
 }
-.label_check{
+
+.label_check {
 	position: relative;
 	padding: 2px 4px 2px 26px;
 	width: 150px;
 }
-.label_check:hover{
+
+.label_check:hover {
 	background: #e9e9e9;
 }
 
@@ -752,129 +757,240 @@ footer {
 	border: 1px solid #ccc;
 }
 
-.check:checked + label:before{
+.check:checked + label:before {
 	border: 1px solid #2bc7e8;
 	content: '\f00c';
 	font-family: FontAwesome;
 	color: #999;
-	padding:0 0 0 2px;
+	padding: 0 0 0 2px;
 }
-.drop_scroll{
-	float:left;
-	margin-right:20px;
+
+.drop_scroll {
+	float: left;
+	margin-right: 20px;
 }
-.filter_btn{
+
+.filter_btn {
 	color: #333;
 	background: #fff;
 	border: 1px solid #ccc;
 }
+
 .filter_btn:hover,
 .filter_btn:focus,
-.filter_btn:active{
+.filter_btn:active {
 	border: 1px solid #2bc7e8;
-	box-shadow:0 0 5px rgba(43, 199, 232, 0.5);
+	box-shadow: 0 0 5px rgba(43, 199, 232, 0.5);
 	outline: none;
 }
+
 .years_begin,
-.years_end{
+.years_end {
 	top: 85px;
 	border: 1px solid #ccc;
 	height: 100px;
 	overflow: auto;
 }
-.years_begin{
-	 left:18px;
- }
-.years_end{
-	left:109px;
+
+.years_begin {
+	left: 18px;
 }
-.hover-menu{
+
+.years_end {
+	left: 109px;
+}
+
+.hover-menu {
 	position: absolute;
-	width:75px;
+	width: 75px;
 	z-index: 100;
 	background: #fff;
 	display: none;
 	border-radius: 3px;
-	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 	border: 1px solid #2bc7e8;
 }
-.hover-menu a{
+
+.hover-menu a {
 	color: #333;
 }
-.hover-menu li{
-	padding:5px 0 5px 10px;
+
+.hover-menu li {
+	padding: 5px 0 5px 10px;
 }
 
-.collapse .well > div{
+.collapse .well > div {
 	padding: 0;
 }
-.module_view{
+
+.module_view {
 	display: inline-block;
 	width: 200px;
-	height:180px;
+	height: 180px;
 	float: left;
-	padding:10px;
+	padding: 10px;
 }
-.module_view img{
-	width:170px !important;
+
+.module_view img {
+	width: 170px !important;
 }
-.main_search img{
-	width:140px;
+
+.main_search img {
+	width: 140px;
 }
 
 .module_view .item_name,
-.module_view .item_price{
-	width:100%;
+.module_view .item_price {
+	width: 100%;
 	text-align: left;
 }
-.module_view .item_name{
-	padding-bottom:0;
-	padding-top:10px;
+
+.module_view .item_name {
+	padding-bottom: 0;
+	padding-top: 10px;
 }
-.module_view .item_price{
-	padding-top:10px;
+
+.module_view .item_price {
+	padding-top: 10px;
 }
-.discount{
+
+.discount {
 	color: #fff;
 	background: #07b14f;
-	padding:2px 5px;
+	padding: 2px 5px;
 	border-radius: 3px;
-	margin-left:10px;
+	margin-left: 10px;
 }
+
 /*Пагинация*/
 
-.page_nav{
-	width:100%;
+.page_nav {
+	width: 100%;
 	text-align: center;
 }
-.pagination{
+
+.pagination {
 	border-radius: 0;
 }
-.pagination li a{
-	margin:5px;
+
+.pagination li a {
+	margin: 5px;
 	background: transparent;
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	color: #333;
-	padding:4px 10px;
+	padding: 4px 10px;
 }
+
 .pagination li a:hover,
-.pagination li a:focus{
-	border:1px solid #2bc7e8;
+.pagination li a:focus {
+	border: 1px solid #2bc7e8;
 	background: transparent;
 	background: #eaeaea;
 }
-.pagination .active_page{
-	border:1px solid #2bc7e8;
+
+.pagination .active_page {
+	border: 1px solid #2bc7e8;
 	background: #eaeaea;
 	color: #333;
 }
 
-.pagination i{
-	font-size:12px;
+.pagination i {
+	font-size: 12px;
 }
 
 /*Окончание стилей каталога*/
+
+/*Стили для карточки товара*/
+.product_card {
+	background: #dfdfdf;
+	padding: 15px;
+}
+
+.goods_head {
+	background: #f6f6f6;
+	padding: 10px;
+	border: 1px solid #d1d1d1;
+	margin:0 0 10px 0;
+}
+.goods_head h2{
+	color: #333;
+	margin:10px 0 15px;
+	font-size:22px;
+}
+.breadcrumb{
+	margin:0;
+	padding:0;
+	font-size:14px;
+	background: transparent !important;
+}
+.breadcrumb a{
+	color: #999;
+}
+.breadcrumb a:hover{
+	color: #333;
+	text-decoration: none;
+}
+.breadcrumb li.active{
+	color: #999;
+}
+.game_info{
+	color: #777;
+	font-size:14px;
+	list-style-type: none;
+	padding:0;
+	padding-top:70px;
+}
+.game_info li{
+	padding-bottom: 10px;
+}
+
+.game_info span{
+	font-weight:600;
+	font-size:15px;
+	color: #333;
+}
+
+.game_info a{
+	color: #777;
+}
+#logo_brand{
+	width:15px;
+	height:15px;
+	margin: 0 0 2px 3px;
+}
+.header_right{
+	padding:0;
+	padding:20px;
+}
+.price_info{
+	margin-top:50px;
+}
+.header_price{
+	background: #2bc7e8;
+	text-align: center;
+	padding:20px 0;
+	font-size:30px;
+}
+.header_discount{
+	text-align: center;
+	background:#07b14f;
+	padding:10px 0;
+}
+.buy{
+	width:100%;
+	background: #f10545;
+	border: 0;
+	padding:15px 0;
+	font-size:28px;
+	text-align: center;
+	margin-top:20px;
+}
+.buy:hover{
+	box-shadow: 0 0 10px rgba(0, 0 , 0, 0.6);
+}
+
+/*Окончание стилей для страницы товара*/
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
@@ -972,27 +1088,33 @@ footer {
 	.pay_types img {
 		margin: 6px;
 	}
+
 	.item_name {
 		width: 50%;
-		padding-bottom:0;
+		padding-bottom: 0;
 	}
+
 	.item_price {
 		width: 30%;
-		font-size:14px;
-		padding-right:0;
+		font-size: 14px;
+		padding-right: 0;
 		text-align: right;
 	}
-	.preview{
-		 width: 20%;
+
+	.preview {
+		width: 20%;
 	}
-	.drop_scroll{
-		margin-right:10px;
+
+	.drop_scroll {
+		margin-right: 10px;
 	}
-	.price_range{
-		margin-left:5px;
+
+	.price_range {
+		margin-left: 5px;
 	}
-	.years_end{
-		left:98px;
+
+	.years_end {
+		left: 98px;
 	}
 }
 
@@ -1024,16 +1146,17 @@ footer {
 		text-align: left;
 	}
 
-	.item_price{
+	.item_price {
 		font-size: 12px;
 		width: 30%;
 		text-align: right;
 	}
-	.module_view .item_price{
+
+	.module_view .item_price {
 		font-size: 15px;
 	}
 
-	.preview{
+	.preview {
 		width: 20%;
 		padding-top: 5px;
 	}
@@ -1060,6 +1183,15 @@ footer {
 		margin-top: 60px;
 		margin-bottom: 25px;
 	}
+	.game_info{
+		padding-top:30px;
+	}
+    .price_info{
+	    margin-top:0;
+    }
+	.header_pic{
+		margin:auto;
+	}
 }
 
 /* Extra Small Devices, Phones */
@@ -1070,35 +1202,45 @@ footer {
 		font-size: 11px;
 		padding: 5px 7px;
 	}
-	.catalog_top{
-		height:55px;
+
+	.catalog_top {
+		height: 55px;
 	}
-	.item_name{
+
+	.item_name {
 		font-size: 12px;
 	}
-	.module_view{
-		margin-left:10%;
+
+	.module_view {
+		margin-left: 10%;
 		height: 200px !important;;
 	}
-	.module_view .item_name{
+
+	.module_view .item_name {
 		font-size: 15px;
 	}
-	.item_price span{
+
+	.item_price span {
 		float: left;
 	}
-	.discount{
+
+	.discount {
 		clear: both;
 	}
-	.module_view .discount{
+
+	.module_view .discount {
 		clear: none;
 	}
+
 	.result {
 		height: 60px;
 		overflow: visible;
 	}
-	.result_main{
+
+	.result_main {
 		height: 70px;
 	}
+
 	.carousel-control {
 		font-size: 35px;
 		height: 50px;
