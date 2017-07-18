@@ -924,12 +924,13 @@ footer {
 .inner{
 	background: #f6f6f6;
 	border: 1px solid #d1d1d1;
+	padding:10px;
 }
 
 .goods_head h2{
 	color: #333;
 	margin:10px 0 15px;
-	font-size:22px;
+	font-size:24px;
 }
 .breadcrumb{
 	margin:0;
@@ -1011,10 +1012,55 @@ footer {
 	border-radius: 3px;
 }
 .buy:hover{
-	box-shadow: 0 0 10px rgba(0, 0 , 0, 0.6);
+	box-shadow: 0 0 20px rgba(0, 0 , 0, 0.6);
 }
-
-
+.goods_info{
+	color: #f10545;
+	text-decoration: none;
+	padding:5px 20px;
+	background: #e6e6e6;
+	width:100%;
+	display: block;
+	border: 1px solid #f6f6f6;
+}
+.goods_info:hover,
+.goods_info:focus{
+	text-decoration: none;
+	color: #f10545;
+}
+.goods_info i{
+	font-size:14px;
+}
+.description{
+	font-size:14px;
+	padding:5px 10px 10px;
+}
+.description p{
+	text-align: justify;
+}
+.table td:nth-child(odd) {
+	font-weight:600;
+	color: #666;
+}
+.table td:nth-child(even) {
+	color: #888;
+}
+.table-striped>tbody>tr:nth-of-type(even){
+	background: #fff;
+}
+.instuction{
+	list-style-type: decimal;
+	padding-top: 15px;
+}
+.instuction li{
+	padding:0 20px 10px 10px;
+}
+.adv img{
+	width:49%;
+}
+.adv{
+	margin-bottom:10px;
+}
 /*Окончание стилей для страницы товара*/
 
 /* Large Devices, Wide Screens */
@@ -1231,6 +1277,13 @@ footer {
 	.header_right{
 		padding:30px;
 	}
+    .col_right .inner{
+	    margin-left:15px;
+	    margin-top:10px;
+    }
+	.adv img{
+		width:auto;
+	}
 }
 
 /* Extra Small Devices, Phones */
@@ -1330,6 +1383,9 @@ footer {
 	}
 	.header_right{
 		padding:15px;
+	}
+	.adv img{
+		width:49%;
 	}
 }
 

@@ -27,6 +27,15 @@ $("document").ready(function () {
 		$(this).children('i').toggleClass('rotate')
 	});
 
+	$('.goods_info').click(function () {
+		if ($(this).children('i').hasClass('fa-plus')){
+			$(this).children('i').replaceWith('<i class="fa fa-minus" aria-hidden="true"></i>');
+		} else if ($(this).children('i').hasClass('fa-minus')){
+			$(this).children('i').replaceWith('<i class="fa fa-plus" aria-hidden="true"></i>');
+		}
+
+	});
+
 	var screen_size = $(document).width();
 	if (screen_size < 767) {
 		$('.filter>div').removeClass('in');
