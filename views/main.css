@@ -1061,6 +1061,20 @@ footer {
 .adv{
 	margin-bottom:10px;
 }
+.galery{
+	padding-top:10px;
+}
+.galery_image{
+	width:49%;
+	display: inline-block;
+}
+.galery_image img{
+	width:100%;
+	opacity: 0.9;
+}
+.galery_image img:hover {
+	opacity: 1;
+}
 /*Окончание стилей для страницы товара*/
 
 /* Large Devices, Wide Screens */
@@ -1284,6 +1298,9 @@ footer {
 	.adv img{
 		width:auto;
 	}
+	.galery_image {
+		width: 24%;
+	}
 }
 
 /* Extra Small Devices, Phones */
@@ -1387,5 +1404,8 @@ footer {
 	.adv img{
 		width:49%;
 	}
+    .galery_image {
+	    width: 49%;
+    }
 }
 

@@ -10,6 +10,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link href="main.css" rel="stylesheet">
+	<link rel="stylesheet" href="jquery.fancybox.css" media="screen" />
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -235,13 +236,21 @@
 									<li>Получите оплаченный ключ активации в личном кабинете.</li>
 
 									<li>Если не установлен Steam клиент, Вам необходимо скачать его с официального
-										сайта (<a href="http://store.steampowered.com/about/" target="_blank">http://store.steampowered.com/about/</a>) и установить.</li>
+										сайта (<a href="http://store.steampowered.com/about/" target="_blank">http://store.steampowered.com/about/</a>)
+										и установить.
+									</li>
 
-									<li>Войдите в свой фккаунт Steam (если он у Вас уже есть), либо создайте новую учетную запись</li>
+									<li>Войдите в свой фккаунт Steam (если он у Вас уже есть), либо создайте новую
+										учетную запись
+									</li>
 
-									<li>В меню «Игры» выбирайте пункт «Активировать через Steam». В открывшееся окошке вводите полученный код.</li>
+									<li>В меню «Игры» выбирайте пункт «Активировать через Steam». В открывшееся окошке
+										вводите полученный код.
+									</li>
 
-									<li>После активации ключа, игра отобразится в библиотеке Steam и вы сможете её скачать.</li>
+									<li>После активации ключа, игра отобразится в библиотеке Steam и вы сможете её
+										скачать.
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -251,13 +260,37 @@
 		</div>
 		<div class="col-sm-4 col-md-4 col-lg-4 col_right">
 			<div class="inner">
+				<!--Рекламные блоки 170x220px-->
 				<div class="adv">
 					<a href="#"><img src="images/prey_banner.jpg" alt="Купить Prey за 999р"></a>
 					<a href="#"><img src="images/rust_bunner.jpg" alt="Купить Rust за 295р"></a>
 				</div>
 				<span class="goods_info">Скриншоты</span>
 				<div class="galery">
-
+					<div class="galery_image">
+						<a href="images/prey1.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev1_155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey2.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev2-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey3.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev3-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey4.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev4-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey5.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev5-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey6.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev6-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey7.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev7-155x87.jpg" class="img-responsive"></a>
+					</div>
+					<div class="galery_image">
+						<a href="images/prey8.jpg" class="fancyimage" data-fancybox-group="group"><img src="images/prey_prev8-155x87.jpg" class="img-responsive"></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -318,10 +351,17 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.fancybox.pack.js"></script>
+<script src="jquery.mousewheel.pack.js"></script>
 <script src="jquery-ui.min.js"></script>
 <script src="js/jquery.ui.touch-punch.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="scroll.js"></script>
 <script src="js/main.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("a.fancyimage").fancybox();
+	});
+</script>
 </body>
 </html>
