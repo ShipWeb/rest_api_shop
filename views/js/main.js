@@ -47,6 +47,13 @@ $("document").ready(function () {
 		if (screen_size < 767) {
 			$('.filter>div').removeClass('in');
 			$('.fa.fa-angle-up').removeClass("rotate");
+
+			$('[data-view]').addClass('module_view');
+			$('.column hr').addClass('displayNone');
+			$('.main_search').removeClass('preview');
+			$('.main_search .item_price').removeClass('pull-right');
+			$('#list').removeClass('active_state');
+			$('#net').addClass('active_state');
 		}
 	});
 
@@ -97,6 +104,11 @@ $("document").ready(function () {
 	$('#btn_end').blur(function () {
 		$('#end').hide();
 	});
+
+	$('.oplata').on('click', 'div', function () {
+		$('.payment_item').removeClass('payment_click');
+		$(this).children('div.payment_item').toggleClass('payment_click');
+	})
 });
 
 

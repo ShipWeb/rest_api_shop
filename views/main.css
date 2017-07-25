@@ -1075,7 +1075,102 @@ footer {
 .galery_image img:hover {
 	opacity: 1;
 }
+
 /*Окончание стилей для страницы товара*/
+
+/*Стили для корзины*/
+.order{
+	font-size:20px;
+}
+.cart_price{
+	font-size:20px;
+}
+.cart_detail h3{
+	margin:15px 0;
+	font-size:18px;
+	position: relative;
+	padding-left: 34px;
+}
+
+.cart_detail h3:before{
+	content: '';
+	width: 22px;
+	height: 22px;
+	background: #f10545;
+	position: absolute;
+	top:0;
+	left: 0;
+	margin-top:-3px;
+	border-radius: 14px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 22px;
+	border: 3px solid #fff;
+	box-sizing: content-box;
+}
+
+#ordering:before{
+	content: '1';
+}
+
+#pay:before{
+	content: '2';
+}
+
+#confirm:before{
+	content: '3';
+}
+.oplata{
+	padding:5px 50px;
+	color: #333;
+}
+.oplata div{
+	padding: 0 4px;
+}
+.payment_item{
+	height: 80px;
+	width: 100%;
+	border:1px solid #ccc;
+	border-radius: 3px;
+	margin: 4px;
+	position: relative;
+}
+.payment_item span{
+	font-size:12px;
+}
+
+.payment_item:hover{
+	border:1px solid #2bc7e8;
+	cursor: pointer;
+}
+.payment_click:after{
+	content:"\f14a";
+	font-family: FontAwesome;
+	color: #2bc7e8;
+	position: absolute;
+	top:0;
+	right:3px;
+}
+
+.payment_click{
+	border:1px solid #2bc7e8;
+	background: rgba(43, 299, 232, 0.1);
+}
+.oplata img{
+	width:40px;
+	margin: 20px 0;
+}
+.pay_info{
+	padding:20px 0 !important;
+}
+.pay_info span{
+	display: block;
+}
+
+span.type{
+	font-size:14px;
+}
+
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
@@ -1193,6 +1288,9 @@ footer {
 		text-align: right;
 	}
 
+	.cart_price{
+		width:auto;
+	}
 	.preview {
 		width: 20%;
 	}
@@ -1243,7 +1341,6 @@ footer {
 
 	.item_price {
 		font-size: 12px;
-		width: 30%;
 		text-align: right;
 	}
 
@@ -1300,6 +1397,12 @@ footer {
 	}
 	.galery_image {
 		width: 24%;
+	}
+    .cart_name{
+	    width:39%;
+    }
+	.oplata {
+		padding: 5px 20px;
 	}
 }
 
@@ -1407,5 +1510,33 @@ footer {
     .galery_image {
 	    width: 49%;
     }
+	.cart_price{
+		padding-bottom:0;
+		padding-top:0;
+	}
+    .preview_cart{
+	    width:30%;
+    }
+	.preview_cart img{
+		width:100%;
+	}
+    .order{
+	    overflow: hidden;
+	    height: auto;
+    }
+    .cart_name{
+	    width: 40%;
+	    padding-top:0;
+    }
+	.oplata {
+		padding: 5px 10px;
+	}
+}
+
+
+@media only screen and (max-width: 420px){
+	.oplata>div{
+		width: 100%;
+	}
 }
 
