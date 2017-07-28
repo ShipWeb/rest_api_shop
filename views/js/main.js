@@ -1,3 +1,4 @@
+"use strict";
 $("document").ready(function () {
 
 	var usd = '<i class="fa fa-usd del" aria-hidden="true"></i>';
@@ -20,17 +21,21 @@ $("document").ready(function () {
 		$(".valuta").html('₴');
 	});
 	$('#search').click(function () {
-		$('.live_search').toggleClass('display')
-	});
+		$('.live_search').toggleClass('display');
+	})
+
+	$('#search').blur(function () {
+		$('.live_search').removeClass('display');
+	})
 
 	$('.search_param').click(function () {
-		$(this).children('i').toggleClass('rotate')
-	});
+		$(this).children('i').toggleClass('rotate');
+	})
 
 	$('.goods_info').click(function () {
-		if ($(this).children('i').hasClass('fa-plus')){
+		if ($(this).children('i').hasClass('fa-plus')) {
 			$(this).children('i').replaceWith('<i class="fa fa-minus" aria-hidden="true"></i>');
-		} else if ($(this).children('i').hasClass('fa-minus')){
+		} else if ($(this).children('i').hasClass('fa-minus')) {
 			$(this).children('i').replaceWith('<i class="fa fa-plus" aria-hidden="true"></i>');
 		}
 
@@ -110,6 +115,32 @@ $("document").ready(function () {
 		$(this).children('div.payment_item').toggleClass('payment_click');
 	})
 });
+
+$(function Validate() {
+	$('#email').blur(function () {
+		if ($(this).val() != '') {
+			var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+			if (pattern.test($(this).val())) {
+				$(this).css({'border': '1px solid #569b44'});
+				$(this).parent('div').addClass('correct');
+			} else {
+				$(this).css({'border': '1px solid #ff0000'});
+				$('<div class="error">Введен некорректный E-mail</div>').appendTo($(this).parent('div')).fadeIn('fast').effect("shake");
+			}
+		} else {
+			$(this).css({'border': '1px solid #ff0000'});
+			$('<div class="error">Вы забыли ввести E-mail</div>').appendTo($(this).parent('div')).fadeIn('fast').effect("shake");
+		}
+	});
+
+	$('#email').focus(function () {
+		$(this).css({'border': ''});
+		$(this).parent('div').removeClass('correct');
+		$('div.error').remove();
+	})
+});
+
+
 
 
 

@@ -585,6 +585,7 @@ footer {
 	background: #dfdfdf;
 	color: #333;
 	font-size: 14px;
+	padding-bottom:20px;
 }
 
 .catalog_wrapper a {
@@ -912,6 +913,7 @@ footer {
 	padding: 10px;
 	border: 1px solid #d1d1d1;
 	margin:0 0 10px 0;
+	border-radius: 3px;
 }
 .col_left{
 	padding:0 15px;
@@ -1137,6 +1139,7 @@ footer {
 }
 .payment_item span{
 	font-size:12px;
+	color: #999;
 }
 
 .payment_item:hover{
@@ -1169,8 +1172,117 @@ footer {
 
 span.type{
 	font-size:14px;
+	color: #313131;
+}
+.order_confirm{
+	width:50%;
+	margin:auto;
+	color: #333;
+	font-size:12px;
+}
+.order_confirm p{
+	margin-left:30px;
+	margin-top:-8px;
+	text-align: justify;
+}
+.order_confirm a{
+	color:#f10545;
+	outline: none;
+}
+.order_confirm span{
+	text-align: center;
+	margin: 10px auto 15px;
+	display: block;
 }
 
+.email_wrapper{
+	margin:10px 0 20px;
+	position: relative;
+}
+#email{
+	width:100%;
+	outline: none;
+	color: #333;
+	padding:10px;
+	border-radius: 3px;
+	border: 1px solid #c1c1c1;
+	font-size:14px;
+}
+#email:hover,
+#email:focus{
+	border: 1px solid #2bc7e8;
+}
+.label_agr{
+	width:0px;
+}
+.label_agr:hover{
+	background: transparent;
+}
+.subm{
+	text-align: center;
+	background: #2bc7e8;
+	border: none;
+	outline: none;
+	padding:14px;
+	margin-top:20px;
+	margin-bottom:10px;
+	text-transform: uppercase;
+	border-radius: 3px;
+	font-size:15px;
+	font-weight:600;
+	color: #fff;
+	opacity: 1;
+}
+.subm:hover{
+	opacity: 0.8;
+}
+
+.correct:after{
+	content:"\f00c";
+	font-size:20px;
+	font-family: FontAwesome;
+	color: #569b44;
+	position: absolute;
+	top:5px;
+	right:5px;
+}
+
+.button_submit{
+	text-align: center;
+	position: relative;
+}
+
+.error{
+	color:#f10545;
+	border: 1px solid #f15d7a;
+	padding:10px;
+	border-radius: 5px;
+	background: rgba(241,186,179, 0.8);
+	font-size:14px;
+	text-align: center;
+	margin-top:10px;
+	display: none;
+}
+
+.disable{
+	opacity: 0.45;
+}
+.disable:hover{
+	opacity: 0.45;
+}
+.modal-title{
+	text-transform: uppercase;
+	font-weight:600;
+}
+.modal-body h5{
+	font-weight:600;
+	margin:20px 0;
+	font-size:15px;
+}
+.modal-body p{
+	margin:10px 0;
+	font-size:13px;
+}
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
@@ -1403,6 +1515,9 @@ span.type{
     }
 	.oplata {
 		padding: 5px 20px;
+	}
+	.order_confirm{
+		width:90%;
 	}
 }
 
