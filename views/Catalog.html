@@ -10,6 +10,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link href="main.css" rel="stylesheet">
+	<link href="jquery.jscrollpane.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -207,7 +208,7 @@
 								<input type="checkbox" class="check" id="ride">
 								<label for="ride" class="label_check"> Гонки</label>
 								<input type="checkbox" class="check" id="adventure">
-								<label for="adventure" class="label_check"> Приключения</label>
+								<label for="adventure" class="label_check"> Приклю&shy;чения</label>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 								<input type="checkbox" class="check" id="rpg">
@@ -222,14 +223,34 @@
 						</div>
 					</div>
 				</div>
-				<div class="filter">
+				<div class="filter" style="position: relative">
 					<a class="search_param" data-toggle="collapse" href="#collapseDate" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Дата выхода
 					</a>
 					<div class="collapse in" id="collapseDate">
 						<div class="well">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, asperiores, consequuntur
-							dignissimos eligendi, eos est eum fuga ipsa laudantium
+							<div class="drop_scroll">
+								<button type="button" id="btn_start" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<ul id="start" class="hover-menu years_begin scroll-pane">
+									<a href=""><li>1990</li></a>
+									<a href=""><li>2000</li></a>
+									<a href=""><li>2001</li></a>
+									<a href=""><li>2002</li></a>
+									<a href=""><li>2017</li></a>
+									<a href=""><li>2018</li></a>
+								</ul>
+							</div>
+							<div class="drop_scroll">
+								<button type="button" id="btn_end" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<ul id="end" class="hover-menu years_end scroll-pane">
+									<a href=""><li>2000</li></a>
+									<a href=""><li>2001</li></a>
+									<a href=""><li>2002</li></a>
+									<a href=""><li>2016</li></a>
+									<a href=""><li>2017</li></a>
+									<a href=""><li>2018</li></a>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -261,17 +282,17 @@
 			<div class="catalog_top">
 				<div class="sort pull-right">
 					<span>Сортировать по:</span>
-					<span class="dropdown">
+					<span class="dropdown" id="sort_list">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					Популярности <span class="caret"></span>
-				</a>
+						<span class="sort_type">Популярности </span><span class="caret"></span>
+					</a>
 				<ul class="dropdown-menu">
-					<a href=""><li>Цене, сначала недорогие</li></a>
-					<a href=""><li>Цене, сначала дорогие</li></a>
-					<a href=""><li>Популярности</li></a>
-					<a href=""><li>Названию</li></a>
-					<a href=""><li>Дате выхода, сначала новые</li></a>
-					<a href=""><li>Дате выхода, сначала старые</li></a>
+					<a class="sort_item" href=""><li>Цене, сначала недорогие</li></a>
+					<a class="sort_item" href=""><li>Цене, сначала дорогие</li></a>
+					<a class="sort_item" href=""><li>Популярности</li></a>
+					<a class="sort_item" href=""><li>Названию</li></a>
+					<a class="sort_item" href=""><li>Дате выхода, сначала новые</li></a>
+					<a class="sort_item" href=""><li>Дате выхода, сначала старые</li></a>
 				</ul>
 			</span>
 					<i id="list" class="fa fa-list-ul active_state" aria-hidden="true"></i>
@@ -279,50 +300,50 @@
 				</div>
 			</div>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
-						<img src="images/GTA5_110x52.png" class="img-responsive">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
+						<img src="images/GTA5_178x83.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
 						<p>Grand Theft Auto V + GTA: Online</p>
 					</div>
 					<div class="item_price pull-right">
-						<span>1699</span> <span class="valuta">руб</span>
+						<span>1699</span> <span class="valuta">руб</span> <span class="discount">-30%</span>
 					</div>
 				</div>
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/GTA4_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
 						<p>Grand Theft Auto 4</p>
 					</div>
 					<div class="item_price pull-right">
-						<span>249</span> <span class="valuta">руб</span>
+						<span>249</span> <span class="valuta">руб</span><span class="discount">-50%</span>
 					</div>
 				</div>
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/prey_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
 						<p>Prey</p>
 					</div>
 					<div class="item_price pull-right">
-						<span>1100</span> <span class="valuta">руб</span>
+						<span>1100</span> <span class="valuta">руб</span><span class="discount">-20%</span>
 					</div>
 				</div>
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/skyrim_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
@@ -335,8 +356,8 @@
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/GTA5_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
@@ -349,8 +370,8 @@
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/GTA4_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
@@ -363,8 +384,8 @@
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
 						<img src="images/prey_110x52.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
@@ -377,9 +398,9 @@
 			</a>
 			<hr>
 			<a href="#">
-				<div class="result">
-					<div class="preview pull-left">
-						<img src="images/skyrim_110x52.png" class="img-responsive">
+				<div class="result_main" data-view="true">
+					<div class="preview main_search pull-left">
+						<img src="images/skyrim_178x83.png" class="img-responsive">
 					</div>
 					<div class="item_name pull-left">
 						<p>The Elder Scrolls V: Skyrim – Legendary Edition</p>
@@ -390,6 +411,25 @@
 				</div>
 			</a>
 		</div>
+		<nav aria-label="Page navigation" class="page_nav">
+			<ul class="pagination">
+				<li>
+					<a href="#" aria-label="Previous">
+						<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+					</a>
+				</li>
+				<li><a href="#" class="active_page">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li>
+					<a href="#" aria-label="Next">
+						<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 </div>
 
@@ -446,8 +486,10 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<script src="jquery-ui.min.js"></script>
 <script src="js/jquery.ui.touch-punch.min.js"></script>
+<script src="jquery.jscrollpane.min.js" ></script>
+<script src="jquery.mousewheel.js" ></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="scroll.js"></script>
 <script src="js/main.js"></script>
