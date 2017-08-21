@@ -43,4 +43,9 @@ class Categories extends \yii\db\ActiveRecord
             'number_products' => Yii::t('app', 'Number Products'),
         ];
     }
+
+	public static function getAll()
+	{
+		return Categories::find()->all();
+	}
 }

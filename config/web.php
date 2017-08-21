@@ -55,8 +55,11 @@ $config = [
 
 		'urlManager' => [
 			'enablePrettyUrl' => true,
+			'enableStrictParsing' => true,
 			'showScriptName'  => false,
 			'rules' => [
+				'/product/<id:\d+>/<alias:.+>' => 'products/view',
+				'/' => 'products/index',
 			]
 		],
 
