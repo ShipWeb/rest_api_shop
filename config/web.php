@@ -58,8 +58,9 @@ $config = [
 			'enableStrictParsing' => true,
 			'showScriptName'  => false,
 			'rules' => [
-				'product/<id:\d+>/<alias:.+>' => 'products/view',
-				'product'                     => 'products/index',
+				'/product/<id:\d+>/<alias:.+>' => 'products/view',
+				'/product'                     => 'products/index',
+				''                     => 'site/index',
 			]
 		],
 
