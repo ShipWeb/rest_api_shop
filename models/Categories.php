@@ -28,6 +28,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             [['number_products'], 'integer'],
+			[['title'], 'string', 'max' => 255],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -39,8 +40,14 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'category_id' => Yii::t('app', 'Category ID'),
+			'title' => Yii::t('app', 'Title'),
             'name' => Yii::t('app', 'Name'),
             'number_products' => Yii::t('app', 'Number Products'),
         ];
     }
+
+	public static function getAll()
+	{
+		return Categories::find()->all();
+	}
 }

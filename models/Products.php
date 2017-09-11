@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%products}}".
@@ -64,4 +66,36 @@ class Products extends \yii\db\ActiveRecord
             'date_modified_gmt' => Yii::t('app', 'Date Modified Gmt'),
         ];
     }
+
+	public static function getAll($pageSize = 5)
+	{
+		// build a DB query to get all articles
+		$query = Products::find();
+		// get the total number of articles (but do not fetch the article data yet)
+		$count = $query->count();
+		// create a pagination object with the total count
+		$pagination = new Pagination(['totalCount' => $count, 'pageSize'=>$pageSize]);
+		// limit the query using the pagination and retrieve the articles
+		$products = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+
+		$data['products'] = $products;
+		$data['pagination'] = $pagination;
+
+		return $data;
+	}
+
+	/**
+	 * Сортировка товаров
+	 *
+	 * @param $options
+	 *
+	 * @return mixed
+	 */
+	public function sortProducts($options) {
+
+		$products = Products::getAll();
+
+		return $products;
+	}
+
 }
