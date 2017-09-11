@@ -19,6 +19,7 @@ class CategoriesSearch extends Categories
     {
         return [
             [['category_id', 'number_products'], 'integer'],
+			[['title'], 'safe'],
             [['name'], 'safe'],
         ];
     }

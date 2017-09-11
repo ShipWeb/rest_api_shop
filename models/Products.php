@@ -67,7 +67,7 @@ class Products extends \yii\db\ActiveRecord
         ];
     }
 
-	public static function getAll($pageSize = 1)
+	public static function getAll($pageSize = 5)
 	{
 		// build a DB query to get all articles
 		$query = Products::find();
@@ -82,6 +82,20 @@ class Products extends \yii\db\ActiveRecord
 		$data['pagination'] = $pagination;
 
 		return $data;
+	}
+
+	/**
+	 * Сортировка товаров
+	 *
+	 * @param $options
+	 *
+	 * @return mixed
+	 */
+	public function sortProducts($options) {
+
+		$products = Products::getAll();
+
+		return $products;
 	}
 
 }

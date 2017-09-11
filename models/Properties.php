@@ -29,6 +29,7 @@ class Properties extends \yii\db\ActiveRecord
         return [
             [['active'], 'string'],
             [['name'], 'string', 'max' => 255],
+			[['type'], 'string'],
         ];
     }
 
@@ -40,7 +41,14 @@ class Properties extends \yii\db\ActiveRecord
         return [
             'property_id' => Yii::t('app', 'Property ID'),
             'name' => Yii::t('app', 'Name'),
+			'type' => Yii::t('app', 'Type'),
             'active' => Yii::t('app', 'Active'),
         ];
     }
+
+	public static function getAll() {
+
+		return Properties::find()->all();
+	}
+
 }

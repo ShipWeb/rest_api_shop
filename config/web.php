@@ -1,5 +1,5 @@
 <?php
-
+require_once('../common/functions.php');
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
@@ -58,8 +58,8 @@ $config = [
 			'enableStrictParsing' => true,
 			'showScriptName'  => false,
 			'rules' => [
-				'/product/<id:\d+>/<alias:.+>' => 'products/view',
-				'/' => 'products/index',
+				'product/<id:\d+>/<alias:.+>' => 'products/view',
+				'product'                     => 'products/index',
 			]
 		],
 

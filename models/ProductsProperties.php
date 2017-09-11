@@ -9,7 +9,11 @@ use Yii;
  *
  * @property string $product_id
  * @property string $property_id
- * @property string $value
+ * @property string $value_str
+ * @property string $value_int
+ * @property string $value_dec
+ * @property double $value_flt
+ * @property string $value_date
  */
 class ProductsProperties extends \yii\db\ActiveRecord
 {
@@ -28,8 +32,10 @@ class ProductsProperties extends \yii\db\ActiveRecord
     {
         return [
             [['product_id', 'property_id'], 'required'],
-            [['product_id', 'property_id'], 'integer'],
-            [['value'], 'string', 'max' => 255],
+            [['product_id', 'property_id', 'value_int'], 'integer'],
+            [['value_dec', 'value_flt'], 'number'],
+            [['value_date'], 'safe'],
+            [['value_str'], 'string', 'max' => 255],
             [['product_id', 'property_id'], 'unique', 'targetAttribute' => ['product_id', 'property_id']],
         ];
     }
@@ -42,7 +48,11 @@ class ProductsProperties extends \yii\db\ActiveRecord
         return [
             'product_id' => Yii::t('app', 'Product ID'),
             'property_id' => Yii::t('app', 'Property ID'),
-            'value' => Yii::t('app', 'Value'),
+            'value_str' => Yii::t('app', 'Value Str'),
+            'value_int' => Yii::t('app', 'Value Int'),
+            'value_dec' => Yii::t('app', 'Value Dec'),
+            'value_flt' => Yii::t('app', 'Value Flt'),
+            'value_date' => Yii::t('app', 'Value Date'),
         ];
     }
 }
