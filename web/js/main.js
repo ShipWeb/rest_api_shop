@@ -1,6 +1,8 @@
 "use strict";
 $("document").ready(function () {
 
+	$("a.fancyimage").fancybox();
+
 	var usd = '<i class="fa fa-usd del" aria-hidden="true"></i>';
 	var rub = '<i class="fa fa-rub del" aria-hidden="true"></i>';
 	var uah = '<i class="uah del">₴</i>';
