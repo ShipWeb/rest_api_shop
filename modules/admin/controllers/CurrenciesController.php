@@ -3,16 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Categories;
-use app\models\CategoriesSearch;
+use app\models\Currencies;
+use app\models\CurrenciesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoriesController implements the CRUD actions for Categories model.
+ * CurrenciesController implements the CRUD actions for Currencies model.
  */
-class CategoriesController extends Controller
+class CurrenciesController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Lists all Categories models.
+     * Lists all Currencies models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategoriesSearch();
+        $searchModel = new CurrenciesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Displays a single Categories model.
+     * Displays a single Currencies model.
      * @param string $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Creates a new Categories model.
+     * Creates a new Currencies model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Categories();
+        $model = new Currencies();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->category_id]);
+            return $this->redirect(['view', 'id' => $model->currency_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Updates an existing Categories model.
+     * Updates an existing Currencies model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -85,7 +85,7 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->category_id]);
+            return $this->redirect(['view', 'id' => $model->currency_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Deletes an existing Categories model.
+     * Deletes an existing Currencies model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -107,15 +107,15 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Finds the Categories model based on its primary key value.
+     * Finds the Currencies model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Categories the loaded model
+     * @return Currencies the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Categories::findOne($id)) !== null) {
+        if (($model = Currencies::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

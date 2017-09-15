@@ -23,24 +23,11 @@ class ProductsController extends \yii\web\Controller
 	 */
 	public function actionIndex() {
 
-		$products = Products::sortProducts($_REQUEST);
-
-		$categories = Categories::getAll();
 		$properties = Properties::getAll();
 
-		$this->render('index', [
-			'products'   => $products['products'],
-			'pagination' => $products['pagination'],
-			'categories' => $categories,
-			'properties' => $properties
-		]);
+		$data = Products::getAll($_REQUEST);
 
-		return $this->render('index', [
-			'products'   => $products['products'],
-			'pagination' => $products['pagination'],
-			'categories' => $categories,
-			'properties' => $properties
-		]);
+		return $this->render('index', $data);
 	}
 
 	/**

@@ -9,7 +9,12 @@ use Yii;
  *
  * @property string $property_id
  * @property string $name
+ * @property string $type
+ * @property string $filter
+ * @property string $sort
  * @property string $active
+ * @property string $show_index
+ * @property string $show_view
  */
 class Properties extends \yii\db\ActiveRecord
 {
@@ -27,9 +32,8 @@ class Properties extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['active'], 'string'],
-            [['name'], 'string', 'max' => 255],
-			[['type'], 'string'],
+            [['type', 'filter', 'sort', 'active', 'show_index', 'show_view'], 'string'],
+            [['property_name','property_title'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,9 +44,14 @@ class Properties extends \yii\db\ActiveRecord
     {
         return [
             'property_id' => Yii::t('app', 'Property ID'),
-            'name' => Yii::t('app', 'Name'),
-			'type' => Yii::t('app', 'Type'),
+            'property_title' => Yii::t('app', 'Property Title'),
+            'property_name' => Yii::t('app', 'Property Name'),
+            'type' => Yii::t('app', 'Type'),
+            'filter' => Yii::t('app', 'Filter'),
+            'sort' => Yii::t('app', 'Sort'),
             'active' => Yii::t('app', 'Active'),
+            'show_index' => Yii::t('app', 'Show Index'),
+            'show_view' => Yii::t('app', 'Show View'),
         ];
     }
 
@@ -50,5 +59,4 @@ class Properties extends \yii\db\ActiveRecord
 
 		return Properties::find()->all();
 	}
-
 }

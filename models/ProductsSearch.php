@@ -19,7 +19,7 @@ class ProductsSearch extends Products
     {
         return [
             [['product_id', 'product_api_id'], 'integer'],
-            [['title', 'chpu', 'content', 'seo_title', 'seo_description', 'seo_keywords', 'date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
+            [['product_title', 'chpu', 'content', 'seo_title', 'seo_description', 'seo_keywords', 'date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
         ];
     }
 

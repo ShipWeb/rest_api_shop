@@ -1,4 +1,4 @@
-<h1><?=$product->title?></h1>
+<h1><?=$product->product_title?></h1>
 
 <?=$product->content?>
 

@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Properties */
 
-$this->title = $model->name;
+$this->title = $model->property_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Properties'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,8 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'property_id',
-            'name',
+            'property_title',
+            'property_name',
+            'type',
+            'filter',
+            'sort',
             'active',
+            'show_index',
+            'show_view',
         ],
     ]) ?>
 

@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PropertiesSearch */
+/* @var $searchModel app\models\CurrenciesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Properties');
+$this->title = Yii::t('app', 'Currencies');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="properties-index">
+<div class="currencies-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Properties'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Currencies'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,15 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'property_id',
-            'property_title',
-            'property_name',
-            'type',
-            'filter',
-            // 'sort',
-            // 'active',
-            // 'show_index',
-            // 'show_view',
+            'currency_id',
+            'currency_title',
+            'currency_name',
+            'currency_course',
+            'currency_active',
+            // 'currency_main',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Categories;
+use app\models\Currencies;
 
 /**
- * CategoriesSearch represents the model behind the search form of `app\models\Categories`.
+ * CurrenciesSearch represents the model behind the search form of `app\models\Currencies`.
  */
-class CategoriesSearch extends Categories
+class CurrenciesSearch extends Currencies
 {
     /**
      * @inheritdoc
@@ -18,9 +18,9 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['category_id', 'number_products'], 'integer'],
-			[['title'], 'safe'],
-            [['name'], 'safe'],
+            [['currency_id'], 'integer'],
+            [['currency_title', 'currency_name', 'currency_active', 'currency_main'], 'safe'],
+            [['currency_course'], 'number'],
         ];
     }
 
@@ -42,7 +42,7 @@ class CategoriesSearch extends Categories
      */
     public function search($params)
     {
-        $query = Categories::find();
+        $query = Currencies::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,14 @@ class CategoriesSearch extends Categories
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'category_id' => $this->category_id,
-            'number_products' => $this->number_products,
+            'currency_id' => $this->currency_id,
+            'currency_course' => $this->currency_course,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'currency_title', $this->currency_title])
+            ->andFilterWhere(['like', 'currency_name', $this->currency_name])
+            ->andFilterWhere(['like', 'currency_active', $this->currency_active])
+            ->andFilterWhere(['like', 'currency_main', $this->currency_main]);
 
         return $dataProvider;
     }
