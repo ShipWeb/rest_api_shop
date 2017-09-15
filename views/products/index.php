@@ -8,37 +8,7 @@ use yii\widgets\Pjax;
 
 ?>
 
-
-<div>
-	<div>
-		<?php foreach ($products as $key=>$value): ?>
-			<article>
-				<h2>
-					<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>">
-						<? if (!empty($value['product_thumbnail_path']) && !empty($value['product_thumbnail_name'])) { ?>
-							<img src="<?= Yii::$app->homeUrl . $value['product_thumbnail_path'] . '/' . $value['product_thumbnail_name'] ?>">
-						<? } ?>
-						<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>">
-							<?= $value['product_title'] ?>
-							<?= $value['final_product_price'] ?>
-							<?= ' '.$active_currency['currency_title'] ?>
-							<?= !empty($value['product_discount']) ? '-' . $value['product_discount'] . ' %' : "" ?>
-						</a>
-				</h2>
-			</article>
-		<?php endforeach; ?>
-	</div>
-	<div>
-		--
-		<?php
-
-		echo LinkPager::widget([
-			'pagination' => $pagination
-		]);
-
-		?>
-		**
-	</div>
+</div>
 </div>
 
 <div class="container main catalog_wrapper row">
@@ -74,7 +44,7 @@ use yii\widgets\Pjax;
 						<div class="well">
 							<input type="checkbox" class="check" id="steam">
 							<label for="steam" class="label_check"><img src="images/steamlogo.png"> Steam</label>
-							<input  type="checkbox" class="check" id="origin">
+							<input type="checkbox" class="check" id="origin">
 							<label for="origin" class="label_check"><img src="images/Origin.png"> Origin</label>
 							<input type="checkbox" class="check" id="uplay">
 							<label for="uplay" class="label_check"><img src="images/uplay.png"> Uplay</label>
@@ -132,25 +102,51 @@ use yii\widgets\Pjax;
 					<div class="collapse in" id="collapseDate">
 						<div class="well">
 							<div class="drop_scroll">
-								<button type="button" id="btn_start" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<button type="button" id="btn_start" class="btn filter_btn filter_year">1990
+									<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 								<ul id="start" class="hover-menu years_begin scroll-pane">
-									<a href=""><li>1990</li></a>
-									<a href=""><li>2000</li></a>
-									<a href=""><li>2001</li></a>
-									<a href=""><li>2002</li></a>
-									<a href=""><li>2017</li></a>
-									<a href=""><li>2018</li></a>
+									<a href="">
+										<li>1990</li>
+									</a>
+									<a href="">
+										<li>2000</li>
+									</a>
+									<a href="">
+										<li>2001</li>
+									</a>
+									<a href="">
+										<li>2002</li>
+									</a>
+									<a href="">
+										<li>2017</li>
+									</a>
+									<a href="">
+										<li>2018</li>
+									</a>
 								</ul>
 							</div>
 							<div class="drop_scroll">
-								<button type="button" id="btn_end" class="btn filter_btn filter_year">1990 <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								<button type="button" id="btn_end" class="btn filter_btn filter_year">1990
+									<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 								<ul id="end" class="hover-menu years_end scroll-pane">
-									<a href=""><li>2000</li></a>
-									<a href=""><li>2001</li></a>
-									<a href=""><li>2002</li></a>
-									<a href=""><li>2016</li></a>
-									<a href=""><li>2017</li></a>
-									<a href=""><li>2018</li></a>
+									<a href="">
+										<li>2000</li>
+									</a>
+									<a href="">
+										<li>2001</li>
+									</a>
+									<a href="">
+										<li>2002</li>
+									</a>
+									<a href="">
+										<li>2016</li>
+									</a>
+									<a href="">
+										<li>2017</li>
+									</a>
+									<a href="">
+										<li>2018</li>
+									</a>
 								</ul>
 							</div>
 						</div>
@@ -201,120 +197,42 @@ use yii\widgets\Pjax;
 					<i id="net" class="fa fa-th-large" aria-hidden="true"></i>
 				</div>
 			</div>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/GTA5_178x83.png" class="img-responsive">
+
+			<?php foreach ($products as $key => $value): ?>
+				<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>">
+					<div class="result_main" data-view="true">
+						<?php if (!empty($value['product_thumbnail_path']) and !empty($value['product_thumbnail_name'])) { ?>
+
+							<div class="preview main_search pull-left">
+								<img class="img-responsive" src="<?= Yii::$app->homeUrl . $value['product_thumbnail_path'] . '/' . $value['product_thumbnail_name'] ?>">
+							</div>
+
+						<?php } else { ?>
+							<div class="preview main_search pull-left">
+								<img class="img-responsive" src="<?= Yii::$app->homeUrl . 'images/thumbnails/1.jpg' ?>">
+							</div>
+						<?php } ?>
+						<div class="item_name pull-left">
+							<p>
+								<?= $value['product_title'] ?>
+							</p>
+						</div>
+
+						<div class="item_price pull-right">
+							<span><?= $value['final_product_price'] ?></span>
+							<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span>
+							<?php if (!empty($value['product_discount'])) { ?>
+								<span nowrap class="discount">-<?= $value['product_discount'] ?> %</span>
+							<?php } ?>
+						</div>
 					</div>
-					<div class="item_name pull-left">
-						<p>Grand Theft Auto V + GTA: Online</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>1699</span> <span class="valuta">руб</span> <span class="discount">-30%</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/GTA4_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>Grand Theft Auto 4</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>249</span> <span class="valuta">руб</span><span class="discount">-50%</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/prey_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>Prey</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>1100</span> <span class="valuta">руб</span><span class="discount">-20%</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/skyrim_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>The Elder Scrolls V: Skyrim – Legendary Edition</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>499</span> <span class="valuta">руб</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/GTA5_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>Grand Theft Auto V + GTA: Online</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>1699</span> <span class="valuta">руб</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/GTA4_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>Grand Theft Auto 4</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>249</span> <span class="valuta">руб</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/prey_110x52.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>Prey</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>1100</span> <span class="valuta">руб</span>
-					</div>
-				</div>
-			</a>
-			<hr>
-			<a href="#">
-				<div class="result_main" data-view="true">
-					<div class="preview main_search pull-left">
-						<img src="images/skyrim_178x83.png" class="img-responsive">
-					</div>
-					<div class="item_name pull-left">
-						<p>The Elder Scrolls V: Skyrim – Legendary Edition</p>
-					</div>
-					<div class="item_price pull-right">
-						<span>499</span> <span class="valuta">руб</span>
-					</div>
-				</div>
-			</a>
+				</a>
+				<hr>
+			<?php endforeach; ?>
+
 		</div>
 		<nav aria-label="Page navigation" class="page_nav">
-			<ul class="pagination">
+	<!--		<ul class="pagination">
 				<li>
 					<a href="#" aria-label="Previous">
 						<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
@@ -326,11 +244,33 @@ use yii\widgets\Pjax;
 				<li><a href="#">4</a></li>
 				<li><a href="#">5</a></li>
 				<li>
-					<a href="#" aria-label="Next">
+
+				</li><a href="#" aria-label="Next">
 						<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
 					</a>
-				</li>
-			</ul>
+			</ul>-->
+
+			<?php
+
+			echo LinkPager::widget([
+				'pagination' => $pagination,
+
+					//'class' => 'filter_nav',
+//					'firstPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+//					'lastPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+					'prevPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+					'nextPageLabel' => '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
+
+					//'pageCssClass' => 'filter_nav',
+					'prevPageCssClass' => '',
+					'nextPageCssClass' => '',
+
+					//'firstPageCssClass' => 'lknflbes',
+					//'maxButtonCount' => 1,
+
+			]);
+			?>
+
 		</nav>
 	</div>
 </div>
