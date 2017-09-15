@@ -138,7 +138,7 @@ hr {
 
 .item_name {
 	color: #222;
-	padding: 14px 10px 20px;
+	padding: 20px 10px 20px;
 }
 
 .item_name p {
@@ -896,9 +896,21 @@ footer {
 	color: #333;
 }
 
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus{
+	border: 1px solid #2bc7e8;
+	background: #eaeaea;
+	color: #333;
+}
+
 .pagination i {
 	font-size: 12px;
 }
+
 
 /*Окончание стилей каталога*/
 
@@ -1391,6 +1403,7 @@ span.type{
 	.item_name {
 		width: 50%;
 		padding-bottom: 0;
+		padding-top: 10px;
 	}
 
 	.item_price {
@@ -1446,7 +1459,7 @@ span.type{
 
 	.item_name {
 		font-size: 14px;
-		width: 50%;
+		width: 45%;
 		padding-top: 5px;
 		text-align: left;
 	}
@@ -1454,6 +1467,7 @@ span.type{
 	.item_price {
 		font-size: 12px;
 		text-align: right;
+		width: 35%;
 	}
 
 	.module_view .item_price {
@@ -1553,6 +1567,7 @@ span.type{
 
 	.discount {
 		clear: both;
+		margin-left: 0;
 	}
 
 	.module_view .discount {

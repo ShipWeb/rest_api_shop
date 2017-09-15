@@ -89,10 +89,6 @@ $("document").ready(function () {
 		$('#list').addClass('active_state');
 	});
 
-	$('.pagination').click(function () {
-		$('.pagination li a').removeClass('active_page');
-		$(this).children("a").addClass('active_page');
-	});
 
 	$('#btn_start').click(function () {
 		$('#start').toggle();
