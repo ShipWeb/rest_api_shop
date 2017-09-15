@@ -1,55 +1,43 @@
 <?php
 
 use yii\widgets\LinkPager;
+// подключаем класс таблицы
+use yii\grid\GridView;
+// подключаем класс Pjax
+use yii\widgets\Pjax;
 
 ?>
-
-<div>
-
-	<?php foreach ($properties as $property): ?>
-		<ul>
-			<li>
-				<a href="">
-					<?= $property->name ?>
-				</a>
-			</li>
-		</ul>
-	<?php endforeach; ?>
-</div>
-
-
-<div>
-	Жанры
-	<?php foreach ($categories as $category): ?>
-		<ul>
-			<li>
-				<a href="<?= Yii::$app->homeUrl . 'category/' . $category->name . '/' ?>">
-					<?= $category->title ?>
-				</a>
-			</li>
-		</ul>
-	<?php endforeach; ?>
-</div>
 
 
 <div>
 	<div>
-		<?php foreach ($products as $product): ?>
+		<?php foreach ($products as $key=>$value): ?>
 			<article>
 				<h2>
-					<a href="<?= Yii::$app->homeUrl . 'product/' . $product->product_id . '/' . $product->chpu ?>">
-						<?= $product->title ?>
-					</a>
+					<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>">
+						<? if (!empty($value['product_thumbnail_path']) && !empty($value['product_thumbnail_name'])) { ?>
+							<img src="<?= Yii::$app->homeUrl . $value['product_thumbnail_path'] . '/' . $value['product_thumbnail_name'] ?>">
+						<? } ?>
+						<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>">
+							<?= $value['product_title'] ?>
+							<?= $value['final_product_price'] ?>
+							<?= ' '.$active_currency['currency_title'] ?>
+							<?= !empty($value['product_discount']) ? '-' . $value['product_discount'] . ' %' : "" ?>
+						</a>
 				</h2>
 			</article>
 		<?php endforeach; ?>
 	</div>
 	<div>
+		--
 		<?php
+
 		echo LinkPager::widget([
-			'pagination' => $pagination,
+			'pagination' => $pagination
 		]);
+
 		?>
+		**
 	</div>
 </div>
 

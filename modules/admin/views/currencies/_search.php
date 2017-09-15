@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PropertiesSearch */
+/* @var $model app\models\CurrenciesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="properties-search">
+<div class="currencies-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -18,23 +18,17 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'property_id') ?>
+    <?= $form->field($model, 'currency_id') ?>
 
-    <?= $form->field($model, 'property_title') ?>
+    <?= $form->field($model, 'currency_title') ?>
 
-    <?= $form->field($model, 'property_name') ?>
+    <?= $form->field($model, 'currency_name') ?>
 
-    <?= $form->field($model, 'type') ?>
+    <?= $form->field($model, 'currency_course') ?>
 
-    <?= $form->field($model, 'filter') ?>
+    <?= $form->field($model, 'currency_active') ?>
 
-    <?php // echo $form->field($model, 'sort') ?>
-
-    <?php // echo $form->field($model, 'active') ?>
-
-    <?php // echo $form->field($model, 'show_index') ?>
-
-    <?php // echo $form->field($model, 'show_view') ?>
+    <?php // echo $form->field($model, 'currency_main') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

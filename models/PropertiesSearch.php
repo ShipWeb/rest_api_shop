@@ -19,7 +19,7 @@ class PropertiesSearch extends Properties
     {
         return [
             [['property_id'], 'integer'],
-            [['name', 'active'], 'safe'],
+            [['property_title', 'property_name', 'type', 'filter', 'sort', 'active', 'show_index', 'show_view'], 'safe'],
         ];
     }
 
@@ -62,8 +62,14 @@ class PropertiesSearch extends Properties
             'property_id' => $this->property_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'active', $this->active]);
+        $query->andFilterWhere(['like', 'property_title', $this->property_title])
+            ->andFilterWhere(['like', 'property_name', $this->property_name])
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'filter', $this->filter])
+            ->andFilterWhere(['like', 'sort', $this->sort])
+            ->andFilterWhere(['like', 'active', $this->active])
+            ->andFilterWhere(['like', 'show_index', $this->show_index])
+            ->andFilterWhere(['like', 'show_view', $this->show_view]);
 
         return $dataProvider;
     }

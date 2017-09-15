@@ -7,9 +7,9 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Properties',
-]) . $model->name;
+]) . $model->property_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Properties'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->property_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->property_id, 'url' => ['view', 'id' => $model->property_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="properties-update">
