@@ -1,15 +1,15 @@
 <?php
 
-use yii\widgets\LinkPager;
-// подключаем класс таблицы
-use yii\grid\GridView;
-// подключаем класс Pjax
-use yii\widgets\Pjax;
+use app\components\ShopLinkPager;
+use app\components\FiltersProducts;
 
 ?>
 
-</div>
-</div>
+<?php
+
+echo FiltersProducts::widget();
+
+?>
 
 <div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
@@ -238,22 +238,13 @@ use yii\widgets\Pjax;
 
 			<?php
 
-			echo LinkPager::widget([
+			echo ShopLinkPager::widget([
 				'pagination' => $pagination,
-
-					//'class' => 'filter_nav',
-//					'firstPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
-//					'lastPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
 					'prevPageLabel' => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
 					'nextPageLabel' => '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
-
-					//'pageCssClass' => 'filter_nav',
 					'prevPageCssClass' => '',
 					'nextPageCssClass' => '',
-
-					//'firstPageCssClass' => 'lknflbes',
-					//'maxButtonCount' => 1,
-
+					'disabledPageCssClass' => '',
 			]);
 			?>
 

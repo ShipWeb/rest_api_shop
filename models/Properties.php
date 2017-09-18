@@ -59,4 +59,54 @@ class Properties extends \yii\db\ActiveRecord
 
 		return Properties::find()->all();
 	}
+
+	public function getAllFilters() {
+
+		$query = "
+SELECT * FROM {{%properties}} prop 
+	LEFT JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id
+WHERE active='Y' AND show_index='Y'";
+
+		$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
+
+		return $filter_properties;
+
+	}
+
+	/**
+	 * Получение массива типов значений
+	 *
+	 * @return array
+	 */
+	public function getArrValueType() {
+
+		return [
+			"INTEGER" => "value_int",
+			"DECIMAL" => "value_dec",
+			"FLOAT"   => "value_flt",
+			"TEXT"    => "value_str",
+			"DATE"    => "value_date",
+		];
+
+	}
+
+	/**
+	 * Установка столбца с типом значений
+	 *
+	 * @return array
+	 */
+	public function setValueType($array, $type) {
+
+		$val = "";
+		foreach ($array as $key => $value) {
+			if ($key === $type) {
+				$val = $value;
+				break;
+			}
+		}
+
+		return $val;
+
+	}
+
 }
