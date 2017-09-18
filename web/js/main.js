@@ -138,6 +138,43 @@ $(function Validate() {
 	})
 });
 
+$(function () {
+
+	if ($('#agreement').prop('checked') === false) {
+		$('.subm').prop('disabled', true).addClass('disable');
+	}
+
+	$('#agreement').click(Check);
+
+	$('#email').blur(Check);
+
+	function Check() {
+		if ($('#agreement').prop('checked') === false) {
+			$('.subm').prop('disabled', true).addClass('disable');
+		}
+		else if ($('#email').prop('value') == "") {
+			$('.subm').prop('disabled', true).addClass('disable');
+		}
+		else {
+			$('.subm').prop('disabled', false).removeClass('disable');
+		}
+	}
+
+	$('.subm').submit(function () {
+		if ($('.error').style.display == 'block'){
+			$('#email').focus();
+		}
+	})
+
+
+	$('#email').keyup(function () {
+		if ($('#agreement').prop('checked') === true) {
+			$('.subm').prop('disabled', false).removeClass('disable');
+		}
+	})
+});
+
+
 
 
 
