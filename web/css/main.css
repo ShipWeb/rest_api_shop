@@ -755,7 +755,6 @@ footer {
 .label_check {
 	position: relative;
 	padding: 2px 4px 2px 26px;
-	width: 150px;
 }
 
 .label_check:hover {
@@ -878,6 +877,10 @@ footer {
 	margin-left: 10px;
 }
 
+.filter_column .label_check{
+	display: inline-block;
+	width: 150px;
+}
 /*Пагинация*/
 
 .page_nav {

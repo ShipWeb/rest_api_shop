@@ -5,15 +5,11 @@ use app\components\FiltersProducts;
 
 ?>
 
-<?php
 
-echo FiltersProducts::widget();
-
-?>
 
 <div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
-		<form class="list_sidebar" action="">
+		<form class="list_sidebar" action="" method="get">
 			<div class="column">
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseSearch" aria-expanded="true" aria-controls="collapseExample">
@@ -36,6 +32,13 @@ echo FiltersProducts::widget();
 						</div>
 					</div>
 				</div>
+
+				<?php
+
+				echo FiltersProducts::widget();
+
+				?>
+
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseActivate" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Активация
@@ -95,63 +98,7 @@ echo FiltersProducts::widget();
 						</div>
 					</div>
 				</div>
-				<div class="filter" style="position: relative">
-					<a class="search_param" data-toggle="collapse" href="#collapseDate" aria-expanded="true" aria-controls="collapseExample">
-						<i class="fa fa-angle-up" aria-hidden="true"></i> Дата выхода
-					</a>
-					<div class="collapse in" id="collapseDate">
-						<div class="well">
-							<div class="drop_scroll">
-								<button type="button" id="btn_start" class="btn filter_btn filter_year">1990
-									<i class="fa fa-angle-down" aria-hidden="true"></i></button>
-								<ul id="start" class="hover-menu years_begin scroll-pane">
-									<a href="">
-										<li>1990</li>
-									</a>
-									<a href="">
-										<li>2000</li>
-									</a>
-									<a href="">
-										<li>2001</li>
-									</a>
-									<a href="">
-										<li>2002</li>
-									</a>
-									<a href="">
-										<li>2017</li>
-									</a>
-									<a href="">
-										<li>2018</li>
-									</a>
-								</ul>
-							</div>
-							<div class="drop_scroll">
-								<button type="button" id="btn_end" class="btn filter_btn filter_year">1990
-									<i class="fa fa-angle-down" aria-hidden="true"></i></button>
-								<ul id="end" class="hover-menu years_end scroll-pane">
-									<a href="">
-										<li>2000</li>
-									</a>
-									<a href="">
-										<li>2001</li>
-									</a>
-									<a href="">
-										<li>2002</li>
-									</a>
-									<a href="">
-										<li>2016</li>
-									</a>
-									<a href="">
-										<li>2017</li>
-									</a>
-									<a href="">
-										<li>2018</li>
-									</a>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseAccess" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Доступность
@@ -172,7 +119,7 @@ echo FiltersProducts::widget();
 					</div>
 				</div>
 				<div width="100%">
-					<button class="show">Показать</button>
+					<button type="submit" class="show">Показать</button>
 				</div>
 				<span class="reset">Сброс фильтров</span>
 			</div>
