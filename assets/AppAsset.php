@@ -25,7 +25,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
 		'js/main.js',
-		'js/jquery.ui.touch-punch.min.js',
 		'js/jquery.fancybox.pack.js',
 		'js/jquery.jscrollpane.min.js',
 		'js/jquery.mousewheel.js',
