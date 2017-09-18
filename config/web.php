@@ -60,6 +60,7 @@ $config = [
 			'rules' => [
 				'/product/<id:\d+>/<alias:.+>' => 'products/view',
 				'/product'                     => 'products/index',
+				'/basket'                     => 'products/basket',
 				''                     => 'site/index',
 			]
 		],

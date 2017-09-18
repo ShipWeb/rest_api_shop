@@ -45,5 +45,11 @@ class ProductsController extends \yii\web\Controller
 		return $this->render('view',['product'=>$product]);
 
 	}
+
+	public function actionBasket($products = false) {
+
+		return $this->render('basket');
+
+	}
 	
 }
