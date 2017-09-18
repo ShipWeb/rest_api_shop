@@ -174,8 +174,8 @@ GROUP BY prod.product_id " .
 
 					if ($fil_name === $fil_prop_value['property_name']) {
 
-						$arr_type = self::getArrValueType();
-						$val_type = self::setValueType($arr_type, $fil_prop_value['type']);
+						$arr_type = Properties::getArrValueType();
+						$val_type = Properties::setValueType($arr_type, $fil_prop_value['type']);
 
 						//Выбор типа фильтра
 						switch ($fil_prop_value['filter']) {
@@ -252,20 +252,20 @@ GROUP BY prod.product_id " .
 			$query = "SELECT * FROM {{%properties}} WHERE active='Y' AND sort='Y' AND show_index='Y'";
 			$sort_properties = Yii::$app->db->createCommand($query)->queryAll();
 
-			$arr_sort_type=self::getArrValueType();
+			$arr_sort_type=Properties::getArrValueType();
 
 			//Сортировка по установленным свойствам
 			foreach ($sort_properties as $key => $value) {
 
 				if ($sort_name === $value['property_name'] . "_asc") {
 
-					$sort['value'] = self::setValueType($arr_sort_type, $value['type']);
+					$sort['value'] = Properties::setValueType($arr_sort_type, $value['type']);
 					$sort['property']="AND prod_prop.property_id=".(int)$value['property_id'];
 					$sort['order'] = "ORDER BY IF(prod_prop.".$sort['value']." IS NULL, 1 ,0),prod_prop.".$sort['value']." ASC";
 
 				} elseif ($sort_name === $value['property_name'] . "_desc") {
 
-					$sort['value'] = self::setValueType($arr_sort_type, $value['type']);
+					$sort['value'] = Properties::setValueType($arr_sort_type, $value['type']);
 					$sort['property']="AND prod_prop.property_id=".(int)$value['property_id'];
 					$sort['order'] = "ORDER BY IF(prod_prop.".$sort['value']." IS NULL, 1 ,0),prod_prop.".$sort['value']." DESC";
 				}
@@ -289,42 +289,6 @@ GROUP BY prod.product_id " .
 		}
 
 		return $sort;
-	}
-
-	/**
-	 * Получение массива типов значений товара
-	 *
-	 * @return array
-	 */
-	public function getArrValueType() {
-
-		return [
-			"INTEGER" => "value_int",
-			"DECIMAL" => "value_dec",
-			"FLOAT"   => "value_flt",
-			"TEXT"    => "value_str",
-			"DATE"    => "value_date",
-		];
-
-	}
-
-	/**
-	 * Установка столбца с типом значений товара
-	 *
-	 * @return array
-	 */
-	public function setValueType($array, $type) {
-
-		$val = "";
-		foreach ($array as $key => $value) {
-			if ($key === $type) {
-				$val = $value;
-				break;
-			}
-		}
-
-		return $val;
-
 	}
 
 }
