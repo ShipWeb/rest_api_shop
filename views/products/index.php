@@ -171,6 +171,9 @@ use yii\widgets\Pjax;
 						</div>
 					</div>
 				</div>
+				<div width="100%">
+					<button class="show">Показать</button>
+				</div>
 				<span class="reset">Сброс фильтров</span>
 			</div>
 		</form>
@@ -232,23 +235,6 @@ use yii\widgets\Pjax;
 
 		</div>
 		<nav aria-label="Page navigation" class="page_nav">
-	<!--		<ul class="pagination">
-				<li>
-					<a href="#" aria-label="Previous">
-						<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-					</a>
-				</li>
-				<li><a href="#" class="active_page">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li>
-
-				</li><a href="#" aria-label="Next">
-						<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-					</a>
-			</ul>-->
 
 			<?php
 

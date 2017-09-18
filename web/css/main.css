@@ -699,6 +699,7 @@ footer {
 	cursor: pointer;
 	text-align: center;
 	padding: 30px;
+	padding-top:10px;
 	color: #999;
 }
 
@@ -715,6 +716,20 @@ footer {
 	float: left;
 	margin-left: 15px;
 }
+
+.show{
+	margin:20px auto;
+	background: #04b0db;
+	border:0;
+	width:90%;
+	padding:10px 10px;
+	color: #fff;
+	font-size:18px;
+}
+.show:hover{
+	background: #1679c6;
+}
+
 
 /*Оформление не стандартных checkbox*/
 .label_check {
