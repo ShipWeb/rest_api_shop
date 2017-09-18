@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 15 2017 г., 12:33
+-- Время создания: Сен 18 2017 г., 17:14
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -142,10 +142,10 @@ CREATE TABLE `ras_products_properties` (
 --
 
 INSERT INTO `ras_products_properties` (`product_id`, `property_id`, `value_str`, `value_int`, `value_dec`, `value_flt`, `value_date`) VALUES
-(1, 1, 'Windows Vista, Windows 7', NULL, NULL, NULL, NULL),
+(1, 1, 'Windows Vista', NULL, NULL, NULL, NULL),
 (1, 6, NULL, NULL, NULL, NULL, '2012-08-21 00:00:00'),
 (1, 7, 'Шутеры', NULL, NULL, NULL, NULL),
-(2, 1, 'Windows Vista, Windows 7, Windows 8', NULL, NULL, NULL, NULL),
+(2, 1, 'Windows 7', NULL, NULL, NULL, NULL),
 (2, 6, NULL, NULL, NULL, NULL, '2015-05-19 00:00:00'),
 (2, 7, 'Ролевые игры', NULL, NULL, NULL, NULL),
 (3, 7, 'Экшен', NULL, NULL, NULL, NULL),
@@ -154,10 +154,13 @@ INSERT INTO `ras_products_properties` (`product_id`, `property_id`, `value_str`,
 (3, 9, '1С-СофтКлаб', NULL, NULL, NULL, NULL),
 (7, 7, 'Файтинги', NULL, NULL, NULL, NULL),
 (5, 9, 'Bethesda Softworks', NULL, NULL, NULL, NULL),
-(5, 4, NULL, NULL, NULL, NULL, '2015-11-10 00:00:00'),
+(5, 6, NULL, NULL, NULL, NULL, '2015-11-10 00:00:00'),
 (4, 8, 'В реальном времени', NULL, NULL, NULL, NULL),
 (2, 8, 'Магия', NULL, NULL, NULL, NULL),
-(4, 7, 'Стратегии', NULL, NULL, NULL, NULL);
+(4, 7, 'Стратегии', NULL, NULL, NULL, NULL),
+(1, 1, 'Windows 7', NULL, NULL, NULL, NULL),
+(1, 1, 'Windows 8', NULL, NULL, NULL, NULL),
+(2, 1, 'Windows 7', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,7 +185,7 @@ CREATE TABLE `ras_properties` (
 --
 
 INSERT INTO `ras_properties` (`property_id`, `property_title`, `property_name`, `type`, `filter`, `sort`, `active`, `show_index`, `show_view`) VALUES
-(1, 'Операционная система', 'operacionnaya-sistema', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
+(1, 'Операционная система', 'operacionnaya-sistema', 'TEXT', 'SELECT', 'N', 'Y', 'Y', 'Y'),
 (2, 'Процессор', 'processor', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
 (3, 'Видеокарта', 'videokarta', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
 (4, 'Оперативная память', 'operativnaya-pamyat', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
