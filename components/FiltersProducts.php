@@ -67,18 +67,24 @@ class FiltersProducts extends Widget {
 				$arr_type = Properties::getArrValueType();
 				$filters_result[$value['property_id']]['value'] = Properties::setValueType($arr_type, $value['type']);
 
-				if ($filters_result[$value['property_id']]['value'] === 'value_date') {
+			//	if ($filters_result[$value['property_id']]['value'] === 'value_date') {
 
-					if (gettype($filters_result[$value['property_id']]['value_date']) === 'array') {
-						foreach ($filters_result[$value['property_id']]['value_date'] as $ke => $va) {
-							$filters_result[$value['property_id']]['value_date'][$ke] = date("Y", strtotime($va));
-						}
-					} else {
-						$filters_result[$value['property_id']]['value_date'] = date("Y", strtotime($filters_result[$value['property_id']]['value_date']));
-					}
+				//	if (gettype($filters_result[$value['property_id']]['value_date']) === 'array') {
+				//		sort($filters_result[$value['property_id']]['value_date']);
+				//	}
 
+			//	}
+
+			}
+		}
+
+		foreach ($filters_result as $key=>$value){
+			if ($value['value']&&$value['value']==='value_date') {
+				foreach ($value['value_date'] as $k=>$v) {
+					$filters_result[$key]['value_date'][$k]=date('Y',strtotime($filters_result[$key]['value_date'][$k]));
 				}
-
+				sort($filters_result[$key]['value_date']);
+				$filters_result[$key]['value_date']=array_unique($filters_result[$key]['value_date']);
 			}
 		}
 

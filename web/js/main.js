@@ -92,21 +92,27 @@ $("document").ready(function () {
 
 	$('#btn_start').click(function () {
 		$('#start').toggle();
-		$('#end').hide();
-		$('.scroll-pane').jScrollPane();
-	});
-
-	$('#btn_end').click(function () {
-		$('#end').toggle();
-		$('#start').hide();
+		// $('#end').hide();
 		$('.scroll-pane').jScrollPane();
 	});
 	$('#btn_start').blur(function () {
-		$('#start').hide();
+		// $('#start').hide();
 	});
+
+
+	$('#btn_end').click(function () {
+		$('#end').toggle();
+		// $('#start').hide();
+		$('.scroll-pane').jScrollPane();
+	});
+
 	$('#btn_end').blur(function () {
-		$('#end').hide();
+		// $('#end').hide();
 	});
+
+	// $('#start').on('click', 'a', function () {
+	// 	alert('fdkghsdlkg');
+	// })
 
 	$('.oplata').on('click', 'div', function () {
 		$('.payment_item').removeClass('payment_click');
