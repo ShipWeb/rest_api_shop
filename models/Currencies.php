@@ -51,4 +51,12 @@ class Currencies extends \yii\db\ActiveRecord
             'currency_main' => Yii::t('app', 'Currency Main'),
         ];
     }
+
+	public function activeCurrency() {
+
+		$query = "SELECT * FROM {{%currencies}} WHERE currency_active='Y' AND currency_main='Y' LIMIT 1";
+
+		return Yii::$app->db->createCommand($query)->queryOne();
+	}
+
 }

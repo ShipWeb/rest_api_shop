@@ -19,7 +19,7 @@ class SettingsSearch extends Settings
     {
         return [
             [['setting_id'], 'integer'],
-            [['name', 'value', 'active'], 'safe'],
+            [['setting_title', 'setting_name', 'setting_value', 'active'], 'safe'],
         ];
     }
 
