@@ -3,6 +3,36 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+
+use app\components\MainSliderGames;
+use app\components\MainBannerGames;
+use app\components\MainListGames;
+use app\components\MainGenreGames;
+
+?>
+
+<?php
+
+echo MainGenreGames::widget();
+
+?>
+
+<?php
+
+echo MainSliderGames::widget();
+
+?>
+
+<?php
+
+echo MainBannerGames::widget();
+
+?>
+
+<?php
+
+echo MainListGames::widget();
+
 ?>
 
 

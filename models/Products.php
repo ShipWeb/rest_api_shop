@@ -85,6 +85,8 @@ class Products extends \yii\db\ActiveRecord
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
+		$active_currency=Currencies::activeCurrency();
+
 		$query = "SELECT * FROM {{%currencies}} WHERE currency_active='Y' AND currency_main='Y' LIMIT 1";
 		$active_currency = Yii::$app->db->createCommand($query)->queryOne();
 
@@ -108,7 +110,7 @@ class Products extends \yii\db\ActiveRecord
 CAST(
 	IF(prod.product_discount IS NULL ,
 	(prod.product_price * ".$active_currency['currency_course']."), 
-	(prod.product_price * ".$active_currency['currency_course'].")/100*prod.product_discount 
+	(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - prod.product_discount) 
 	) AS DECIMAL(12,2)) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "")."
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 

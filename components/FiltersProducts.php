@@ -67,14 +67,6 @@ class FiltersProducts extends Widget {
 				$arr_type = Properties::getArrValueType();
 				$filters_result[$value['property_id']]['value'] = Properties::setValueType($arr_type, $value['type']);
 
-			//	if ($filters_result[$value['property_id']]['value'] === 'value_date') {
-
-				//	if (gettype($filters_result[$value['property_id']]['value_date']) === 'array') {
-				//		sort($filters_result[$value['property_id']]['value_date']);
-				//	}
-
-			//	}
-
 			}
 		}
 

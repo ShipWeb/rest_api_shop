@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 18 2017 г., 17:14
+-- Время создания: Сен 19 2017 г., 17:37
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -61,8 +61,12 @@ CREATE TABLE `ras_images` (
 --
 
 INSERT INTO `ras_images` (`image_id`, `image_title`, `image_name`, `image_path`) VALUES
-(1, 'Counter-Strike: Global Offensive', 'counter_strike_global_offensive.jpg', '/uploads/images/games/'),
-(2, 'Ведьмак 3', 'vedmak_3.jpg', '/uploads/images/games/');
+(1, 'Prey', 'Prey.jpg', '/images/'),
+(2, 'Far Cry Primal', 'far-cry-primal2.jpg', '/images/'),
+(3, 'The Evil Within 2', 'evil-within.jpg', '/images/'),
+(4, 'Tom Clancy\'s Ghost Recon: Wildlands', 'ghost.jpg', '/images/'),
+(5, 'Assassin’s Creed IV: Black Flag', 'assasin.jpg', '/images/'),
+(6, 'Call of Duty: WWII', 'CoD_WW2.jpg', '/images/');
 
 -- --------------------------------------------------------
 
@@ -100,7 +104,13 @@ INSERT INTO `ras_products` (`product_id`, `product_api_id`, `product_title`, `ch
 (4, 4, 'Starcraft 2', 'starcraft-2', 'Описание игры Starcraft 2', 'Игра Starcraft 2', 'Это игра Starcraft 2', 'Игра, Starcraft 2', '1.45', NULL, NULL, NULL, '2017-08-12 09:30:00', '2017-08-12 12:30:00', '2017-08-12 09:30:00', '2017-08-12 12:30:00'),
 (5, 5, 'Fallout 4', 'fallout 4', 'Описание игры Fallout 4', 'Игра Fallout 4', 'Это игра Fallout 4', 'Игра, Fallout 4', '52.40', NULL, NULL, NULL, '2017-08-12 09:00:00', '2017-08-12 12:00:00', '2017-08-12 09:00:00', '2017-08-12 12:00:00'),
 (6, 6, 'Total War: WARHAMMER II', 'total-war-warhammer-ii', 'Описание игры Total War: WARHAMMER II', 'Игра Total War: WARHAMMER II', 'Это игра Total War: WARHAMMER II', 'Игра, Total War, WARHAMMER II', '200.30', '59.50', NULL, NULL, '2017-08-12 09:30:00', '2017-08-12 12:30:00', '2017-08-12 09:30:00', '2017-08-12 12:30:00'),
-(7, 7, 'Mortal Kombat X', 'mortal-kombat-x', 'Описание игры Mortal Kombat X', 'Игра Mortal Kombat X', 'Это игра Mortal Kombat X', 'Игра, Mortal Kombat X', NULL, NULL, NULL, NULL, '2017-08-12 09:00:00', '2017-08-12 12:00:00', '2017-08-12 09:00:00', '2017-08-12 12:00:00');
+(7, 7, 'Mortal Kombat X', 'mortal-kombat-x', 'Описание игры Mortal Kombat X', 'Игра Mortal Kombat X', 'Это игра Mortal Kombat X', 'Игра, Mortal Kombat X', NULL, NULL, NULL, NULL, '2017-08-12 09:00:00', '2017-08-12 12:00:00', '2017-08-12 09:00:00', '2017-08-12 12:00:00'),
+(8, 8, 'The Evil Within 2', 'the-evil-within 2', 'Описание игры The Evil Within 2', 'Игра The Evil Within 2', 'Это игра The Evil Within 2', 'Игра, The Evil Within 2', '1599.00', '20.00', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 9, 'Prey', 'prey', 'Описание игры Prey', 'Игра Prey', 'Это игра Prey', 'Игра, Prey', '1199.00', '30.00', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 10, 'Far Cry Primal', 'far-cry-primal', 'Описание игры Far Cry Primal', 'Игра Far Cry Primal', 'Это игра Far Cry Primal', 'Игра, Far Cry Primal', '1199.00', '40.00', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 11, 'Tom Clancy\'s Ghost Recon: Wildlands', 'ghost-recon-wildlands', 'Описание игры Tom Clancy\'s Ghost Recon: Wildlands', 'Игра Tom Clancy\'s Ghost Recon: Wildlands', 'Это игра Tom Clancy\'s Ghost Recon: Wildlands', 'Игра, Ghost Recon, Wildlands', '1199.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 12, 'Assassin’s Creed IV: Black Flag', 'assassins-creed-4-black-flag', 'Описание игры Assassin’s Creed IV: Black Flag', 'Игра Assassin’s Creed IV: Black Flag', 'Это игра Assassin’s Creed IV: Black Flag', 'Игра, Assassin’s Creed IV, Black Flag', '1599.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 13, 'Call of Duty: WWII', 'call-of-duty-wwii', 'Описание игры Call of Duty: WWII', 'Игра Call of Duty: WWII', 'Это игра Call of Duty: WWII', 'Игра, Call of Duty: WWII', '999.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -110,16 +120,21 @@ INSERT INTO `ras_products` (`product_id`, `product_api_id`, `product_title`, `ch
 
 CREATE TABLE `ras_products_images` (
   `product_id` bigint(20) UNSIGNED NOT NULL,
-  `image_id` bigint(20) UNSIGNED NOT NULL
+  `image_id` bigint(20) UNSIGNED NOT NULL,
+  `type_image` enum('MAIN','SECONDARY') DEFAULT 'SECONDARY'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `ras_products_images`
 --
 
-INSERT INTO `ras_products_images` (`product_id`, `image_id`) VALUES
-(1, 1),
-(2, 2);
+INSERT INTO `ras_products_images` (`product_id`, `image_id`, `type_image`) VALUES
+(8, 3, 'MAIN'),
+(9, 1, 'MAIN'),
+(10, 2, 'MAIN'),
+(11, 4, 'MAIN'),
+(12, 5, 'MAIN'),
+(13, 6, 'MAIN');
 
 -- --------------------------------------------------------
 
@@ -160,7 +175,8 @@ INSERT INTO `ras_products_properties` (`product_id`, `property_id`, `value_str`,
 (4, 7, 'Стратегии', NULL, NULL, NULL, NULL),
 (1, 1, 'Windows 7', NULL, NULL, NULL, NULL),
 (1, 1, 'Windows 8', NULL, NULL, NULL, NULL),
-(2, 1, 'Windows 7', NULL, NULL, NULL, NULL);
+(2, 1, 'Windows 7', NULL, NULL, NULL, NULL),
+(4, 6, NULL, NULL, NULL, NULL, '2010-07-27 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -191,7 +207,7 @@ INSERT INTO `ras_properties` (`property_id`, `property_title`, `property_name`, 
 (4, 'Оперативная память', 'operativnaya-pamyat', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
 (5, 'Жесткий диск', 'jestkiy-disk', 'TEXT', 'SELECT', 'N', 'Y', 'N', 'Y'),
 (6, 'Дата выхода', 'data-vyhoda', 'DATE', 'RANGE', 'Y', 'Y', 'Y', 'Y'),
-(7, 'Жанр', 'janr', 'TEXT', 'MULTISELECT', 'N', 'Y', 'Y', 'Y'),
+(7, 'Жанр', 'genre', 'TEXT', 'MULTISELECT', 'N', 'Y', 'Y', 'Y'),
 (8, 'Тег', 'tag', 'TEXT', 'LIST', 'N', 'Y', 'Y', 'Y'),
 (9, 'Издатель', 'izdatel', 'TEXT', 'SELECT', 'N', 'Y', 'Y', 'Y');
 
@@ -203,10 +219,20 @@ INSERT INTO `ras_properties` (`property_id`, `property_title`, `property_name`, 
 
 CREATE TABLE `ras_settings` (
   `setting_id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `value` varchar(100) NOT NULL,
+  `setting_title` varchar(255) DEFAULT NULL,
+  `setting_name` varchar(255) NOT NULL,
+  `setting_value` varchar(255) NOT NULL,
   `active` enum('Y','N') NOT NULL DEFAULT 'Y'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `ras_settings`
+--
+
+INSERT INTO `ras_settings` (`setting_id`, `setting_title`, `setting_name`, `setting_value`, `active`) VALUES
+(1, 'Игры в слайдере на главной странице', 'MainSliderGames', '8,9,10', 'Y'),
+(2, 'Игры в баннере на главной странице', 'MainBannerGames', '11,12,13', 'Y'),
+(3, 'Игры для предзаказа на главной странице', 'MainPreOrderGames', '8,3', 'Y');
 
 --
 -- Индексы сохранённых таблиц
@@ -272,20 +298,23 @@ ALTER TABLE `ras_products_properties`
 ALTER TABLE `ras_properties`
   ADD PRIMARY KEY (`property_id`),
   ADD UNIQUE KEY `property_name_index` (`property_id`,`property_title`),
-  ADD KEY `name` (`property_title`),
   ADD KEY `active` (`active`),
   ADD KEY `type` (`type`),
   ADD KEY `show_index` (`show_index`),
   ADD KEY `filter` (`filter`),
-  ADD KEY `sort` (`sort`);
+  ADD KEY `sort` (`sort`),
+  ADD KEY `property_title` (`property_title`) USING BTREE;
 
 --
 -- Индексы таблицы `ras_settings`
 --
 ALTER TABLE `ras_settings`
   ADD PRIMARY KEY (`setting_id`),
-  ADD UNIQUE KEY `setting_name_index` (`setting_id`,`name`),
-  ADD KEY `name` (`name`);
+  ADD UNIQUE KEY `setting_name_index` (`setting_id`,`setting_name`),
+  ADD KEY `setting_name` (`setting_name`) USING BTREE,
+  ADD KEY `setting_value` (`setting_value`) USING BTREE,
+  ADD KEY `active` (`active`) USING BTREE,
+  ADD KEY `setting_title` (`setting_title`) USING BTREE;
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -300,12 +329,12 @@ ALTER TABLE `ras_currencies`
 -- AUTO_INCREMENT для таблицы `ras_images`
 --
 ALTER TABLE `ras_images`
-  MODIFY `image_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `image_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `ras_products`
 --
 ALTER TABLE `ras_products`
-  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT для таблицы `ras_properties`
 --
@@ -315,7 +344,7 @@ ALTER TABLE `ras_properties`
 -- AUTO_INCREMENT для таблицы `ras_settings`
 --
 ALTER TABLE `ras_settings`
-  MODIFY `setting_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `setting_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

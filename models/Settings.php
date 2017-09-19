@@ -28,10 +28,10 @@ class Settings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'value'], 'required'],
+            [['setting_name', 'setting_value'], 'required'],
             [['active'], 'string'],
-            [['name'], 'string', 'max' => 255],
-            [['value'], 'string', 'max' => 100],
+            [['setting_name','setting_title'], 'string', 'max' => 255],
+            [['setting_value'], 'string', 'max' => 100],
         ];
     }
 
@@ -42,8 +42,9 @@ class Settings extends \yii\db\ActiveRecord
     {
         return [
             'setting_id' => Yii::t('app', 'Setting ID'),
-            'name' => Yii::t('app', 'Name'),
-            'value' => Yii::t('app', 'Value'),
+            'setting_title' => Yii::t('app', 'Setting Title'),
+            'setting_name' => Yii::t('app', 'Name'),
+            'setting_value' => Yii::t('app', 'Value'),
             'active' => Yii::t('app', 'Active'),
         ];
     }
