@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 19 2017 г., 17:37
+-- Время создания: Сен 19 2017 г., 19:08
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -66,7 +66,15 @@ INSERT INTO `ras_images` (`image_id`, `image_title`, `image_name`, `image_path`)
 (3, 'The Evil Within 2', 'evil-within.jpg', '/images/'),
 (4, 'Tom Clancy\'s Ghost Recon: Wildlands', 'ghost.jpg', '/images/'),
 (5, 'Assassin’s Creed IV: Black Flag', 'assasin.jpg', '/images/'),
-(6, 'Call of Duty: WWII', 'CoD_WW2.jpg', '/images/');
+(6, 'Call of Duty: WWII', 'CoD_WW2.jpg', '/images/'),
+(7, 'Fallout 4', 'fallout.jpg', '/images/'),
+(8, 'Wolfenstein 2', 'wolfenstein-2-trailer.jpg', '/images/'),
+(9, 'Metro Last Light: Redux', 'metro.jpg', '/images/'),
+(10, 'Battlefield 4', 'battle.jpg', '/images/'),
+(11, 'Mortal Kombat X', 'mk.jpg', '/images/'),
+(12, 'Plants vs. Zombies: Garden Warfare', 'PvZ.jpg', '/images/'),
+(13, 'Batman: Arkham Origins', 'bat.jpg', '/images/'),
+(14, 'For Honor', 'ForHonor.jpg', '/images/');
 
 -- --------------------------------------------------------
 
@@ -110,7 +118,13 @@ INSERT INTO `ras_products` (`product_id`, `product_api_id`, `product_title`, `ch
 (10, 10, 'Far Cry Primal', 'far-cry-primal', 'Описание игры Far Cry Primal', 'Игра Far Cry Primal', 'Это игра Far Cry Primal', 'Игра, Far Cry Primal', '1199.00', '40.00', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (11, 11, 'Tom Clancy\'s Ghost Recon: Wildlands', 'ghost-recon-wildlands', 'Описание игры Tom Clancy\'s Ghost Recon: Wildlands', 'Игра Tom Clancy\'s Ghost Recon: Wildlands', 'Это игра Tom Clancy\'s Ghost Recon: Wildlands', 'Игра, Ghost Recon, Wildlands', '1199.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (12, 12, 'Assassin’s Creed IV: Black Flag', 'assassins-creed-4-black-flag', 'Описание игры Assassin’s Creed IV: Black Flag', 'Игра Assassin’s Creed IV: Black Flag', 'Это игра Assassin’s Creed IV: Black Flag', 'Игра, Assassin’s Creed IV, Black Flag', '1599.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(13, 13, 'Call of Duty: WWII', 'call-of-duty-wwii', 'Описание игры Call of Duty: WWII', 'Игра Call of Duty: WWII', 'Это игра Call of Duty: WWII', 'Игра, Call of Duty: WWII', '999.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(13, 13, 'Call of Duty: WWII', 'call-of-duty-wwii', 'Описание игры Call of Duty: WWII', 'Игра Call of Duty: WWII', 'Это игра Call of Duty: WWII', 'Игра, Call of Duty: WWII', '999.00', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 14, 'Wolfenstein 2', 'wolfenstein-2', 'Описание игры Wolfenstein 2', 'Игра Wolfenstein 2', 'Это игра Wolfenstein 2', 'Игра, Wolfenstein 2', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 15, 'Metro Last Light: Redux', 'metro-last-light-redux', 'Описание игры Metro Last Light: Redux', 'Игра Metro Last Light: Redux', 'Это игра Metro Last Light: Redux', 'Игра, Metro Last Light: Redux', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 16, 'Battlefield 4', 'battlefield-4', 'Описание игры Battlefield 4', 'Игра Battlefield 4', 'Это игра Battlefield 4', 'Игра, Battlefield 4', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 17, 'Plants vs. Zombies: Garden Warfare', 'plants-vs-zombies-garden-warfare', 'Описание игры Plants vs. Zombies: Garden Warfare', 'Игра Plants vs. Zombies: Garden Warfare', 'Это игра Plants vs. Zombies: Garden Warfare', 'Игра, Plants vs. Zombies: Garden Warfare', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, 18, 'Batman: Arkham Origins', 'batman-arkham-origins', 'Описание игры Batman: Arkham Origins', 'Игра Batman: Arkham Origins', 'Это игра Batman: Arkham Origins', 'Игра, Batman: Arkham Origins', NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, 19, 'For Honor', 'for-honor', 'Описание игры For Honor', 'Игра For Honor', 'Это игра For Honor', 'Игра, For Honor', '1999.00', '10.00', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -129,12 +143,20 @@ CREATE TABLE `ras_products_images` (
 --
 
 INSERT INTO `ras_products_images` (`product_id`, `image_id`, `type_image`) VALUES
+(5, 7, 'MAIN'),
+(7, 11, 'MAIN'),
 (8, 3, 'MAIN'),
 (9, 1, 'MAIN'),
 (10, 2, 'MAIN'),
 (11, 4, 'MAIN'),
 (12, 5, 'MAIN'),
-(13, 6, 'MAIN');
+(13, 6, 'MAIN'),
+(14, 8, 'MAIN'),
+(15, 9, 'MAIN'),
+(16, 10, 'MAIN'),
+(17, 12, 'MAIN'),
+(18, 13, 'MAIN'),
+(19, 14, 'MAIN');
 
 -- --------------------------------------------------------
 
@@ -231,7 +253,7 @@ CREATE TABLE `ras_settings` (
 
 INSERT INTO `ras_settings` (`setting_id`, `setting_title`, `setting_name`, `setting_value`, `active`) VALUES
 (1, 'Игры в слайдере на главной странице', 'MainSliderGames', '8,9,10', 'Y'),
-(2, 'Игры в баннере на главной странице', 'MainBannerGames', '11,12,13', 'Y'),
+(2, 'Игры в баннере на главной странице', 'MainBannerGames', '11,12,13,5,14,15,16,7,17,18,19', 'Y'),
 (3, 'Игры для предзаказа на главной странице', 'MainPreOrderGames', '8,3', 'Y');
 
 --
@@ -329,12 +351,12 @@ ALTER TABLE `ras_currencies`
 -- AUTO_INCREMENT для таблицы `ras_images`
 --
 ALTER TABLE `ras_images`
-  MODIFY `image_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `image_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT для таблицы `ras_products`
 --
 ALTER TABLE `ras_products`
-  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT для таблицы `ras_properties`
 --
