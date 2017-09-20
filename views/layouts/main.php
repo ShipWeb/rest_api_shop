@@ -15,12 +15,12 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+	<meta charset="<?= Yii::$app->charset ?>">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?= Html::csrfMetaTags() ?>
+	<title><?= Html::encode($this->title) ?></title>
+	<?php $this->head() ?>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -152,52 +152,50 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
 
+
 <div class="wrap">
 	<!--
     <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Товары', 'url' => ['/admin/products']],
-            ['label' => 'Категории товара', 'url' => ['/admin/categories']],
-            ['label' => 'Свойства товара', 'url' => ['/admin/properties']],
-            ['label' => 'Изображения', 'url' => ['/admin/images']],
-            ['label' => 'Настройки магазина', 'url' => ['/admin/settings']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Войти', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+	NavBar::begin([
+		'brandLabel' => 'My Company',
+		'brandUrl'   => Yii::$app->homeUrl,
+		'options'    => [
+			'class' => 'navbar-inverse navbar-fixed-top',
+		],
+	]);
+	echo Nav::widget([
+		'options' => ['class' => 'navbar-nav navbar-right'],
+		'items'   => [
+			['label' => 'Товары', 'url' => ['/admin/products']],
+			['label' => 'Категории товара', 'url' => ['/admin/categories']],
+			['label' => 'Свойства товара', 'url' => ['/admin/properties']],
+			['label' => 'Изображения', 'url' => ['/admin/images']],
+			['label' => 'Настройки магазина', 'url' => ['/admin/settings']],
+			Yii::$app->user->isGuest ? (
+			['label' => 'Войти', 'url' => ['/site/login']]
+			) : (
+				'<li>'
+				. Html::beginForm(['/site/logout'], 'post')
+				. Html::submitButton(
+					'Logout (' . Yii::$app->user->identity->username . ')',
+					['class' => 'btn btn-link logout']
+				)
+				. Html::endForm()
+				. '</li>'
+			)
+		],
+	]);
+	NavBar::end();
+	?>
 -->
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
-    </div>
+	<div class="container">
+		<?= Breadcrumbs::widget([
+			'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+		]) ?>
+		<?= $content ?>
+	</div>
 </div>
-
-
-
-
+</div>
 
 <!--Модуль футер-->
 <footer>
