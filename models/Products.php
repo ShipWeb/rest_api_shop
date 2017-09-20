@@ -41,7 +41,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['product_api_id'], 'integer'],
-            [['content'], 'string'],
+            [['content','content_activation'], 'string'],
             [['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
             [['product_title', 'chpu', 'seo_title', 'seo_keywords','product_thumbnail_name','product_thumbnail_path'], 'string', 'max' => 255],
             [['seo_description'], 'string', 'max' => 512],
@@ -60,6 +60,7 @@ class Products extends \yii\db\ActiveRecord
             'product_title' => Yii::t('app', 'Product Title'),
             'chpu' => Yii::t('app', 'Chpu'),
             'content' => Yii::t('app', 'Content'),
+            'content_activation' => Yii::t('app', 'Content Activation'),
             'seo_title' => Yii::t('app', 'Seo Title'),
             'seo_description' => Yii::t('app', 'Seo Description'),
             'seo_keywords' => Yii::t('app', 'Seo Keywords'),
@@ -81,14 +82,11 @@ class Products extends \yii\db\ActiveRecord
 	 *
 	 * @return mixed
 	 */
-	public function getAll($options,$pageSize = 3) {
+	public function getAll($options,$pageSize = 20) {
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
 		$active_currency=Currencies::activeCurrency();
-
-		$query = "SELECT * FROM {{%currencies}} WHERE currency_active='Y' AND currency_main='Y' LIMIT 1";
-		$active_currency = Yii::$app->db->createCommand($query)->queryOne();
 
 		if (!empty($options['currency'])) {
 			foreach ($currencies as $key => $val) {
@@ -106,7 +104,7 @@ class Products extends \yii\db\ActiveRecord
 		//Фильтрация товаров
 		$filter= self::addFilters($options);
 
-		$query = "SELECT *,
+		$query = "SELECT *, prod.product_id as product_id,
 CAST(
 	IF(prod.product_discount IS NULL ,
 	(prod.product_price * ".$active_currency['currency_course']."), 
@@ -291,6 +289,80 @@ GROUP BY prod.product_id " .
 		}
 
 		return $sort;
+	}
+
+	/**
+	 * Получение товара
+	 *
+	 * @param $options
+	 *
+	 * @return mixed
+	 */
+	public function getOne($id, $alias) {
+
+		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
+
+		$active_currency = Currencies::activeCurrency();
+
+		$query = "SELECT *, product_id as product_id,
+CAST(
+	IF(product_discount IS NULL ,
+	(product_price * " . $active_currency['currency_course'] . "), 
+	(product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount) 
+	) AS DECIMAL(12,2)) as final_product_price
+FROM {{%products}}
+WHERE product_id=:product_id AND chpu=:chpu LIMIT 1
+		";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':product_id', (int)$id);
+		$command->bindValue(':chpu', $alias);
+		$product = $command->queryOne();
+
+		return [
+			'product'         => $product,
+			'currencies'      => $currencies,
+			'active_currency' => $active_currency,
+		];
+	}
+
+	public function getImagesProduct($id) {
+
+		$query = "SELECT *
+FROM {{%images}} img
+	INNER JOIN {{%products_images}} prod_img ON prod_img.image_id=img.image_id 
+	INNER JOIN {{%products}} prod ON prod.product_id=prod_img.product_id 
+WHERE prod.product_id=:product_id
+		";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':product_id', (int)$id);
+		$images = $command->queryAll();
+
+		$image_main=[];
+		$images_big_screen=[];
+		$images_small_screen=[];
+
+		foreach ($images as $key=>$value){
+			switch ($value['type_image']) {
+				case "MAIN":
+					$image_main=$value;
+					break;
+				case "BIG_SCREENSHOT":
+					$images_big_screen[$value['image_big_small']]=$value;
+					break;
+				case "SMALL_SCREENSHOT":
+					$images_small_screen[$value['image_big_small']]=$value;
+					break;
+			}
+
+		}
+
+		return [
+			'image_main' => $image_main,
+			'images_big_screen' => $images_big_screen,
+			'images_small_screen' => $images_small_screen,
+		];
 	}
 
 }

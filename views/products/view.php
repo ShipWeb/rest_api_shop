@@ -1,6 +1,37 @@
-<h1><?=$product->product_title?></h1>
+<h1><?=$product['product_title']?></h1>
 
-<?=$product->content?>
+<?= $product['final_product_price'] ?>&nbsp;<?= ' ' . $active_currency['currency_title'] ?>
+<br>
+<?php if (!empty($value['product_discount'])) { ?>
+	-<?= $product['product_discount'] ?> %
+<?php } ?>
+<br>
+
+<?=$product['content']?>
+
+<?=$product['content_activation']?>
+
+<?php foreach ($product_not_tech_req as $key => $value): ?>
+	<?=$value['property_title'][0]?>: <?=implode(",", $value[$value['value']]);?>
+	<br>
+<?php endforeach; ?>
+
+<?php foreach ($product_tech_req as $key => $value): ?>
+	<?=$value['property_title'][0]?>: <?=implode(",", $value[$value['value']]);?>
+	<br>
+<?php endforeach; ?>
+
+Основное<br>
+<img src="<?= Yii::$app->homeUrl.$image_main['image_path'].$image_main['image_name']?>">
+<br>
+
+<?php foreach ($images_small_screen as $key => $value): ?>
+	<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
+		<img src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
+	</a>
+	<br>
+<?php endforeach; ?>
+
 
 <div class="container main product_card">
 	<div class="row goods_head">

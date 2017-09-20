@@ -27,7 +27,7 @@ class ProductsImages extends \yii\db\ActiveRecord
     {
         return [
             [['product_id', 'image_id'], 'required'],
-            [['product_id', 'image_id'], 'integer'],
+            [['product_id', 'image_id', 'image_big_small'], 'integer'],
             [['product_id', 'image_id'], 'unique', 'targetAttribute' => ['product_id', 'image_id']],
         ];
     }
