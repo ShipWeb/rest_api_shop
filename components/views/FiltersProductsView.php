@@ -29,21 +29,10 @@
 				</div>
 			</div>
 		</div>
-		<!--		--><? //= $value['property_name'][0] ?>
 
 	</div>
 <?php endforeach; ?>
 
-<?php //foreach ($list as $key => $value): ?>
-<!--	<div class="filter">-->
-<!--		--><?//= $value['property_title'][0] ?>
-<!--		--><?//= $value['property_name'][0] ?>
-<!---->
-<!--		--><?php //foreach ($value[$value['value']] as $k => $v): ?>
-<!--			--><?//= $v ?>
-<!--		--><?php //endforeach; ?>
-<!--	</div>-->
-<?php //endforeach; ?>
 
 <?php foreach ($select as $key => $value): ?>
 		<div class="filter">

@@ -31,7 +31,7 @@ class MainBannerGames extends Widget {
 		if (!empty($setting_value)) {
 			$plist=':product_id_'.implode(',:product_id_', array_keys($setting_value));
 			$query = "
-SELECT *,
+SELECT *,prod.product_id as product_id,
 CAST(
 	IF(prod.product_discount IS NULL ,
 	(prod.product_price * ".$active_currency['currency_course']."), 

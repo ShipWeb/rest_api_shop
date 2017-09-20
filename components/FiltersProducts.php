@@ -71,12 +71,20 @@ class FiltersProducts extends Widget {
 		}
 
 		foreach ($filters_result as $key=>$value){
+			if (gettype($value['property_id']) !== 'array') {
+				foreach ($value as $ke => $va) {
+					if ($ke!=='value') {
+						$filters_result[$key][$ke] = ['0' => $va];
+					}
+				}
+				$value=$filters_result[$key];
+			}
 			if ($value['value']&&$value['value']==='value_date') {
 				foreach ($value['value_date'] as $k=>$v) {
 					$filters_result[$key]['value_date'][$k]=date('Y',strtotime($filters_result[$key]['value_date'][$k]));
 				}
-				sort($filters_result[$key]['value_date']);
 				$filters_result[$key]['value_date']=array_unique($filters_result[$key]['value_date']);
+				sort($filters_result[$key]['value_date']);
 			}
 		}
 
