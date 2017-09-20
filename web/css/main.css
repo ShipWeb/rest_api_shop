@@ -112,8 +112,8 @@ header {
 }
 
 .result {
-	height: 54px;
-	padding: 5px;
+	height: 60px;
+	padding:10px 5px 5px;
 	box-sizing: content-box;
 }
 
@@ -138,7 +138,8 @@ hr {
 
 .item_name {
 	color: #222;
-	padding: 20px 10px 20px;
+	padding: 17px 10px 20px;
+	font-size:16px;
 }
 
 .item_name p {
@@ -146,7 +147,7 @@ hr {
 }
 
 .item_price {
-	padding: 10px 10px 20px;
+	padding: 10px;
 	font-size: 15px;
 	color: #111;
 	font-weight: 600;
@@ -461,7 +462,7 @@ hr {
 	right: 0;
 	bottom: 0;
 	z-index: 100;
-	background: rgba(43, 199, 232, 0.8);
+	background: rgba(40, 40, 40, 0.8);
 	color: #fff;
 	opacity: 0;
 	visibility: hidden;
@@ -477,6 +478,11 @@ hr {
 .card_hover h4 {
 	font-size: 24px;
 	margin-top: 80px;
+	margin-bottom: 30px;
+}
+.big_card h4{
+	font-size: 36px;
+	margin-top: 180px;
 	margin-bottom: 30px;
 }
 
@@ -514,6 +520,9 @@ hr {
 	color: #fff;
 	border: 0;
 	border-bottom: 6px solid #2bc7e8;
+}
+.prev_main img{
+	width:110px;
 }
 
 /*Стили для модуля футер*/
@@ -576,6 +585,12 @@ footer {
 
 .visible_480 {
 	display: none;
+}
+
+.tabs{
+	padding: 0;
+	margin:0;
+	padding-right:30px;
 }
 
 /*Оканчание стилей главной страницы*/
@@ -1419,13 +1434,14 @@ span.type{
 	}
 
 	.item_name {
-		width: 50%;
+		width: 45%;
 		padding-bottom: 0;
 		padding-top: 10px;
+		font-size:14px;
 	}
 
 	.item_price {
-		width: 30%;
+		width: 35%;
 		font-size: 14px;
 		padding-right: 0;
 		text-align: right;
@@ -1477,7 +1493,7 @@ span.type{
 
 	.item_name {
 		font-size: 14px;
-		width: 45%;
+		width: 40%;
 		padding-top: 5px;
 		text-align: left;
 	}
@@ -1485,7 +1501,7 @@ span.type{
 	.item_price {
 		font-size: 12px;
 		text-align: right;
-		width: 35%;
+		width: 40%;
 	}
 
 	.module_view .item_price {
@@ -1551,6 +1567,9 @@ span.type{
 	.order_confirm{
 		width:90%;
 	}
+	.tabs{
+		padding:0px;
+	}
 }
 
 /* Extra Small Devices, Phones */
@@ -1583,6 +1602,9 @@ span.type{
 		float: left;
 	}
 
+	.module_view .discount{
+		margin-left: 10px;
+	}
 	.discount {
 		clear: both;
 		margin-left: 0;
@@ -1593,8 +1615,8 @@ span.type{
 	}
 
 	.result {
-		height: 60px;
-		overflow: visible;
+		height: auto;
+		overflow: hidden;
 	}
 
 	.result_main {
@@ -1645,6 +1667,9 @@ span.type{
 	.nav-tabs > li.active > a:hover {
 		border-bottom: 4px solid #2bc7e8;
 	}
+	.nav > li > a{
+		padding:10px;
+	}
 
 	.visible_480 {
 		display: block;
@@ -1678,6 +1703,9 @@ span.type{
     }
 	.oplata {
 		padding: 5px 10px;
+	}
+	.prev_main img{
+		width: auto !important;
 	}
 }
 

@@ -60,6 +60,7 @@ use app\components\FiltersProducts;
 					<a class="search_param" data-toggle="collapse" href="#collapseRus" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Наличие русского языка
 					</a>
+
 					<div class="collapse in" id="collapseRus">
 						<div class="well">
 							<input type="checkbox" class="check" id="rus">
