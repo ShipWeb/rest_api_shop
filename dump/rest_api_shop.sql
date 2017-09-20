@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 20 2017 г., 18:03
+-- Время создания: Сен 20 2017 г., 18:20
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -300,7 +300,7 @@ CREATE TABLE `ras_settings` (
 
 INSERT INTO `ras_settings` (`setting_id`, `setting_title`, `setting_name`, `setting_value`, `active`) VALUES
 (1, 'Игры в слайдере на главной странице', 'MainSliderGames', '8,9,10', 'Y'),
-(2, 'Игры в баннере на главной странице', 'MainBannerGames', '11,12,13,5,14,15,16,7,17,18,19', 'Y'),
+(2, 'Игры в баннере на главной странице', 'MainBannerGames', '12,11,13,5,14,15,16,7,17,18,19', 'Y'),
 (3, 'Игры для предзаказа на главной странице', 'MainPreOrderGames', '8,3', 'Y');
 
 --
