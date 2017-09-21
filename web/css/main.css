@@ -1022,7 +1022,7 @@ footer {
 }
 .header_right{
 	padding:0;
-	padding:20px;
+	padding:10px;
 }
 .price_info{
 	margin-top:50px;
@@ -1468,6 +1468,13 @@ span.type{
 	.header_right{
 		padding:0;
 	}
+	.header_price{
+		font-size:18px;
+	}
+	.header_discount{
+		font-size:15px;
+		padding:13px 5px;
+	}
 }
 
 /* Small Devices, Tablets */
@@ -1569,6 +1576,13 @@ span.type{
 	}
 	.tabs{
 		padding:0px;
+	}
+	.header_price{
+		font-size:26px;
+	}
+	.header_discount{
+		font-size:18px;
+		padding:17px 10px;
 	}
 }
 
