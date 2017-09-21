@@ -104,12 +104,15 @@ class Products extends \yii\db\ActiveRecord
 		//Фильтрация товаров
 		$filter= self::addFilters($options);
 
-		$query = "SELECT *, prod.product_id as product_id,
-CAST(
-	IF(prod.product_discount IS NULL ,
-	(prod.product_price * ".$active_currency['currency_course']."), 
-	(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - prod.product_discount) 
-	) AS DECIMAL(12,2)) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "")."
+		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+CEIL(
+	CAST(
+		IF(product_discount IS NULL ,
+		(prod.product_price * ".$active_currency['currency_course']."), 
+		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		) AS DECIMAL(12,2)
+	)
+) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "")."
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
@@ -304,14 +307,17 @@ GROUP BY prod.product_id " .
 
 		$active_currency = Currencies::activeCurrency();
 
-		$query = "SELECT *, product_id as product_id,
-CAST(
-	IF(product_discount IS NULL ,
-	(product_price * " . $active_currency['currency_course'] . "), 
-	(product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount) 
-	) AS DECIMAL(12,2)) as final_product_price
-FROM {{%products}}
-WHERE product_id=:product_id AND chpu=:chpu LIMIT 1
+		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+CEIL(
+	CAST(
+		IF(product_discount IS NULL ,
+		(prod.product_price * ".$active_currency['currency_course']."), 
+		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		) AS DECIMAL(12,2)
+	)
+) as final_product_price
+FROM {{%products}} prod
+WHERE prod.product_id=:product_id AND prod.chpu=:chpu LIMIT 1
 		";
 
 		$command = Yii::$app->db->createCommand($query);
