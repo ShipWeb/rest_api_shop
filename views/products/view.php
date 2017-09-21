@@ -22,15 +22,19 @@
 <?php endforeach; ?>
 
 Основное<br>
+<?php if (!empty($image_main)) { ?>
 <img src="<?= Yii::$app->homeUrl.$image_main['image_path'].$image_main['image_name']?>">
+<?php } ?>
 <br>
 
+<?php if (!empty($images_small_screen)&&!empty($images_big_screen)) { ?>
 <?php foreach ($images_small_screen as $key => $value): ?>
 	<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
 		<img src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
 	</a>
 	<br>
 <?php endforeach; ?>
+<?php } ?>
 
 
 <div class="container main product_card">

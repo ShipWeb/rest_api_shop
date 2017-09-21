@@ -31,12 +31,15 @@ class MainBannerGames extends Widget {
 		if (!empty($setting_value)) {
 			$plist=':product_id_'.implode(',:product_id_', array_keys($setting_value));
 			$query = "
-SELECT *,prod.product_id as product_id,
-CAST(
-	IF(prod.product_discount IS NULL ,
-	(prod.product_price * ".$active_currency['currency_course']."), 
-	(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - prod.product_discount)
-	) AS DECIMAL(12,2)) as final_product_price 
+SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+CEIL(
+	CAST(
+		IF(product_discount IS NULL ,
+		(prod.product_price * ".$active_currency['currency_course']."), 
+		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		) AS DECIMAL(12,2)
+	)
+) as final_product_price  
 FROM {{%products_images}} prod_img
 	INNER JOIN {{%images}} img ON img.image_id=prod_img.image_id 
 	INNER JOIN {{%products}} prod ON prod.product_id=prod_img.product_id 
