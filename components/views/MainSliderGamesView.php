@@ -6,7 +6,7 @@
 		<div class="carousel-inner">
 			<!--Слайд 1-->
 
-			<?php foreach ($images as $key => $value): ?>
+			<?php foreach ($slider_products as $key => $value): ?>
 				<div class="item <?= $key == 0 ? 'active' : '' ?>">
 					<a href="<?= Yii::$app->homeUrl . 'product/' . $value['product_id'] . '/' . $value['chpu'] ?>"><img src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>" alt="<?= $value['image_title'] ?>"></a>
 

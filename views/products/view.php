@@ -7,7 +7,9 @@
 				<li class="active">Игры</li>
 			</ol>
 			<h2>Купить <?= $product['product_title'] ?></h2>
-			<img src="<?= Yii::$app->homeUrl . $image_main['image_path'] . $image_main['image_name'] ?>" alt="Prey" class="img-responsive header_pic">
+			<?php if (!empty($image_main)) { ?>
+				<img src="<?= Yii::$app->homeUrl . $image_main['image_path'] . $image_main['image_name'] ?>" alt="Prey" class="img-responsive header_pic">
+			<?php } ?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-lg-3">
 			<ul class="game_info">
@@ -91,13 +93,15 @@
 				</div>
 				<span class="goods_info">Скриншоты</span>
 				<div class="galery">
-					<?php foreach ($images_small_screen as $key => $value): ?>
-						<div class="galery_image">
-							<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
-								<img class="img-responsive" src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
-							</a>
-						</div>
-					<?php endforeach; ?>
+					<?php if (!empty($images_small_screen)&&!empty($images_big_screen)) { ?>
+						<?php foreach ($images_small_screen as $key => $value): ?>
+							<div class="galery_image">
+								<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
+									<img class="img-responsive" src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
+								</a>
+							</div>
+						<?php endforeach; ?>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
