@@ -52,8 +52,11 @@ AppAsset::register($this);
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="hidden-xs"><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Корзина
-							<span class="badge">4</span></a></li>
+					<li class="hidden-xs">
+						<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+							Корзина
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 							Валюта <i class="fa fa-rub del" aria-hidden="true"></i>

@@ -1,42 +1,3 @@
-<h1><?=$product['product_title']?></h1>
-
-<?= $product['final_product_price'] ?>&nbsp;<?= ' ' . $active_currency['currency_title'] ?>
-<br>
-<?php if (!empty($value['product_discount'])) { ?>
-	-<?= $product['product_discount'] ?> %
-<?php } ?>
-<br>
-
-<?=$product['content']?>
-
-<?=$product['content_activation']?>
-
-<?php foreach ($product_not_tech_req as $key => $value): ?>
-	<?=$value['property_title'][0]?>: <?=implode(",", $value[$value['value']]);?>
-	<br>
-<?php endforeach; ?>
-
-<?php foreach ($product_tech_req as $key => $value): ?>
-	<?=$value['property_title'][0]?>: <?=implode(",", $value[$value['value']]);?>
-	<br>
-<?php endforeach; ?>
-
-Основное<br>
-<?php if (!empty($image_main)) { ?>
-<img src="<?= Yii::$app->homeUrl.$image_main['image_path'].$image_main['image_name']?>">
-<?php } ?>
-<br>
-
-<?php if (!empty($images_small_screen)&&!empty($images_big_screen)) { ?>
-<?php foreach ($images_small_screen as $key => $value): ?>
-	<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
-		<img src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
-	</a>
-	<br>
-<?php endforeach; ?>
-<?php } ?>
-
-
 <div class="container main product_card">
 	<div class="row goods_head">
 		<div class="col-sm-6 col-md-6 col-lg-6">
@@ -45,29 +6,32 @@
 				<li><a href="#">Каталог</a></li>
 				<li class="active">Игры</li>
 			</ol>
-			<h2>Купить Prey</h2>
-			<img src="<?= Yii::$app->homeUrl ?>images/Prey_500x250.jpg" alt="Prey" class="img-responsive header_pic">
+			<h2>Купить <?= $product['product_title'] ?></h2>
+			<?php if (!empty($image_main)) { ?>
+				<img src="<?= Yii::$app->homeUrl . $image_main['image_path'] . $image_main['image_name'] ?>" alt="Prey" class="img-responsive header_pic">
+			<?php } ?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-lg-3">
 			<ul class="game_info">
-				<li>
-					<span>Жанр:</span>
-					<a href="#">Экшен</a>,
-					<a href="#">Приключения</a>
-				</li>
-				<li><span>Издатель:</span> Bethesda Softworks</li>
-				<li><span>Дата выхода:</span> 5 мая 2017</li>
-				<li><span>Язык:</span> Русский</li>
-				<li><span>Активация:</span> <img src="<?= Yii::$app->homeUrl ?>images/steamlogo.png" id="logo_brand"> Steam</li>
+				<?php foreach ($product_not_tech_req as $key => $value): ?>
+					<li>
+						<span><?= $value['property_title'][0] ?>:</span>
+						<?= implode(", ", $value[$value['value']]); ?>
+					</li>
+				<?php endforeach; ?>
 			</ul>
 		</div>
 		<div class="col-sm-3 col-md-3 col-lg-3 header_right">
 			<div class="price_info">
 				<div class="header_price">
-					<span id="price">1999 </span><span class="valuta">руб</span>
-					<div class="header_discount pull-right">
-						<span>-50%</span>
-					</div>
+					<span id="price"><?= $product['final_product_price'] ?></span><span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span>
+					<?php if (!empty($product['product_discount'])) { ?>
+						<div class="header_discount pull-right">
+							<span>
+								-<?= $product['product_discount'] ?> %
+							</span>
+						</div>
+					<?php } ?>
 				</div>
 
 				<button class="buy">Купить</button>
@@ -83,13 +47,9 @@
 					</a>
 					<div class="collapse in" id="collapseGameInfo">
 						<div class="well description">
-							<p>Действие Prey происходит в 2032 году. Вы обнаруживаете себя на лунной орбите, на борту
-								космической станции «Талос-1». Эксперимент, в котором вы участвовали, должен был
-								навсегда изменить человеческую расу, но привел к катастрофическим последствиям. Станцию
-								захватили враждебные пришельцы, которые теперь ведут на вас охоту. Раскрывая мрачные
-								тайны «Талоса» и собственного прошлого, вам предстоит выживать, полагаясь на подручные
-								средства, собственную смекалку, оружие и сверхспособности. Судьба «Талоса-1» и всех, кто
-								находится на борту, — в ваших руках.</p>
+							<p>
+								<?= $product['content'] ?>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -101,26 +61,12 @@
 						<div class="well description">
 							<table class="table table-striped">
 								<tbody>
-								<tr>
-									<td>OC:</td>
-									<td> Windows 7/8/10 (64-bit versions)</td>
-								</tr>
-								<tr>
-									<td>Процессор:</td>
-									<td> Intel i5-2400, AMD FX-8320</td>
-								</tr>
-								<tr>
-									<td>Оперативная Память:</td>
-									<td> 8 GB ОЗУ</td>
-								</tr>
-								<tr>
-									<td>Видеокарта:</td>
-									<td> GTX 660 2GB, AMD Radeon 7850 2GB</td>
-								</tr>
-								<tr>
-									<td>Жесткий диск:</td>
-									<td> 20 ГБ</td>
-								</tr>
+								<?php foreach ($product_tech_req as $key => $value): ?>
+									<tr>
+										<td><?= $value['property_title'][0] ?>:</td>
+										<td><?= implode(",", $value[$value['value']]); ?></td>
+									</tr>
+								<?php endforeach; ?>
 								</tbody>
 							</table>
 						</div>
@@ -131,26 +77,7 @@
 						</a>
 						<div class="collapse" id="collapseInstruction">
 							<div class="well description">
-								<ul class="instuction">
-									<li>Получите оплаченный ключ активации в личном кабинете.</li>
-
-									<li>Если не установлен Steam клиент, Вам необходимо скачать его с официального
-										сайта (<a href="http://store.steampowered.com/about/" target="_blank">http://store.steampowered.com/about/</a>)
-										и установить.
-									</li>
-
-									<li>Войдите в свой фккаунт Steam (если он у Вас уже есть), либо создайте новую
-										учетную запись
-									</li>
-
-									<li>В меню «Игры» выбирайте пункт «Активировать через Steam». В открывшееся окошке
-										вводите полученный код.
-									</li>
-
-									<li>После активации ключа, игра отобразится в библиотеке Steam и вы сможете её
-										скачать.
-									</li>
-								</ul>
+								<?= $product['content_activation'] ?>
 							</div>
 						</div>
 					</div>
@@ -166,33 +93,17 @@
 				</div>
 				<span class="goods_info">Скриншоты</span>
 				<div class="galery">
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey1.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev1_155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey2.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev2-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="images/prey3.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev3-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey4.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev4-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey5.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev5-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey6.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev6-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey7.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev7-155x87.jpg" class="img-responsive"></a>
-					</div>
-					<div class="galery_image">
-						<a href="<?= Yii::$app->homeUrl ?>images/prey8.jpg" class="fancyimage" data-fancybox-group="group"><img src="<?= Yii::$app->homeUrl ?>images/prey_prev8-155x87.jpg" class="img-responsive"></a>
-					</div>
+					<?php if (!empty($images_small_screen)&&!empty($images_big_screen)) { ?>
+						<?php foreach ($images_small_screen as $key => $value): ?>
+							<div class="galery_image">
+								<a href="<?= Yii::$app->homeUrl . $images_big_screen[$key]['image_path'] . $images_big_screen[$key]['image_name'] ?>" class="fancyimage" data-fancybox-group="group">
+									<img class="img-responsive" src="<?= Yii::$app->homeUrl . $value['image_path'] . $value['image_name'] ?>">
+								</a>
+							</div>
+						<?php endforeach; ?>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
