@@ -42,14 +42,17 @@
 			<div class="collapse in" id="<?= $value['property_name'][0] ?>">
 				<div class="well">
 		<?php foreach ($value[$value['value']] as $k => $v): ?>
-						<input type="checkbox" class="check" id="<?= $v ?>">
-						<label for="<?= $v ?>" class="label_check"><?= $v ?></label>
+						<input type="checkbox" class="check" id="<?= $v ?>" name="<?= $value['property_name'][0] ?>" value="<?= $v ?>">
+						<label for="<?= $v ?>" class="label_check"><?= (!empty($value['value_ext_html'][$k])?$value['value_ext_html'][$k]:"").$v ?></label>
 		<?php endforeach; ?>
 			</div>
 			</div>
 		</div>
 <?php endforeach; ?>
 
+<script>
+	var arr_multiselect={};
+</script>
 <?php foreach ($multiselect as $key => $value): ?>
 <div class="filter">
 	<a class="search_param" data-toggle="collapse" href="#<?= $value['property_name'][0] ?>" aria-expanded="true" aria-controls="collapseExample">
@@ -57,11 +60,13 @@
 	</a>
 	<div class="collapse in" id="<?= $value['property_name'][0] ?>">
 		<div class="well filter_column">
-<!--		--><?//= $value['property_title'][0] ?>
-<!--		--><?//= $value['property_name'][0] ?>
-		<?php foreach ($value[$value['value']] as $k => $v): ?>
-			<input type="checkbox" class="check" id="<?= $v ?>">
-			<label for="<?= $v ?>" class="label_check"><?= $v ?></label>
+			<input type="hidden" name="<?= $value['property_name'][0] ?>">
+			<script>
+				arr_multiselect['<?= $value['property_name'][0] ?>']="<?=count($value[$value['value']])?>";
+			</script>
+			<?php foreach ($value[$value['value']] as $k => $v): ?>
+			<input type="checkbox" class="check" id="<?= $v ?>" name="<?= $value['property_name'][0].$k ?>" value="<?= $v ?>">
+			<label for="<?= $v ?>" class="label_check"><?= (!empty($value['value_ext_html'][$k])?$value['value_ext_html'][$k]:"").$v ?></label>
 		<?php endforeach; ?>
 		</div>
 	</div>

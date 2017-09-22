@@ -5,11 +5,33 @@ use app\components\FiltersProducts;
 
 ?>
 
+<script>
+	function calculateFields() {
 
+		for (var filter_name in arr_multiselect) {
+			var field = "";
+
+			for (var i = 0; i < arr_multiselect[filter_name]; i++) {
+				if (document.getElementsByName(filter_name + i)[0].checked) {
+					field = document.getElementsByName(filter_name + i)[0].value + "," + field;
+					document.getElementsByName(filter_name + i)[0].value = "";
+					document.getElementsByName(filter_name + i)[0].checked = false;
+				}
+			}
+
+			if (field === "") {
+				document.getElementsByName(filter_name)[0].remove();
+			} else {
+				document.getElementsByName(filter_name)[0].value = field;
+			}
+		}
+
+	}
+</script>
 
 <div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
-		<form class="list_sidebar" action="" method="get">
+		<form class="list_sidebar" name="filtersproducts"  action="<?= Yii::$app->homeUrl . "product" ?>" method="get">
 			<div class="column">
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseSearch" aria-expanded="true" aria-controls="collapseExample">
@@ -120,9 +142,9 @@ use app\components\FiltersProducts;
 					</div>
 				</div>
 				<div width="100%">
-					<button type="submit" class="show">Показать</button>
+					<button type="submit" onclick="calculateFields();" class="show">Показать</button>
 				</div>
-				<span class="reset">Сброс фильтров</span>
+				<span class="reset"><a href="<?= Yii::$app->homeUrl . "product" ?>">Сброс фильтров</a></span>
 			</div>
 		</form>
 	</div>

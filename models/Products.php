@@ -118,7 +118,7 @@ FROM {{%products}}  prod
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
 		" . (!empty($filter['query']) ? "WHERE 1=1 AND " . $filter['query'] : "") . " 
 GROUP BY prod.product_id " .
-			(!empty($filter['count_conditions']) ? " HAVING count_conditions=:filter_count_conditions " : "").(!empty($sort['order']) ? $sort['order'] : "");
+			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " : "").(!empty($sort['order']) ? $sort['order'] : "");
 
 		$command=Yii::$app->db->createCommand($query);
 
