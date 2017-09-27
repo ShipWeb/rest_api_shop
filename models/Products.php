@@ -276,7 +276,7 @@ GROUP BY prod.product_id " .
 			}
 
 		}
-d($_SESSION);
+
 		return ["data" => $list_filters, "query" => implode(' OR ', $where), "bind_param" => $bind_param, "count_conditions" => $count_conditions];
 	}
 
