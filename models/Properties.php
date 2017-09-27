@@ -32,6 +32,7 @@ class Properties extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['count_values'], 'integer'],
             [['type', 'filter', 'sort', 'active', 'show_index', 'show_view','technical_requirements'], 'string'],
             [['property_name','property_title'], 'string', 'max' => 255],
         ];
@@ -53,6 +54,7 @@ class Properties extends \yii\db\ActiveRecord
             'show_index' => Yii::t('app', 'Show Index'),
             'show_view' => Yii::t('app', 'Show View'),
             'technical_requirements' => Yii::t('app', 'Technical Requirements'),
+            'count_values' => Yii::t('app', 'Count Values'),
         ];
     }
 
@@ -66,7 +68,7 @@ class Properties extends \yii\db\ActiveRecord
 		$query = "
 SELECT * FROM {{%properties}} prop 
 	LEFT JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id
-WHERE active='Y' AND show_index='Y'";
+WHERE active='Y' AND show_index='Y' ORDER BY prop.property_id";
 
 		$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
 

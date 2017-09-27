@@ -82,7 +82,7 @@ class Products extends \yii\db\ActiveRecord
 	 *
 	 * @return mixed
 	 */
-	public function getAll($options,$pageSize = 20) {
+	public function getAll($options, $pageSize = 20) {
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
@@ -163,17 +163,17 @@ GROUP BY prod.product_id " .
 		$list_filters=[];
 		$count_conditions=0;
 
+		//Фильтры из БД
 		if (!empty($filters)) {
 
-			$query = "SELECT * FROM {{%properties}} WHERE active='Y' AND show_index='Y'";
+			$query = "SELECT * FROM {{%properties}} WHERE active='Y' AND show_index='Y' ORDER BY property_id";
 			$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
 
+			//Прохождение по фильтрам из БД
+			foreach ($filter_properties as $fil_prop_key => $fil_prop_value) {
 
-			//Прохождение по фильтрам из запроса
-			foreach ($filters as $fil_name => $fil_value) {
-
-				//Прохождение по фильтрам из БД
-				foreach ($filter_properties as $fil_prop_key => $fil_prop_value) {
+				//Прохождение по фильтрам из запроса
+				foreach ($filters as $fil_name => $fil_value) {
 
 					if ($fil_name === $fil_prop_value['property_name']) {
 
@@ -184,42 +184,38 @@ GROUP BY prod.product_id " .
 						switch ($fil_prop_value['filter']) {
 							case "SELECT":
 								$list_filters['SELECT'][$fil_name] = $fil_value;
-								$where[]= "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . "=:" . $fil_name.")";
-								$bind_param[':' . $fil_name]=$list_filters['SELECT'][$fil_name];
+								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . "=:" . $fil_name . ")";
+								$bind_param[':' . $fil_name] = $_SESSION[$fil_name] = $list_filters['SELECT'][$fil_name];
 								$count_conditions++;
 								break;
 							case "MULTISELECT":
 								$list_filters['MULTISELECT'][$fil_name] = explode(',', $fil_value);
-								$prop_arr=[];
+								$prop_arr = [];
+								$sess=[];
 								foreach ($list_filters['MULTISELECT'][$fil_name] as $key => $val) {
-									$prop_arr[]= ':'.$fil_name . $key;
-									$bind_param[':' . $fil_name . $key]=$val;
+									$prop_arr[] = ':' . $fil_name . $key;
+									$bind_param[':' . $fil_name . $key] = $val;
+									$sess[]= $val;
 								}
-								$where[]= "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . " IN (" . implode(',',$prop_arr)."))";
-								$count_conditions++;
-								break;
-							case "LIST":
-								$list_filters['LIST'][$fil_name] = $fil_value;
-								$where[]= "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . "=:" . $fil_name.")";
-								$bind_param[':' . $fil_name]=$list_filters['LIST'][$fil_name];
+								if (!empty($sess)) {
+									$_SESSION[$fil_name] = $sess;
+								}
+								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . " IN (" . implode(',', $prop_arr) . "))";
 								$count_conditions++;
 								break;
 							case "RANGE":
-								if (mb_strpos($fil_value, '_') !== false) {
-									$range = explode('_', $fil_value);
-									if ($fil_prop_value['type'] === 'INTEGER') {
-										$list_filters['RANGE'][$fil_name]['first'] = (double)$range[0];
-										$list_filters['RANGE'][$fil_name]['last'] = (double)$range[1];
-									} else {
-										$list_filters['RANGE'][$fil_name]['first'] = (double)$range[0];
-										$list_filters['RANGE'][$fil_name]['last'] = (double)$range[1];
+								if (mb_strpos($fil_value, '|') !== false) {
+									$range = explode('|', $fil_value);
+									$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . ">=:" .
+										$fil_name . "_first AND prod_prop." . $val_type . "<=:" . $fil_name . "_last)";
+									$bind_param[':' . $fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
+									$bind_param[':' . $fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
+									if ($fil_prop_value['type'] === 'DATE') {
+										$_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
+										$_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
 									}
+									$count_conditions++;
 								}
-								$where[]= "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . ">=:" .
-									$fil_name . "_first AND prod_prop." . $val_type . "<=:" . $fil_name . "_last)";
-								$bind_param[':' . $fil_name . '_first']=$list_filters['RANGE'][$fil_name]['first'];
-								$bind_param[':' . $fil_name . '_last']=$list_filters['RANGE'][$fil_name]['last'];
-								$count_conditions++;
 								break;
 						}
 
@@ -234,6 +230,53 @@ GROUP BY prod.product_id " .
 			$bind_param[':filter_count_conditions'] = $count_conditions;
 		}
 
+		//Фильтр цен
+		if (!empty($filters['product_price']) && mb_strpos($filters['product_price'], '|') !== false) {
+			$range = explode('|', $filters['product_price']);
+			$where[] = "(prod.product_price>=:product_price_first AND prod.product_price<=:product_price_last)";
+			$bind_param[':product_price_first'] = $_SESSION['product_price_first']= $range[0];
+			$bind_param[':product_price_last'] = $_SESSION['product_price_last'] = $range[1];
+			$count_conditions++;
+		}
+
+		//Сброс фильтров
+		if (!empty($filters['delete_filters']) && $filters['delete_filters'] == true) {
+
+			foreach ($filter_properties as $fil_prop_key => $fil_prop_value) {
+
+				switch ($fil_prop_value['filter']) {
+					case "SELECT":
+						//for ($i = 0; $i < $fil_prop_value['count_values']-1; $i++) {
+							if (!empty($fil_prop_value['property_name'])) {
+								unset($_SESSION[$fil_prop_value['property_name']]);
+							}
+						//}
+						break;
+					case "MULTISELECT":
+						//for ($i = 0; $i < $fil_prop_value['count_values']-1; $i++) {
+							if (!empty($fil_prop_value['property_name'])) {
+								unset($_SESSION[$fil_prop_value['property_name']]);
+							}
+						//}
+						break;
+					case "RANGE":
+						if (!empty($fil_prop_value['property_name'])) {
+							unset($_SESSION[$fil_prop_value['property_name'].'_first']);
+							unset($_SESSION[$fil_prop_value['property_name'].'_last']);
+						}
+						break;
+				}
+			}
+
+			if (!empty($_SESSION['product_price_first'])) {
+				unset($_SESSION['product_price_first']);
+			}
+			if (!empty($_SESSION['product_price_last'])) {
+				unset($_SESSION['product_price_last']);
+			}
+
+		}
+d($_SESSION);
 		return ["data" => $list_filters, "query" => implode(' OR ', $where), "bind_param" => $bind_param, "count_conditions" => $count_conditions];
 	}
 

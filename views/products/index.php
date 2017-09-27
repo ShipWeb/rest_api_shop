@@ -7,8 +7,19 @@ use app\components\FiltersProducts;
 
 <script>
 	function calculateFields() {
-
-		for (var filter_name in arr_multiselect) {
+		var filter_name="";
+		for (filter_name in arr_range) {
+			var start=document.getElementsByName('btn_start_'+filter_name)[0].value;
+			var end=document.getElementsByName('btn_end_'+filter_name)[0].value;
+			if (arr_range[filter_name]==='value_date'){
+				start=start+"-01-01 00:00:00";
+				end=end+"-12-31 23:59:59";
+			}
+			document.getElementsByName(filter_name)[0].value = start+'|'+end;
+			console.log(document.getElementsByName(filter_name)[0].value);
+		}
+		var filter_name="";
+		for (filter_name in arr_multiselect) {
 			var field = "";
 
 			for (var i = 0; i < arr_multiselect[filter_name]; i++) {
@@ -24,6 +35,14 @@ use app\components\FiltersProducts;
 			} else {
 				document.getElementsByName(filter_name)[0].value = field;
 			}
+		}
+
+		var first_price = document.getElementsByName('product_price_first')[0].value.replace(",", ".");
+		var last_price = document.getElementsByName('product_price_last')[0].value.replace(",", ".");
+		document.getElementsByName('product_price_first')[0].remove();
+		document.getElementsByName('product_price_last')[0].remove();
+		if (first_price >= 0 && last_price >= 0 && last_price > first_price) {
+			document.getElementsByName('product_price')[0].value = first_price + '|' + last_price;
 		}
 
 	}
@@ -49,8 +68,9 @@ use app\components\FiltersProducts;
 					</a>
 					<div class="collapse in" id="collapsePrice">
 						<div class="well">
-							<input class="form-control price_range" autocomplete="off" placeholder="От 0">
-							<input class="form-control price_range" autocomplete="off" placeholder="До 9999">
+							<input value="<?= !empty($_SESSION['product_price_first']) ? $_SESSION['product_price_first'] : "" ?>" class="form-control price_range" autocomplete="off" placeholder="От 0" name="product_price_first" >
+							<input value="<?= !empty($_SESSION['product_price_last']) ? $_SESSION['product_price_last'] : "" ?>" class="form-control price_range" autocomplete="off" placeholder="До 9999" name="product_price_last">
+							<input type="hidden" name="product_price">
 						</div>
 					</div>
 				</div>
@@ -144,7 +164,7 @@ use app\components\FiltersProducts;
 				<div width="100%">
 					<button type="submit" onclick="calculateFields();" class="show">Показать</button>
 				</div>
-				<span class="reset"><a href="<?= Yii::$app->homeUrl . "product" ?>">Сброс фильтров</a></span>
+				<span class="reset"><a href="<?= Yii::$app->homeUrl . "product?delete_filters=true" ?>">Сброс фильтров</a></span>
 			</div>
 		</form>
 	</div>
