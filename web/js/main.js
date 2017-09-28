@@ -180,8 +180,20 @@ $(function () {
 	})
 });
 
+function viewProductsList() {
+	$('[data-view]').removeClass('module_view');
+	$('.column hr').removeClass('displayNone');
+	$('.main_search').addClass('preview');
+	$('.main_search .item_price').addClass('pull-right');
+	$('#net').removeClass('active_state');
+	$('#list').addClass('active_state');
+}
 
-
-
-
-
+function viewProductsNet() {
+	$('[data-view]').addClass('module_view');
+	$('.column hr').addClass('displayNone');
+	$('.main_search').removeClass('preview');
+	$('.main_search .item_price').removeClass('pull-right');
+	$('#list').removeClass('active_state');
+	$('#net').addClass('active_state');
+}

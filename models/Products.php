@@ -84,6 +84,12 @@ class Products extends \yii\db\ActiveRecord
 	 */
 	public function getAll($options, $pageSize = 20) {
 
+		//Вид отображения товаров
+		if (!empty($options['view_products'])) {
+			$_SESSION['view_products'] = $options['view_products'];
+			exit();
+		}
+
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
 		$active_currency=Currencies::activeCurrency();
@@ -246,18 +252,14 @@ GROUP BY prod.product_id " .
 
 				switch ($fil_prop_value['filter']) {
 					case "SELECT":
-						//for ($i = 0; $i < $fil_prop_value['count_values']-1; $i++) {
 							if (!empty($fil_prop_value['property_name'])) {
 								unset($_SESSION[$fil_prop_value['property_name']]);
 							}
-						//}
 						break;
 					case "MULTISELECT":
-						//for ($i = 0; $i < $fil_prop_value['count_values']-1; $i++) {
 							if (!empty($fil_prop_value['property_name'])) {
 								unset($_SESSION[$fil_prop_value['property_name']]);
 							}
-						//}
 						break;
 					case "RANGE":
 						if (!empty($fil_prop_value['property_name'])) {

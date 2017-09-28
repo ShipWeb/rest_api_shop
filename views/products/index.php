@@ -3,6 +3,14 @@
 use app\components\ShopLinkPager;
 use app\components\FiltersProducts;
 
+if (!empty($_SESSION['view_products']) && $_SESSION['view_products'] == 'net') {
+	$script = <<< JS
+		viewProductsNet();
+JS;
+	//маркер конца строки, обязательно сразу, без пробелов и табуляции
+	$this->registerJs($script, yii\web\View::POS_READY);
+}
+
 ?>
 
 <script>
@@ -46,6 +54,16 @@ use app\components\FiltersProducts;
 		}
 
 	}
+
+	function saveViewProducts(view_products) {
+		$.ajax({
+			type: "POST",
+			url: "<?= Yii::$app->homeUrl . "product" ?>",
+			async: true,
+			data: "view_products="+view_products,
+		});
+	}
+
 </script>
 
 <div class="container main catalog_wrapper row">
@@ -186,8 +204,8 @@ use app\components\FiltersProducts;
 					<a class="sort_item" href=""><li>Дате выхода, сначала старые</li></a>
 				</ul>
 			</span>
-					<i id="list" class="fa fa-list-ul active_state" aria-hidden="true"></i>
-					<i id="net" class="fa fa-th-large" aria-hidden="true"></i>
+					<i id="list" class="fa fa-list-ul active_state" aria-hidden="true" onclick="saveViewProducts('list');"></i>
+					<i id="net" class="fa fa-th-large" aria-hidden="true" onclick="saveViewProducts('net');"></i>
 				</div>
 			</div>
 
