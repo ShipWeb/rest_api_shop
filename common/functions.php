@@ -1,7 +1,9 @@
 <?php
 
-/*
+/**
  * Вывод дампа
+ *
+ * @param $dump
  */
 function d($dump) {
 
@@ -10,6 +12,13 @@ function d($dump) {
 	echo '</pre>';
 }
 
+/**
+ * Вывод месяца на русском языке
+ *
+ * @param $date
+ *
+ * @return mixed
+ */
 function rdate($date) {
 
 	$MonthNames = [
@@ -23,7 +32,7 @@ function rdate($date) {
 		"Aug" => "Августа",
 		"Sep" => "Сентября",
 		"Oct" => "Октября",
-		"Nov" => "Ноября",
+		"November" => "Ноября",
 		"Dec" => "Декабря"
 	];
 	foreach ($MonthNames as $name => $replace) {
@@ -31,6 +40,31 @@ function rdate($date) {
 	}
 
 	return $date;
+}
+
+/**
+ * Добавить параметр в текущий url
+ *
+ * @param $param
+ * @param $value
+ *
+ * @return mixed|string
+ */
+function insertValueInUrl($param,$value ) {
+
+	$url = $_SERVER['REQUEST_URI'];
+
+	if (!empty($_REQUEST[$param])) {
+
+		return str_replace($param . '=' . $_REQUEST[$param], $param . '=' . $value, $url);
+	} elseif (strpos($url, '&') !== false) {
+
+		return $url . '&' . $param . '=' . $value;
+	} else {
+		return $url . '?' . $param . '=' . $value;
+
+	}
+
 }
 
 ?>

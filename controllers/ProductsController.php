@@ -41,7 +41,7 @@ class ProductsController extends \yii\web\Controller
 	 */
 	public function actionView($id, $alias) {
 
-		$product_all = Products::getOne($id, $alias);
+		$product_all = Products::getOneIdAlias($id, $alias);
 
 		if (empty($product_all['product'])) {
 			throw new NotFoundHttpException('The requested page does not exist.');
@@ -67,7 +67,23 @@ class ProductsController extends \yii\web\Controller
 
 	public function actionBasket($products = false) {
 
-		return $this->render('basket');
+		$product['product'] = false;
+		$product['currencies'] = false;
+		$product['active_currency'] = false;
+
+		if (!empty($_REQUEST['product_id'])) {
+			$_COOKIE['basket_product_id'] = $_SESSION['basket_product_id'] = $_REQUEST['product_id'];
+		}
+
+		if (!empty($_SESSION['basket_product_id'])) {
+			$product = Products::getOneId((int)$_SESSION['basket_product_id']);
+		}
+
+		return $this->render('basket', [
+			'product'         => $product['product'],
+			'currencies'      => $product['currencies'],
+			'active_currency' => $product['active_currency'],
+		]);
 
 	}
 	

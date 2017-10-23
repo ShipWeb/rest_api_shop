@@ -1,16 +1,34 @@
 <div class="container main cart_detail">
+	<?php if (!empty($product)) { ?>
 	<h3 id="ordering">Выбранные товары</h3>
 	<div class="goods_head">
 		<a href="#">
 			<div class="result_main order">
 				<div class="preview_cart main_search pull-left">
-					<img src="images/prey_110x52.png">
+
+					<?php if (!empty($product['product_thumbnail_path']) and !empty($product['product_thumbnail_name'])) { ?>
+
+
+							<img class="img-responsive" src="<?= Yii::$app->homeUrl . $product['product_thumbnail_path'] . '/' . $product['product_thumbnail_name'] ?>">
+
+
+					<?php } else { ?>
+
+							<img class="img-responsive" src="<?= Yii::$app->homeUrl . 'images/thumbnails/1.jpg' ?>">
+
+					<?php } ?>
+
 				</div>
 				<div class="item_name cart_name pull-left">
-					<p>The Elder Scrolls Online: Tamriel Unlimited</p>
+					<p><?=$product['product_title']?></p>
 				</div>
 				<div class="item_price cart_price pull-right">
-					<span>1100</span> <span class="valuta">руб</span><span class="discount">-20%</span>
+					<span><?=$product['final_product_price']?></span> <span class="valuta"><?=$active_currency['currency_title']?></span>
+					<?php if (!empty($product['product_discount'])) { ?>
+							<span class="discount">
+								-<?= $product['product_discount'] ?> %
+							</span>
+					<?php } ?>
 				</div>
 			</div>
 		</a>
@@ -262,4 +280,7 @@
 			</div>
 		</form>
 	</div>
+	<?php } else { ?>
+	<h3 id="ordering">В данный момент товар в корзине отсутствует</h3>
+	<?php } ?>
 </div>

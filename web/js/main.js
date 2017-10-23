@@ -68,7 +68,6 @@ $("document").ready(function () {
 		var sortText = $(this).children("li").html();
 		$('.sort_type').html(sortText);
 		$('#sort_list').removeClass('open');
-		return false;
 	});
 
 	$('#net').click(function () {

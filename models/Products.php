@@ -23,57 +23,56 @@ use yii\data\SqlDataProvider;
  * @property string $date_modified
  * @property string $date_modified_gmt
  */
-class Products extends \yii\db\ActiveRecord
-{
+class Products extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%products}}';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName() {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['product_api_id'], 'integer'],
-            [['content','content_activation'], 'string'],
-            [['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
-            [['product_title', 'chpu', 'seo_title', 'seo_keywords','product_thumbnail_name','product_thumbnail_path'], 'string', 'max' => 255],
-            [['seo_description'], 'string', 'max' => 512],
-			[['product_price','product_discount'], 'number'],
-        ];
-    }
+		return '{{%products}}';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'product_id' => Yii::t('app', 'Product ID'),
-            'product_api_id' => Yii::t('app', 'Product Api ID'),
-            'product_title' => Yii::t('app', 'Product Title'),
-            'chpu' => Yii::t('app', 'Chpu'),
-            'content' => Yii::t('app', 'Content'),
-            'content_activation' => Yii::t('app', 'Content Activation'),
-            'seo_title' => Yii::t('app', 'Seo Title'),
-            'seo_description' => Yii::t('app', 'Seo Description'),
-            'seo_keywords' => Yii::t('app', 'Seo Keywords'),
-			'product_price' => Yii::t('app', 'Product Price'),
-			'product_discount' => Yii::t('app', 'Product Discount'),
+	/**
+	 * @inheritdoc
+	 */
+	public function rules() {
+
+		return [
+			[['product_api_id'], 'integer'],
+			[['content', 'content_activation'], 'string'],
+			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
+			[['product_title', 'chpu', 'seo_title', 'seo_keywords', 'product_thumbnail_name', 'product_thumbnail_path'], 'string', 'max' => 255],
+			[['seo_description'], 'string', 'max' => 512],
+			[['product_price', 'product_discount'], 'number'],
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels() {
+
+		return [
+			'product_id'             => Yii::t('app', 'Product ID'),
+			'product_api_id'         => Yii::t('app', 'Product Api ID'),
+			'product_title'          => Yii::t('app', 'Product Title'),
+			'chpu'                   => Yii::t('app', 'Chpu'),
+			'content'                => Yii::t('app', 'Content'),
+			'content_activation'     => Yii::t('app', 'Content Activation'),
+			'seo_title'              => Yii::t('app', 'Seo Title'),
+			'seo_description'        => Yii::t('app', 'Seo Description'),
+			'seo_keywords'           => Yii::t('app', 'Seo Keywords'),
+			'product_price'          => Yii::t('app', 'Product Price'),
+			'product_discount'       => Yii::t('app', 'Product Discount'),
 			'product_thumbnail_name' => Yii::t('app', 'Product Thumbnail Name'),
 			'product_thumbnail_path' => Yii::t('app', 'Product Thumbnail Path'),
-            'date_create' => Yii::t('app', 'Date Create'),
-            'date_create_gmt' => Yii::t('app', 'Date Create Gmt'),
-            'date_modified' => Yii::t('app', 'Date Modified'),
-            'date_modified_gmt' => Yii::t('app', 'Date Modified Gmt'),
-        ];
-    }
+			'date_create'            => Yii::t('app', 'Date Create'),
+			'date_create_gmt'        => Yii::t('app', 'Date Create Gmt'),
+			'date_modified'          => Yii::t('app', 'Date Modified'),
+			'date_modified_gmt'      => Yii::t('app', 'Date Modified Gmt'),
+		];
+	}
 
 	/**
 	 * Получение товаров
@@ -86,13 +85,19 @@ class Products extends \yii\db\ActiveRecord
 
 		//Вид отображения товаров
 		if (!empty($options['view_products'])) {
-			$_SESSION['view_products'] = $options['view_products'];
+			$_COOKIE['view_products'] = $_SESSION['view_products'] = $options['view_products'];
+			exit();
+		}
+
+		//Переключение сортировки
+		if (!empty($options['sort']) && !empty($options['save_sort']) && $options['save_sort']) {
+			$_COOKIE['sort'] = $_SESSION['sort'] = $options['sort'];
 			exit();
 		}
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
-		$active_currency=Currencies::activeCurrency();
+		$active_currency = Currencies::activeCurrency();
 
 		if (!empty($options['currency'])) {
 			foreach ($currencies as $key => $val) {
@@ -108,48 +113,49 @@ class Products extends \yii\db\ActiveRecord
 		}
 
 		//Фильтрация товаров
-		$filter= self::addFilters($options);
+		$filter = self::addFilters($options);
 
 		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
 CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
-		(prod.product_price * ".$active_currency['currency_course']."), 
-		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		(prod.product_price * " . $active_currency['currency_course'] . "), 
+		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
 		) AS DECIMAL(12,2)
 	)
-) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "")."
+) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
 		" . (!empty($filter['query']) ? "WHERE 1=1 AND " . $filter['query'] : "") . " 
-GROUP BY prod.product_id " .
-			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " : "").(!empty($sort['order']) ? $sort['order'] : "");
+GROUP BY prod.product_id" . (!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") . " 
+" .
+			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " : " ") . (!empty($sort['order']) ? $sort['order'] : " ");
+		//d($query);
+		$command = Yii::$app->db->createCommand($query);
 
-		$command=Yii::$app->db->createCommand($query);
-
-		foreach($filter['bind_param'] as $name=>$value){
-			$command->bindValue($name,$value);
+		foreach ($filter['bind_param'] as $name => $value) {
+			$command->bindValue($name, $value);
 		}
 
 		$count = count($command->queryAll());
 
 		$dataProvider = new SqlDataProvider([
-			'sql' => $query,
-			'params' => $filter['bind_param'],
+			'sql'        => $query,
+			'params'     => $filter['bind_param'],
 			'totalCount' => (int)$count,
 			'pagination' => [
 				// количество пунктов на странице
-				'pageSize' => $pageSize,
+				'pageSize'   => $pageSize,
 				'totalCount' => (int)$count,
 			]
 		]);
 
 		return [
-			'products' => $dataProvider->getModels(),
-			'pagination'=>$dataProvider->getPagination(),
-			'currencies'=>$currencies,
-			'active_currency'=>$active_currency,
+			'products'        => $dataProvider->getModels(),
+			'pagination'      => $dataProvider->getPagination(),
+			'currencies'      => $currencies,
+			'active_currency' => $active_currency,
 		];
 	}
 
@@ -164,10 +170,10 @@ GROUP BY prod.product_id " .
 
 		unset($filters['sort']);
 
-		$where=[];
-		$bind_param=[];
-		$list_filters=[];
-		$count_conditions=0;
+		$where = [];
+		$bind_param = [];
+		$list_filters = [];
+		$count_conditions = 0;
 
 		//Фильтры из БД
 		if (!empty($filters)) {
@@ -191,20 +197,20 @@ GROUP BY prod.product_id " .
 							case "SELECT":
 								$list_filters['SELECT'][$fil_name] = $fil_value;
 								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . "=:" . $fil_name . ")";
-								$bind_param[':' . $fil_name] = $_SESSION[$fil_name] = $list_filters['SELECT'][$fil_name];
+								$bind_param[':' . $fil_name] = $_COOKIE[$fil_name] = $_SESSION[$fil_name] = $list_filters['SELECT'][$fil_name];
 								$count_conditions++;
 								break;
 							case "MULTISELECT":
 								$list_filters['MULTISELECT'][$fil_name] = explode(',', $fil_value);
 								$prop_arr = [];
-								$sess=[];
+								$sess = [];
 								foreach ($list_filters['MULTISELECT'][$fil_name] as $key => $val) {
 									$prop_arr[] = ':' . $fil_name . $key;
 									$bind_param[':' . $fil_name . $key] = $val;
-									$sess[]= $val;
+									$sess[] = $val;
 								}
 								if (!empty($sess)) {
-									$_SESSION[$fil_name] = $sess;
+									$_COOKIE[$fil_name] = $_SESSION[$fil_name] = $sess;
 								}
 								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . " IN (" . implode(',', $prop_arr) . "))";
 								$count_conditions++;
@@ -214,11 +220,11 @@ GROUP BY prod.product_id " .
 									$range = explode('|', $fil_value);
 									$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . ">=:" .
 										$fil_name . "_first AND prod_prop." . $val_type . "<=:" . $fil_name . "_last)";
-									$bind_param[':' . $fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
-									$bind_param[':' . $fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
+									$bind_param[':' . $fil_name . '_first'] = $_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
+									$bind_param[':' . $fil_name . '_last'] = $_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
 									if ($fil_prop_value['type'] === 'DATE') {
-										$_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
-										$_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
+										$_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
+										$_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
 									}
 									$count_conditions++;
 								}
@@ -240,8 +246,8 @@ GROUP BY prod.product_id " .
 		if (!empty($filters['product_price']) && mb_strpos($filters['product_price'], '|') !== false) {
 			$range = explode('|', $filters['product_price']);
 			$where[] = "(prod.product_price>=:product_price_first AND prod.product_price<=:product_price_last)";
-			$bind_param[':product_price_first'] = $_SESSION['product_price_first']= $range[0];
-			$bind_param[':product_price_last'] = $_SESSION['product_price_last'] = $range[1];
+			$bind_param[':product_price_first'] = $_COOKIE['product_price_first'] = $_SESSION['product_price_first'] = $range[0];
+			$bind_param[':product_price_last'] = $_COOKIE['product_price_last'] = $_SESSION['product_price_last'] = $range[1];
 			$count_conditions++;
 		}
 
@@ -252,28 +258,34 @@ GROUP BY prod.product_id " .
 
 				switch ($fil_prop_value['filter']) {
 					case "SELECT":
-							if (!empty($fil_prop_value['property_name'])) {
-								unset($_SESSION[$fil_prop_value['property_name']]);
-							}
+						if (!empty($fil_prop_value['property_name'])) {
+							unset($_COOKIE[$fil_prop_value['property_name']]);
+							unset($_SESSION[$fil_prop_value['property_name']]);
+						}
 						break;
 					case "MULTISELECT":
-							if (!empty($fil_prop_value['property_name'])) {
-								unset($_SESSION[$fil_prop_value['property_name']]);
-							}
+						if (!empty($fil_prop_value['property_name'])) {
+							unset($_COOKIE[$fil_prop_value['property_name']]);
+							unset($_SESSION[$fil_prop_value['property_name']]);
+						}
 						break;
 					case "RANGE":
 						if (!empty($fil_prop_value['property_name'])) {
-							unset($_SESSION[$fil_prop_value['property_name'].'_first']);
-							unset($_SESSION[$fil_prop_value['property_name'].'_last']);
+							unset($_COOKIE[$fil_prop_value['property_name'] . '_first']);
+							unset($_COOKIE[$fil_prop_value['property_name'] . '_last']);
+							unset($_SESSION[$fil_prop_value['property_name'] . '_first']);
+							unset($_SESSION[$fil_prop_value['property_name'] . '_last']);
 						}
 						break;
 				}
 			}
 
 			if (!empty($_SESSION['product_price_first'])) {
+				unset($_COOKIE['product_price_first']);
 				unset($_SESSION['product_price_first']);
 			}
 			if (!empty($_SESSION['product_price_last'])) {
+				unset($_COOKIE['product_price_last']);
 				unset($_SESSION['product_price_last']);
 			}
 
@@ -300,7 +312,7 @@ GROUP BY prod.product_id " .
 			$query = "SELECT * FROM {{%properties}} WHERE active='Y' AND sort='Y' AND show_index='Y'";
 			$sort_properties = Yii::$app->db->createCommand($query)->queryAll();
 
-			$arr_sort_type=Properties::getArrValueType();
+			$arr_sort_type = Properties::getArrValueType();
 
 			//Сортировка по установленным свойствам
 			foreach ($sort_properties as $key => $value) {
@@ -308,14 +320,15 @@ GROUP BY prod.product_id " .
 				if ($sort_name === $value['property_name'] . "_asc") {
 
 					$sort['value'] = Properties::setValueType($arr_sort_type, $value['type']);
-					$sort['property']="AND prod_prop.property_id=".(int)$value['property_id'];
-					$sort['order'] = "ORDER BY IF(prod_prop.".$sort['value']." IS NULL, 1 ,0),prod_prop.".$sort['value']." ASC";
-
+					$sort['property'] = "AND prod_prop.property_id=" . (int)$value['property_id'];
+					$sort['order'] = "ORDER BY IF(prod_prop." . $sort['value'] . " IS NULL, 1 ,0),prod_prop." . $sort['value'] . " ASC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = $value['property_name'] . "_asc";
 				} elseif ($sort_name === $value['property_name'] . "_desc") {
 
 					$sort['value'] = Properties::setValueType($arr_sort_type, $value['type']);
-					$sort['property']="AND prod_prop.property_id=".(int)$value['property_id'];
-					$sort['order'] = "ORDER BY IF(prod_prop.".$sort['value']." IS NULL, 1 ,0),prod_prop.".$sort['value']." DESC";
+					$sort['property'] = "AND prod_prop.property_id=" . (int)$value['property_id'];
+					$sort['order'] = "ORDER BY IF(prod_prop." . $sort['value'] . " IS NULL, 1 ,0),prod_prop." . $sort['value'] . " DESC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = $value['property_name'] . "_desc";
 				}
 
 			}
@@ -323,30 +336,47 @@ GROUP BY prod.product_id " .
 			switch ($sort_name) {
 				case "product_title_asc":
 					$sort['order'] = "ORDER BY IF(prod.product_title IS NULL, 1 ,0),prod.product_title ASC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = "product_title_asc";
+					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Названию(A-Z)';
 					break;
 				case "product_title_desc":
 					$sort['order'] = "ORDER BY IF(prod.product_title IS NULL, 1 ,0),prod.product_title DESC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = "product_title_desc";
+					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Названию(Z-A)';
 					break;
 				case "product_price_asc":
 					$sort['order'] = "ORDER BY IF(prod.product_price IS NULL, 1 ,0),prod.product_price ASC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = "product_price_asc";
+					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Цене, сначала недорогие';
 					break;
 				case "product_price_desc":
 					$sort['order'] = "ORDER BY IF(prod.product_price IS NULL, 1 ,0),prod.product_price DESC";
+					$_COOKIE['sort'] = $_SESSION['sort'] = "product_price_desc";
+					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Цене, сначала дорогие';
 					break;
 			}
+		}
+
+		switch ($_SESSION['sort']) {
+			case "data_vyhoda_desc":
+				$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Дате выхода, сначала новые';
+				break;
+			case "data_vyhoda_asc":
+				$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Дате выхода, сначала старые';
+				break;
 		}
 
 		return $sort;
 	}
 
 	/**
-	 * Получение товара
+	 * Получение товара по id и alias
 	 *
 	 * @param $options
 	 *
 	 * @return mixed
 	 */
-	public function getOne($id, $alias) {
+	public function getOneIdAlias($id, $alias) {
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
@@ -356,8 +386,8 @@ GROUP BY prod.product_id " .
 CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
-		(prod.product_price * ".$active_currency['currency_course']."), 
-		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		(prod.product_price * " . $active_currency['currency_course'] . "), 
+		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price
@@ -368,6 +398,43 @@ WHERE prod.product_id=:product_id AND prod.chpu=:chpu LIMIT 1
 		$command = Yii::$app->db->createCommand($query);
 		$command->bindValue(':product_id', (int)$id);
 		$command->bindValue(':chpu', $alias);
+		$product = $command->queryOne();
+
+		return [
+			'product'         => $product,
+			'currencies'      => $currencies,
+			'active_currency' => $active_currency,
+		];
+	}
+
+	/**
+	 * Получение товара по id
+	 *
+	 * @param $options
+	 *
+	 * @return mixed
+	 */
+	public function getOneId($id) {
+
+		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
+
+		$active_currency = Currencies::activeCurrency();
+
+		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+CEIL(
+	CAST(
+		IF(product_discount IS NULL ,
+		(prod.product_price * " . $active_currency['currency_course'] . "), 
+		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
+		) AS DECIMAL(12,2)
+	)
+) as final_product_price
+FROM {{%products}} prod
+WHERE prod.product_id=:product_id LIMIT 1
+		";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':product_id', (int)$id);
 		$product = $command->queryOne();
 
 		return [
@@ -390,28 +457,28 @@ WHERE prod.product_id=:product_id
 		$command->bindValue(':product_id', (int)$id);
 		$images = $command->queryAll();
 
-		$image_main=[];
-		$images_big_screen=[];
-		$images_small_screen=[];
+		$image_main = [];
+		$images_big_screen = [];
+		$images_small_screen = [];
 
-		foreach ($images as $key=>$value){
+		foreach ($images as $key => $value) {
 			switch ($value['type_image']) {
 				case "MAIN":
-					$image_main=$value;
+					$image_main = $value;
 					break;
 				case "BIG_SCREENSHOT":
-					$images_big_screen[$value['image_big_small']]=$value;
+					$images_big_screen[$value['image_big_small']] = $value;
 					break;
 				case "SMALL_SCREENSHOT":
-					$images_small_screen[$value['image_big_small']]=$value;
+					$images_small_screen[$value['image_big_small']] = $value;
 					break;
 			}
 
 		}
 
 		return [
-			'image_main' => $image_main,
-			'images_big_screen' => $images_big_screen,
+			'image_main'          => $image_main,
+			'images_big_screen'   => $images_big_screen,
 			'images_small_screen' => $images_small_screen,
 		];
 	}

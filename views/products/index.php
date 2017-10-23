@@ -64,11 +64,21 @@ JS;
 		});
 	}
 
+	function saveSortProducts(sort_products) {
+		$.ajax({
+			type: "POST",
+			url: "<?= Yii::$app->homeUrl . "product" ?>",
+			async: true,
+			data: "sort="+sort_products+"&save_sort=true",
+		});
+	}
+
 </script>
 
 <div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
 		<form class="list_sidebar" name="filtersproducts"  action="<?= Yii::$app->homeUrl . "product" ?>" method="get">
+			<input type="hidden" name="sort" <?= $_SESSION['sort'] ? 'value="' . $_SESSION['sort'] . '"' : '' ?> >
 			<div class="column">
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseSearch" aria-expanded="true" aria-controls="collapseExample">
@@ -193,15 +203,15 @@ JS;
 					<span>Сортировать по:</span>
 					<span class="dropdown" id="sort_list">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<span class="sort_type">Популярности </span><span class="caret"></span>
+						<span class="sort_type"><?= !$_SESSION['sort_title'] ? 'Цене, сначала недорогие' : $_SESSION['sort_title'] ?></span><span class="caret"></span>
 					</a>
 				<ul class="dropdown-menu">
-					<a class="sort_item" href=""><li>Цене, сначала недорогие</li></a>
-					<a class="sort_item" href=""><li>Цене, сначала дорогие</li></a>
-					<a class="sort_item" href=""><li>Популярности</li></a>
-					<a class="sort_item" href=""><li>Названию</li></a>
-					<a class="sort_item" href=""><li>Дате выхода, сначала новые</li></a>
-					<a class="sort_item" href=""><li>Дате выхода, сначала старые</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'product_price_asc') ?>"><li>Цене, сначала недорогие</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'product_price_desc') ?>"><li>Цене, сначала дорогие</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'product_title_asc') ?>"><li>Названию(A-Z)</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'product_title_desc') ?>"><li>Названию(Z-A)</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'data_vyhoda_desc') ?>"><li>Дате выхода, сначала новые</li></a>
+					<a class="sort_item" href="<?= insertValueInUrl('sort', 'data_vyhoda_asc') ?>"><li>Дате выхода, сначала старые</li></a>
 				</ul>
 			</span>
 					<i id="list" class="fa fa-list-ul active_state" aria-hidden="true" onclick="saveViewProducts('list');"></i>
