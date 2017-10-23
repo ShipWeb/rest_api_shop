@@ -1061,6 +1061,17 @@ footer {
 .buy:hover{
 	box-shadow: 0 0 20px rgba(0, 0 , 0, 0.6);
 }
+
+.buy a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.buy a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
 .goods_info{
 	color: #f10545;
 	text-decoration: none;

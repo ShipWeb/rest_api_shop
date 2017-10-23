@@ -34,7 +34,9 @@
 					<?php } ?>
 				</div>
 
-				<button class="buy">Купить</button>
+				<button class="buy">
+					<a href="<?= Yii::$app->homeUrl . 'basket?product_id=' . $product['product_id'] ?>">Купить</a>
+				</button>
 			</div>
 		</div>
 	</div>
