@@ -59,12 +59,16 @@ AppAsset::register($this);
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-							Валюта <i class="fa fa-rub del" aria-hidden="true"></i>
+							Валюта
+							<i class="fa fa-<?= empty($_SESSION['active_currency']) ? 'rub' : strtolower($_SESSION['active_currency']) ?> del" aria-hidden="true"></i>
 							<span id="currency" class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li id="rub"><a href="#"><i class="fa fa-rub" aria-hidden="true"></i> Рубли </a></li>
-							<li id="usd"><a href="#"><i class="fa fa-usd" aria-hidden="true"></i> Доллары </a></li>
-							<li id="uah"><a href="#"><i class="uah">₴</i> Укр. Гривны </a></li>
+							<li id="rub">
+								<a href="<?= insertValueInUrl('active_currency', 'rub') ?>"><i class="fa fa-rub" aria-hidden="true"></i>
+									Рубли </a></li>
+							<li id="usd">
+								<a href="<?= insertValueInUrl('active_currency', 'usd') ?>"><i class="fa fa-usd" aria-hidden="true"></i>
+									Доллары </a></li>
 						</ul>
 					</li>
 				</ul>
@@ -76,8 +80,8 @@ AppAsset::register($this);
 			<a href="#"><img class="img-responsive" src="<?= Yii::$app->homeUrl ?>images/logo.png"></a>
 		</div>
 		<div class="col-sm-5 col-md-5 col-lg-6 search">
-			<form class="form-top-search" action="">
-				<input id="search" class="form-control" autocomplete="off" placeholder="Поиск среди 2700 товаров">
+			<form class="form-top-search" method="get" action="<?= Yii::$app->homeUrl.'product' ?>">
+				<input id="search" name="search_text" class="form-control" autocomplete="off" placeholder="Поиск среди 2700 товаров" value="">
 				<button class="btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
 
 				<div id="header_search" class="live_search">

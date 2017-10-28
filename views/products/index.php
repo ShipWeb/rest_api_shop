@@ -86,7 +86,7 @@ JS;
 					</a>
 					<div class="collapse in" id="collapseSearch">
 						<div class="well">
-							<input class="form-control" autocomplete="off">
+							<input class="form-control" autocomplete="off" name="search_text" value="">
 						</div>
 					</div>
 				</div>

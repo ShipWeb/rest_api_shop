@@ -1741,3 +1741,7 @@ span.type{
 	}
 }
 
+#rub, #usd {
+	cursor: pointer
+}
+

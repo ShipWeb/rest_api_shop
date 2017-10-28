@@ -95,6 +95,10 @@ class Products extends \yii\db\ActiveRecord {
 			exit();
 		}
 
+		if (empty($options)) {
+			Products::addUrl();
+		}
+
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 
 		$active_currency = Currencies::activeCurrency();
@@ -123,15 +127,19 @@ CEIL(
 		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
 		) AS DECIMAL(12,2)
 	)
-) as final_product_price" . (!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
+) as final_product_price" .
+			(!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
 		" . (!empty($filter['query']) ? "WHERE 1=1 AND " . $filter['query'] : "") . " 
-GROUP BY prod.product_id" . (!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") . " 
+GROUP BY prod.product_id" .
+			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") . " 
 " .
-			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " : " ") . (!empty($sort['order']) ? $sort['order'] : " ");
-		//d($query);
+			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " .
+			(!empty($filter['bind_param'][':search_text']) ? " AND prod.product_title LIKE :search_text " : " ") :
+			(!empty($filter['bind_param'][':search_text']) ? " HAVING prod.product_title LIKE :search_text " : " ") . " ") .
+			(!empty($sort['order']) ? $sort['order'] : " ");
 		$command = Yii::$app->db->createCommand($query);
 
 		foreach ($filter['bind_param'] as $name => $value) {
@@ -183,6 +191,13 @@ GROUP BY prod.product_id" . (!empty($sort['value']) ? ",prod_prop." . $sort['val
 
 			//Прохождение по фильтрам из БД
 			foreach ($filter_properties as $fil_prop_key => $fil_prop_value) {
+
+				unset($_COOKIE[$fil_prop_value['property_name']]);
+				unset($_SESSION[$fil_prop_value['property_name']]);
+				unset($_COOKIE[$fil_prop_value['property_name'].'_first']);
+				unset($_SESSION[$fil_prop_value['property_name'].'_first']);
+				unset($_COOKIE[$fil_prop_value['property_name'].'_last']);
+				unset($_SESSION[$fil_prop_value['property_name'].'_last']);
 
 				//Прохождение по фильтрам из запроса
 				foreach ($filters as $fil_name => $fil_value) {
@@ -251,6 +266,12 @@ GROUP BY prod.product_id" . (!empty($sort['value']) ? ",prod_prop." . $sort['val
 			$count_conditions++;
 		}
 
+		//Фильтр поискового запроса
+		if (!empty($filters['search_text'])) {
+			$bind_param[':search_text'] = $_COOKIE['search_text'] = $_SESSION['search_text'] = '%'.$filters['search_text'].'%';
+		}
+
+
 		//Сброс фильтров
 		if (!empty($filters['delete_filters']) && $filters['delete_filters'] == true) {
 
@@ -291,7 +312,11 @@ GROUP BY prod.product_id" . (!empty($sort['value']) ? ",prod_prop." . $sort['val
 
 		}
 
-		return ["data" => $list_filters, "query" => implode(' OR ', $where), "bind_param" => $bind_param, "count_conditions" => $count_conditions];
+		return ["data" => $list_filters,
+				"query" => implode(' OR ', $where),
+				"bind_param" => $bind_param,
+				"count_conditions" => $count_conditions
+		];
 	}
 
 	/**
@@ -481,6 +506,34 @@ WHERE prod.product_id=:product_id
 			'images_big_screen'   => $images_big_screen,
 			'images_small_screen' => $images_small_screen,
 		];
+	}
+
+	public function addUrl() {
+
+		$addurl = [];
+		if (!empty($_SESSION['sort'])) {
+			$addurl[] = 'sort=' . $_SESSION['sort'];
+		}
+		$query = "SELECT * FROM {{%properties}} WHERE active='Y' AND show_index='Y' ORDER BY property_id";
+		$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
+
+		foreach ($filter_properties as $key => $value) {
+			if ($value['filter'] == 'RANGE' && !empty($_SESSION[$value['property_name'] . '_first']) && !empty($_SESSION[$value['property_name'] . '_last'])) {
+				$addurl[] = $value['property_name'] . '=' . $_SESSION[$value['property_name'] . '_first'] . '_' . $_SESSION[$value['property_name'] . '_last'];
+			}
+			if ($value['filter'] == 'SELECT' && !empty($_SESSION[$value['property_name']])) {
+				$addurl[] = $value['property_name'] . '=' . $_SESSION[$value['property_name']];
+			}
+			if ($value['filter'] == 'MULTISELECT' && !empty($_SESSION[$value['property_name']])) {
+				$addurl[] = $value['property_name'] . '=' . implode(',', $_SESSION[$value['property_name']]);
+			}
+		}
+
+		if (!empty($addurl)) {
+			$url = Yii::$app->homeUrl . 'product?' . implode('&', $addurl);
+			header('Location: ' . $url);
+			exit();
+		}
 	}
 
 }

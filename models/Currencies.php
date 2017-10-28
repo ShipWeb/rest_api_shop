@@ -52,11 +52,52 @@ class Currencies extends \yii\db\ActiveRecord
         ];
     }
 
+	/**
+	 * @return array|false
+	 */
 	public function activeCurrency() {
 
 		$query = "SELECT * FROM {{%currencies}} WHERE currency_active='Y' AND currency_main='Y' LIMIT 1";
 
 		return Yii::$app->db->createCommand($query)->queryOne();
+	}
+
+	/**
+	 * @param $currency_name
+	 *
+	 * @return bool
+	 */
+	public function changeCurrency($currency_name) {
+
+		$query = "SELECT * FROM {{%currencies}} WHERE currency_active='Y' AND currency_name=:currency_name LIMIT 1";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':currency_name', $currency_name);
+		$currency = $command->queryOne();
+
+		if (empty($currency) || empty($currency['currency_id'])) {
+			return false;
+		}
+
+		$query = "UPDATE {{%currencies}} SET currency_main='N'";
+		Yii::$app->db->createCommand($query)->query();
+
+		$query = "UPDATE {{%currencies}} SET currency_main='Y' WHERE currency_id=:currency_id";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':currency_id', $currency['currency_id'])->query();
+
+		return true;
+	}
+
+	public function checkCurrency() {
+
+		if (!empty($_REQUEST['active_currency'])) {
+			if ($res = Currencies::changeCurrency($_REQUEST['active_currency'])) {
+				$_COOKIE['active_currency'] = $_SESSION['active_currency'] = $_REQUEST['active_currency'];
+			}
+		}
+
 	}
 
 }

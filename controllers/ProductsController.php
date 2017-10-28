@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Currencies;
 use app\models\Products;
 use app\models\Categories;
 use app\models\Properties;
@@ -24,7 +25,7 @@ class ProductsController extends \yii\web\Controller
 	 */
 	public function actionIndex() {
 
-		$properties = Properties::getAll();
+		Currencies::checkCurrency();
 
 		$data = Products::getAll($_REQUEST);
 
@@ -40,6 +41,8 @@ class ProductsController extends \yii\web\Controller
 	 * @return string
 	 */
 	public function actionView($id, $alias) {
+
+		Currencies::checkCurrency();
 
 		$product_all = Products::getOneIdAlias($id, $alias);
 
@@ -66,6 +69,8 @@ class ProductsController extends \yii\web\Controller
 	}
 
 	public function actionBasket($products = false) {
+
+		Currencies::checkCurrency();
 
 		$product['product'] = false;
 		$product['currencies'] = false;
