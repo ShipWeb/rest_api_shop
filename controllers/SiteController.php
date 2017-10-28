@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Currencies;
 
 class SiteController extends Controller
 {
@@ -61,6 +62,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+		Currencies::checkCurrency();
+
         return $this->render('index');
     }
 

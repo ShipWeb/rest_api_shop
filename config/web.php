@@ -58,6 +58,11 @@ $config = [
 			'enableStrictParsing' => true,
 			'showScriptName'  => false,
 			'rules' => [
+				'<module:admin>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
+				'<module:admin>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+				'<module:admin>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+
+
 				'/product/<id:\d+>/<alias:.+>' => 'products/view',
 				'/product'                     => 'products/index',
 				'/basket'                     => 'products/basket',

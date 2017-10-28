@@ -57,7 +57,7 @@ function insertValueInUrl($param,$value ) {
 	if (!empty($_REQUEST[$param])) {
 
 		return str_replace($param . '=' . $_REQUEST[$param], $param . '=' . $value, $url);
-	} elseif (strpos($url, '&') !== false) {
+	} elseif (strpos($url, '&') !== false || strpos($url, '?') !== false) {
 
 		return $url . '&' . $param . '=' . $value;
 	} else {
