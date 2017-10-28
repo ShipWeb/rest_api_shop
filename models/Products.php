@@ -132,13 +132,13 @@ CEIL(
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
-		" . (!empty($filter['query']) ? "WHERE 1=1 AND " . $filter['query'] : "") . " 
+		" . (!empty($filter['where']) ? "WHERE 1=1 AND " . $filter['where'] : "") . " 
 GROUP BY prod.product_id" .
 			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") . " 
 " .
-			(!empty($filter['count_conditions']) ? " HAVING count_conditions>=:filter_count_conditions " .
-			(!empty($filter['bind_param'][':search_text']) ? " AND prod.product_title LIKE :search_text " : " ") :
-			(!empty($filter['bind_param'][':search_text']) ? " HAVING prod.product_title LIKE :search_text " : " ") . " ") .
+
+			(!empty($filter['having']) ? " HAVING " .$filter['having']." ": " ") .
+
 			(!empty($sort['order']) ? $sort['order'] : " ");
 		$command = Yii::$app->db->createCommand($query);
 
@@ -179,6 +179,7 @@ GROUP BY prod.product_id" .
 		unset($filters['sort']);
 
 		$where = [];
+		$having = [];
 		$bind_param = [];
 		$list_filters = [];
 		$count_conditions = 0;
@@ -233,14 +234,22 @@ GROUP BY prod.product_id" .
 							case "RANGE":
 								if (mb_strpos($fil_value, '|') !== false) {
 									$range = explode('|', $fil_value);
-									$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . ">=:" .
-										$fil_name . "_first AND prod_prop." . $val_type . "<=:" . $fil_name . "_last)";
-									$bind_param[':' . $fil_name . '_first'] = $_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
-									$bind_param[':' . $fil_name . '_last'] = $_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
-									if ($fil_prop_value['type'] === 'DATE') {
-										$_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
-										$_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
+									$arr=[];
+									if (!empty($range[0])) {
+										$bind_param[':' . $fil_name . '_first'] = $_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
+										if ($fil_prop_value['type'] === 'DATE') {
+											$_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
+										}
+										$arr[]="prod_prop." . $val_type . ">=:" .$fil_name . "_first";
 									}
+									if (!empty($range[1])) {
+										$bind_param[':' . $fil_name . '_last'] = $_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
+										if ($fil_prop_value['type'] === 'DATE') {
+											$_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
+										}
+										$arr[]="prod_prop." . $val_type . "<=:" . $fil_name . "_last";
+									}
+									$where[] = "(prop.property_name='" . $fil_name . "' AND " . implode(' AND ', $arr) . ")";
 									$count_conditions++;
 								}
 								break;
@@ -255,20 +264,28 @@ GROUP BY prod.product_id" .
 		}
 		if (!empty($count_conditions) && $count_conditions > 0) {
 			$bind_param[':filter_count_conditions'] = $count_conditions;
+			$having[]='count_conditions>=:filter_count_conditions';
 		}
 
 		//Фильтр цен
 		if (!empty($filters['product_price']) && mb_strpos($filters['product_price'], '|') !== false) {
 			$range = explode('|', $filters['product_price']);
-			$where[] = "(prod.product_price>=:product_price_first AND prod.product_price<=:product_price_last)";
-			$bind_param[':product_price_first'] = $_COOKIE['product_price_first'] = $_SESSION['product_price_first'] = $range[0];
-			$bind_param[':product_price_last'] = $_COOKIE['product_price_last'] = $_SESSION['product_price_last'] = $range[1];
-			$count_conditions++;
+			$arr = [];
+			if (!empty($range[0])) {
+				$bind_param[':product_price_first'] = $_COOKIE['product_price_first'] = $_SESSION['product_price_first'] = $range[0];
+				$arr[] = "final_product_price>=:product_price_first";
+			}
+			if (!empty($range[1])) {
+				$bind_param[':product_price_last'] = $_COOKIE['product_price_last'] = $_SESSION['product_price_last'] = $range[1];
+				$arr[] = "final_product_price<=:product_price_last";
+			}
+			$having[] = '(' . implode(' AND ', $arr) . ')';
 		}
 
 		//Фильтр поискового запроса
 		if (!empty($filters['search_text'])) {
 			$bind_param[':search_text'] = $_COOKIE['search_text'] = $_SESSION['search_text'] = '%'.$filters['search_text'].'%';
+			$having[]='prod.product_title LIKE :search_text';
 		}
 
 
@@ -313,7 +330,8 @@ GROUP BY prod.product_id" .
 		}
 
 		return ["data" => $list_filters,
-				"query" => implode(' OR ', $where),
+				"where" => implode(' OR ', $where),
+				"having" => implode(' AND ', $having),
 				"bind_param" => $bind_param,
 				"count_conditions" => $count_conditions
 		];
@@ -375,7 +393,7 @@ GROUP BY prod.product_id" .
 					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Цене, сначала недорогие';
 					break;
 				case "product_price_desc":
-					$sort['order'] = "ORDER BY IF(prod.product_price IS NULL, 1 ,0),prod.product_price DESC";
+					$sort['order'] = "ORDER BY IF(final_product_price IS NULL, 1 ,0),final_product_price DESC";
 					$_COOKIE['sort'] = $_SESSION['sort'] = "product_price_desc";
 					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Цене, сначала дорогие';
 					break;
