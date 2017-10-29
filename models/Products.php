@@ -131,15 +131,12 @@ CEIL(
 			(!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
-	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' 
-		" . (!empty($filter['where']) ? "WHERE 1=1 AND " . $filter['where'] : "") . " 
-GROUP BY prod.product_id" .
-			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") . " 
-" .
-
+	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' " .
+			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " GROUP BY prod.product_id" .
+			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
 			(!empty($filter['having']) ? " HAVING " .$filter['having']." ": " ") .
-
 			(!empty($sort['order']) ? $sort['order'] : " ");
+
 		$command = Yii::$app->db->createCommand($query);
 
 		foreach ($filter['bind_param'] as $name => $value) {
@@ -176,7 +173,9 @@ GROUP BY prod.product_id" .
 	 */
 	public function addFilters($filters = false) {
 
-		unset($filters['sort']);
+		if (!empty($filters['sort'])) {
+			unset($filters['sort']);
+		}
 
 		$where = [];
 		$having = [];
@@ -193,12 +192,12 @@ GROUP BY prod.product_id" .
 			//Прохождение по фильтрам из БД
 			foreach ($filter_properties as $fil_prop_key => $fil_prop_value) {
 
-				unset($_COOKIE[$fil_prop_value['property_name']]);
-				unset($_SESSION[$fil_prop_value['property_name']]);
-				unset($_COOKIE[$fil_prop_value['property_name'].'_first']);
-				unset($_SESSION[$fil_prop_value['property_name'].'_first']);
-				unset($_COOKIE[$fil_prop_value['property_name'].'_last']);
-				unset($_SESSION[$fil_prop_value['property_name'].'_last']);
+				if (!empty($_COOKIE[$fil_prop_value['property_name']])) {
+					unset($_COOKIE[$fil_prop_value['property_name']]);
+				}
+				if (!empty($_SESSION[$fil_prop_value['property_name']])) {
+					unset($_SESSION[$fil_prop_value['property_name']]);
+				}
 
 				//Прохождение по фильтрам из запроса
 				foreach ($filters as $fil_name => $fil_value) {
@@ -241,6 +240,13 @@ GROUP BY prod.product_id" .
 											$_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
 										}
 										$arr[]="prod_prop." . $val_type . ">=:" .$fil_name . "_first";
+									} else {
+										if (!empty($_SESSION[$fil_name . '_first'])) {
+											unset($_SESSION[$fil_name . '_first']);
+										}
+										if (!empty($_COOKIE[$fil_name . '_first'])) {
+											unset($_COOKIE[$fil_name . '_first']);
+										}
 									}
 									if (!empty($range[1])) {
 										$bind_param[':' . $fil_name . '_last'] = $_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = $range[1];
@@ -248,9 +254,18 @@ GROUP BY prod.product_id" .
 											$_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
 										}
 										$arr[]="prod_prop." . $val_type . "<=:" . $fil_name . "_last";
+									} else {
+										if (!empty($_SESSION[$fil_name . '_last'])) {
+											unset($_SESSION[$fil_name . '_last']);
+										}
+										if (!empty($_COOKIE[$fil_name . '_last'])) {
+											unset($_COOKIE[$fil_name . '_last']);
+										}
 									}
-									$where[] = "(prop.property_name='" . $fil_name . "' AND " . implode(' AND ', $arr) . ")";
-									$count_conditions++;
+									if (!empty($range[0])||!empty($range[1])) {
+										$where[] = "(prop.property_name='" . $fil_name . "' AND " . implode(' AND ', $arr) . ")";
+										$count_conditions++;
+									}
 								}
 								break;
 						}
@@ -262,6 +277,7 @@ GROUP BY prod.product_id" .
 			}
 
 		}
+
 		if (!empty($count_conditions) && $count_conditions > 0) {
 			$bind_param[':filter_count_conditions'] = $count_conditions;
 			$having[]='count_conditions>=:filter_count_conditions';
@@ -274,12 +290,28 @@ GROUP BY prod.product_id" .
 			if (!empty($range[0])) {
 				$bind_param[':product_price_first'] = $_COOKIE['product_price_first'] = $_SESSION['product_price_first'] = $range[0];
 				$arr[] = "final_product_price>=:product_price_first";
+			} else {
+				if (!empty($_SESSION['product_price_first'])) {
+					unset($_SESSION['product_price_first']);
+				}
+				if (!empty($_COOKIE['product_price_first'])) {
+					unset($_COOKIE['product_price_first']);
+				}
 			}
 			if (!empty($range[1])) {
 				$bind_param[':product_price_last'] = $_COOKIE['product_price_last'] = $_SESSION['product_price_last'] = $range[1];
 				$arr[] = "final_product_price<=:product_price_last";
+			}  else {
+				if (!empty($_SESSION['product_price_last'])) {
+					unset($_SESSION['product_price_last']);
+				}
+				if (!empty($_COOKIE['product_price_last'])) {
+					unset($_COOKIE['product_price_last']);
+				}
 			}
-			$having[] = '(' . implode(' AND ', $arr) . ')';
+			if (!empty($range[0])||!empty($range[1])) {
+				$having[] = '(' . implode(' AND ', $arr) . ')';
+			}
 		}
 
 		//Фильтр поискового запроса
@@ -297,34 +329,55 @@ GROUP BY prod.product_id" .
 				switch ($fil_prop_value['filter']) {
 					case "SELECT":
 						if (!empty($fil_prop_value['property_name'])) {
-							unset($_COOKIE[$fil_prop_value['property_name']]);
-							unset($_SESSION[$fil_prop_value['property_name']]);
+							if (!empty($_COOKIE[$fil_prop_value['property_name']])) {
+								unset($_COOKIE[$fil_prop_value['property_name']]);
+							}
+							if (!empty($_SESSION[$fil_prop_value['property_name']])) {
+								unset($_SESSION[$fil_prop_value['property_name']]);
+							}
 						}
 						break;
 					case "MULTISELECT":
 						if (!empty($fil_prop_value['property_name'])) {
-							unset($_COOKIE[$fil_prop_value['property_name']]);
-							unset($_SESSION[$fil_prop_value['property_name']]);
+							if (!empty($_COOKIE[$fil_prop_value['property_name']])) {
+								unset($_COOKIE[$fil_prop_value['property_name']]);
+							}
+							if (!empty($_SESSION[$fil_prop_value['property_name']])) {
+								unset($_SESSION[$fil_prop_value['property_name']]);
+							}
 						}
 						break;
 					case "RANGE":
 						if (!empty($fil_prop_value['property_name'])) {
-							unset($_COOKIE[$fil_prop_value['property_name'] . '_first']);
-							unset($_COOKIE[$fil_prop_value['property_name'] . '_last']);
-							unset($_SESSION[$fil_prop_value['property_name'] . '_first']);
-							unset($_SESSION[$fil_prop_value['property_name'] . '_last']);
+							if (!empty($_COOKIE[$fil_prop_value['property_name'] . '_first'])) {
+								unset($_COOKIE[$fil_prop_value['property_name'] . '_first']);
+							}
+							if (!empty($_COOKIE[$fil_prop_value['property_name'] . '_last'])) {
+								unset($_COOKIE[$fil_prop_value['property_name'] . '_last']);
+							}
+							if (!empty($_SESSION[$fil_prop_value['property_name'] . '_first'])) {
+								unset($_SESSION[$fil_prop_value['property_name'] . '_first']);
+							}
+							if (!empty($_SESSION[$fil_prop_value['property_name'] . '_last'])) {
+								unset($_SESSION[$fil_prop_value['property_name'] . '_last']);
+							}
 						}
 						break;
 				}
 			}
 
 			if (!empty($_SESSION['product_price_first'])) {
-				unset($_COOKIE['product_price_first']);
 				unset($_SESSION['product_price_first']);
 			}
+			if (!empty($_COOKIE['product_price_first'])) {
+				unset($_COOKIE['product_price_first']);
+			}
+
 			if (!empty($_SESSION['product_price_last'])) {
-				unset($_COOKIE['product_price_last']);
 				unset($_SESSION['product_price_last']);
+			}
+			if (!empty($_COOKIE['product_price_last'])) {
+				unset($_COOKIE['product_price_last']);
 			}
 
 		}
@@ -388,7 +441,7 @@ GROUP BY prod.product_id" .
 					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Названию(Z-A)';
 					break;
 				case "product_price_asc":
-					$sort['order'] = "ORDER BY IF(prod.product_price IS NULL, 1 ,0),prod.product_price ASC";
+					$sort['order'] = "ORDER BY IF(final_product_price IS NULL, 1 ,0),final_product_price ASC";
 					$_COOKIE['sort'] = $_SESSION['sort'] = "product_price_asc";
 					$_COOKIE['sort_title'] = $_SESSION['sort_title'] = 'Цене, сначала недорогие';
 					break;
