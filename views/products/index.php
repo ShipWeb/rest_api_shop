@@ -15,18 +15,17 @@ JS;
 
 <script>
 	function calculateFields() {
-		var filter_name="";
+		var filter_name = "";
 		for (filter_name in arr_range) {
-			var start=document.getElementsByName('btn_start_'+filter_name)[0].value;
-			var end=document.getElementsByName('btn_end_'+filter_name)[0].value;
-			if (arr_range[filter_name]==='value_date'){
-				start=start+"-01-01 00:00:00";
-				end=end+"-12-31 23:59:59";
+			var start = document.getElementsByName('btn_start_' + filter_name)[0].value;
+			var end = document.getElementsByName('btn_end_' + filter_name)[0].value;
+			if (arr_range[filter_name] === 'value_date') {
+				start = start + "-01-01 00:00:00";
+				end = end + "-12-31 23:59:59";
 			}
-			document.getElementsByName(filter_name)[0].value = start+'|'+end;
-			console.log(document.getElementsByName(filter_name)[0].value);
+			document.getElementsByName(filter_name)[0].value = start + '|' + end;
 		}
-		var filter_name="";
+		var filter_name = "";
 		for (filter_name in arr_multiselect) {
 			var field = "";
 
@@ -39,7 +38,7 @@ JS;
 			}
 
 			if (field === "") {
-				document.getElementsByName(filter_name)[0].remove();
+				$("input[name='" + filter_name + "']").remove();
 			} else {
 				document.getElementsByName(filter_name)[0].value = field;
 			}
@@ -47,11 +46,9 @@ JS;
 
 		var first_price = document.getElementsByName('product_price_first')[0].value.replace(",", ".");
 		var last_price = document.getElementsByName('product_price_last')[0].value.replace(",", ".");
-		document.getElementsByName('product_price_first')[0].remove();
-		document.getElementsByName('product_price_last')[0].remove();
-		if (first_price >= 0 && last_price >= 0 && last_price > first_price) {
-			document.getElementsByName('product_price')[0].value = first_price + '|' + last_price;
-		}
+		$("input[name='product_price_first']").remove();
+		$("input[name='product_price_last']").remove();
+		document.getElementsByName('product_price')[0].value = first_price + '|' + last_price;
 
 	}
 
@@ -60,7 +57,7 @@ JS;
 			type: "POST",
 			url: "<?= Yii::$app->homeUrl . "product" ?>",
 			async: true,
-			data: "view_products="+view_products,
+			data: "view_products=" + view_products,
 		});
 	}
 
@@ -69,7 +66,7 @@ JS;
 			type: "POST",
 			url: "<?= Yii::$app->homeUrl . "product" ?>",
 			async: true,
-			data: "sort="+sort_products+"&save_sort=true",
+			data: "sort=" + sort_products + "&save_sort=true",
 		});
 	}
 
@@ -78,7 +75,7 @@ JS;
 <div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
 		<form class="list_sidebar" name="filtersproducts"  action="<?= Yii::$app->homeUrl . "product" ?>" method="get">
-			<input type="hidden" name="sort" <?= $_SESSION['sort'] ? 'value="' . $_SESSION['sort'] . '"' : '' ?> >
+			<input type="hidden" name="sort" <?= !empty($_SESSION['sort']) ? 'value="' . $_SESSION['sort'] . '"' : '' ?> >
 			<div class="column">
 				<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseSearch" aria-expanded="true" aria-controls="collapseExample">
@@ -203,7 +200,7 @@ JS;
 					<span>Сортировать по:</span>
 					<span class="dropdown" id="sort_list">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<span class="sort_type"><?= !$_SESSION['sort_title'] ? 'Цене, сначала недорогие' : $_SESSION['sort_title'] ?></span><span class="caret"></span>
+						<span class="sort_type"><?= empty($_SESSION['sort_title']) ? 'Цене, сначала недорогие' : $_SESSION['sort_title'] ?></span><span class="caret"></span>
 					</a>
 				<ul class="dropdown-menu">
 					<a class="sort_item" href="<?= insertValueInUrl('sort', 'product_price_asc') ?>"><li>Цене, сначала недорогие</li></a>
