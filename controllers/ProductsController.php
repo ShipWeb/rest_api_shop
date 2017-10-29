@@ -27,6 +27,8 @@ class ProductsController extends \yii\web\Controller
 
 		Currencies::checkCurrency();
 
+		Products::checkLiveSearch();
+
 		$data = Products::getAll($_REQUEST);
 
 		return $this->render('index', $data);
@@ -43,6 +45,8 @@ class ProductsController extends \yii\web\Controller
 	public function actionView($id, $alias) {
 
 		Currencies::checkCurrency();
+
+		Products::checkLiveSearch();
 
 		$product_all = Products::getOneIdAlias($id, $alias);
 
@@ -71,6 +75,8 @@ class ProductsController extends \yii\web\Controller
 	public function actionBasket($products = false) {
 
 		Currencies::checkCurrency();
+
+		Products::checkLiveSearch();
 
 		$product['product'] = false;
 		$product['currencies'] = false;

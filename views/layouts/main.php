@@ -257,10 +257,84 @@ AppAsset::register($this);
 
 <?php $this->endBody() ?>
 <script>
-	$('.nav-tabs a:first').click(function (e) {
-		e.preventDefault()
-		$(this).tab('show')
+	function calculateFields() {
+		var filter_name = "";
+		for (filter_name in arr_range) {
+			var start = document.getElementsByName('btn_start_' + filter_name)[0].value;
+			var end = document.getElementsByName('btn_end_' + filter_name)[0].value;
+			if (arr_range[filter_name] === 'value_date') {
+				start = start + "-01-01 00:00:00";
+				end = end + "-12-31 23:59:59";
+			}
+			document.getElementsByName(filter_name)[0].value = start + '|' + end;
+		}
+		var filter_name = "";
+		for (filter_name in arr_multiselect) {
+			var field = "";
+
+			for (var i = 0; i < arr_multiselect[filter_name]; i++) {
+				if (document.getElementsByName(filter_name + i)[0].checked) {
+					field = document.getElementsByName(filter_name + i)[0].value + "," + field;
+					document.getElementsByName(filter_name + i)[0].value = "";
+					document.getElementsByName(filter_name + i)[0].checked = false;
+				}
+			}
+
+			if (field === "") {
+				$("input[name='" + filter_name + "']").remove();
+			} else {
+				document.getElementsByName(filter_name)[0].value = field;
+			}
+		}
+
+		var first_price = document.getElementsByName('product_price_first')[0].value.replace(",", ".");
+		var last_price = document.getElementsByName('product_price_last')[0].value.replace(",", ".");
+		$("input[name='product_price_first']").remove();
+		$("input[name='product_price_last']").remove();
+		document.getElementsByName('product_price')[0].value = first_price + '|' + last_price;
+
+	}
+
+	function saveViewProducts(view_products) {
+		$.ajax({
+			type: "POST",
+			url: "<?= Yii::$app->homeUrl . "product" ?>",
+			async: true,
+			data: "view_products=" + view_products,
+		});
+	}
+
+	function saveSortProducts(sort_products) {
+		$.ajax({
+			type: "POST",
+			url: "<?= Yii::$app->homeUrl . "product" ?>",
+			async: true,
+			data: "sort=" + sort_products + "&save_sort=true",
+		});
+	}
+
+	$('document').ready(function () {
+
+		$('#search').keyup(function(){
+			var text = this.value;
+			$.ajax({
+				type: "POST",
+				url: "<?= Yii::$app->homeUrl . "product" ?>",
+				async: true,
+				data: "search_text=" + text + "&live_search_text=true",
+				success: function(response){
+					console.log(response);
+				}
+			});
+		})
+
+		$('.nav-tabs a:first').click(function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		})
+
 	})
+
 </script>
 </body>
 </html>

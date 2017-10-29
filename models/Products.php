@@ -96,7 +96,7 @@ class Products extends \yii\db\ActiveRecord {
 		}
 
 		if (empty($options)) {
-			Products::addUrl();
+			self::addUrl();
 		}
 
 		$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
@@ -112,6 +112,7 @@ class Products extends \yii\db\ActiveRecord {
 		}
 
 		//Сортировка товаров
+		$sort = false;
 		if (!empty($options['sort'])) {
 			$sort = self::addSort($options['sort']);
 		}
@@ -119,40 +120,16 @@ class Products extends \yii\db\ActiveRecord {
 		//Фильтрация товаров
 		$filter = self::addFilters($options);
 
-		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
-CEIL(
-	CAST(
-		IF(product_discount IS NULL ,
-		(prod.product_price * " . $active_currency['currency_course'] . "), 
-		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
-		) AS DECIMAL(12,2)
-	)
-) as final_product_price" .
-			(!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
-FROM {{%products}}  prod
-	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
-	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' " .
-			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " GROUP BY prod.product_id" .
-			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
-			(!empty($filter['having']) ? " HAVING " .$filter['having']." ": " ") .
-			(!empty($sort['order']) ? $sort['order'] : " ");
-
-		$command = Yii::$app->db->createCommand($query);
-
-		foreach ($filter['bind_param'] as $name => $value) {
-			$command->bindValue($name, $value);
-		}
-
-		$count = count($command->queryAll());
+		$result = self::queryGetAll($active_currency, $filter, $sort);
 
 		$dataProvider = new SqlDataProvider([
-			'sql'        => $query,
+			'sql'        => $result['query'],
 			'params'     => $filter['bind_param'],
-			'totalCount' => (int)$count,
+			'totalCount' => (int)$result['count'],
 			'pagination' => [
 				// количество пунктов на странице
 				'pageSize'   => $pageSize,
-				'totalCount' => (int)$count,
+				'totalCount' => (int)$result['count'],
 			]
 		]);
 
@@ -319,7 +296,6 @@ FROM {{%products}}  prod
 			$bind_param[':search_text'] = $_COOKIE['search_text'] = $_SESSION['search_text'] = '%'.$filters['search_text'].'%';
 			$having[]='prod.product_title LIKE :search_text';
 		}
-
 
 		//Сброс фильтров
 		if (!empty($filters['delete_filters']) && $filters['delete_filters'] == true) {
@@ -605,6 +581,57 @@ WHERE prod.product_id=:product_id
 			header('Location: ' . $url);
 			exit();
 		}
+	}
+
+	public function queryGetAll($active_currency, $filter = false, $sort = false) {
+
+		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+CEIL(
+	CAST(
+		IF(product_discount IS NULL ,
+		(prod.product_price * " . $active_currency['currency_course'] . "), 
+		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
+		) AS DECIMAL(12,2)
+	)
+) as final_product_price" .
+			(!empty($filter['count_conditions']) ? ", count(prod.product_id) as count_conditions" : "") . "
+FROM {{%products}}  prod
+	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
+	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' " .
+			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " GROUP BY prod.product_id" .
+			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
+			(!empty($filter['having']) ? " HAVING " . $filter['having'] . " " : " ") .
+			(!empty($sort['order']) ? $sort['order'] : " ");
+
+		$command = Yii::$app->db->createCommand($query);
+
+		foreach ($filter['bind_param'] as $name => $value) {
+			$command->bindValue($name, $value);
+		}
+
+		$count = count($command->queryAll());
+
+		$data = $command->queryAll();
+
+		return [
+			'count' => $count,
+			'query' => $query,
+			'data'  => $data,
+		];
+	}
+
+	public function checkLiveSearch() {
+
+		if (!empty($_REQUEST['live_search_text']) && $_REQUEST['live_search_text'] == true && !empty($_REQUEST['search_text'])) {
+			$filter = self::addFilters($_REQUEST);
+			$result = self::queryGetAll(Currencies::activeCurrency(), $filter);
+			ob_get_clean();
+			ob_start();
+			echo json_encode($result['data']);
+			ob_end_flush();
+			die;
+		}
+
 	}
 
 }
