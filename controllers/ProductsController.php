@@ -27,7 +27,7 @@ class ProductsController extends \yii\web\Controller
 
 		Currencies::checkCurrency();
 
-		Products::checkLiveSearch();
+		self::checkLiveSearch();
 
 		$data = Products::getAll($_REQUEST);
 
@@ -46,7 +46,7 @@ class ProductsController extends \yii\web\Controller
 
 		Currencies::checkCurrency();
 
-		Products::checkLiveSearch();
+		self::checkLiveSearch();
 
 		$product_all = Products::getOneIdAlias($id, $alias);
 
@@ -76,7 +76,7 @@ class ProductsController extends \yii\web\Controller
 
 		Currencies::checkCurrency();
 
-		Products::checkLiveSearch();
+		self::checkLiveSearch();
 
 		$product['product'] = false;
 		$product['currencies'] = false;
@@ -95,6 +95,29 @@ class ProductsController extends \yii\web\Controller
 			'currencies'      => $product['currencies'],
 			'active_currency' => $product['active_currency'],
 		]);
+
+	}
+
+	public function checkLiveSearch() {
+
+		if (!empty($_REQUEST['live_search_text']) && $_REQUEST['live_search_text'] == true) {
+			$filter = Products::addFilters($_REQUEST);
+			$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
+			$active_currency = Currencies::activeCurrency();
+			$result['data']=false;
+			$result = Products::queryGetAll($active_currency, $filter, false, 10);
+			ob_clean();
+			if (!empty($result['data'])) {
+				echo $this->renderPartial('live_search', [
+					'products'        => $result['data'],
+					'currencies'      => $currencies,
+					'active_currency' => $active_currency,
+				]);
+			} else {
+				echo "";
+			}
+			die;
+		}
 
 	}
 	

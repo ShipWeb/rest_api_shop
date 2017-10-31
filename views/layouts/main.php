@@ -86,61 +86,6 @@ AppAsset::register($this);
 
 				<div id="header_search" class="live_search">
 
-					<a href="#">
-						<div class="result">
-							<div class="preview pull-left">
-								<img src="<?= Yii::$app->homeUrl ?>images/GTA5_110x52.png" class="img-responsive">
-							</div>
-							<div class="item_name pull-left">
-								<p>Grand Theft Auto V + GTA: Online</p>
-							</div>
-							<div class="item_price pull-right">
-								<span>1699</span> <span class="valuta">руб</span>
-							</div>
-						</div>
-					</a>
-					<hr>
-					<a href="#">
-						<div class="result">
-							<div class="preview pull-left">
-								<img src="<?= Yii::$app->homeUrl ?>images/GTA4_110x52.png" class="img-responsive">
-							</div>
-							<div class="item_name pull-left">
-								<p>Grand Theft Auto 4</p>
-							</div>
-							<div class="item_price pull-right">
-								<span>249</span> <span class="valuta">руб</span>
-							</div>
-						</div>
-					</a>
-					<hr>
-					<a href="#">
-						<div class="result">
-							<div class="preview pull-left">
-								<img src="<?= Yii::$app->homeUrl ?>images/prey_110x52.png" class="img-responsive">
-							</div>
-							<div class="item_name pull-left">
-								<p>Prey</p>
-							</div>
-							<div class="item_price pull-right">
-								<span>1100</span> <span class="valuta">руб</span>
-							</div>
-						</div>
-					</a>
-					<hr>
-					<a href="#">
-						<div class="result">
-							<div class="preview pull-left">
-								<img src="<?= Yii::$app->homeUrl ?>images/skyrim_110x52.png" class="img-responsive">
-							</div>
-							<div class="item_name pull-left">
-								<p>The Elder Scrolls V: Skyrim – Legendary Edition</p>
-							</div>
-							<div class="item_price pull-right">
-								<span>499</span> <span class="valuta">руб</span>
-							</div>
-						</div>
-					</a>
 				</div>
 			</form>
 		</div>
@@ -317,15 +262,21 @@ AppAsset::register($this);
 
 		$('#search').keyup(function(){
 			var text = this.value;
-			$.ajax({
-				type: "POST",
-				url: "<?= Yii::$app->homeUrl . "product" ?>",
-				async: true,
-				data: "search_text=" + text + "&live_search_text=true",
-				success: function(response){
-					console.log(response);
-				}
-			});
+			if (text!=="") {
+				$('.live_search').show();
+				$.ajax({
+					type: "POST",
+					url: "<?= Yii::$app->homeUrl . "product" ?>",
+					async: true,
+					data: "search_text=" + text + "&live_search_text=true",
+					success: function (response) {
+						$('#header_search').html(response);
+					}
+				});
+			} else {
+				$('#header_search').html("");
+				$('.live_search').hide();
+			}
 		})
 
 		$('.nav-tabs a:first').click(function (e) {
