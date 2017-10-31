@@ -20,13 +20,13 @@ $("document").ready(function () {
 		$("#currency").before(uah);
 		$(".valuta").html('₴');
 	});
-	$('#search').click(function () {
+/*	$('#search').click(function () {
 		$('.live_search').toggleClass('display');
 	})
 
 	$('#search').blur(function () {
 		$('.live_search').removeClass('display');
-	})
+	})*/
 
 	$('.search_param').click(function () {
 		$(this).children('i').toggleClass('rotate');

@@ -263,20 +263,28 @@ AppAsset::register($this);
 		$('#search').keyup(function(){
 			var text = this.value;
 			if (text!=="") {
-				$('.live_search').show();
+				$('.live_search').show().css({"padding":'0'});
 				$.ajax({
 					type: "POST",
 					url: "<?= Yii::$app->homeUrl . "product" ?>",
 					async: true,
 					data: "search_text=" + text + "&live_search_text=true",
 					success: function (response) {
+						if (!response) {$('#header_search').hide();}
 						$('#header_search').html(response);
 					}
 				});
 			} else {
-				$('#header_search').html("");
-				$('.live_search').hide();
+				$('#header_search').html("").css({"display":"none"});
 			}
+		})
+
+		$('#search').blur(function(){
+			var that = this;
+			setTimeout(function(){
+				that.value = '';
+				$('#header_search').css({"display":"none"});
+			}, 400)
 		})
 
 		$('.nav-tabs a:first').click(function (e) {

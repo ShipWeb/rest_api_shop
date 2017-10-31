@@ -22,9 +22,12 @@ $("document").ready(function () {
 		$("#currency").before(uah);
 		$(".valuta").html('₴');
 	});
+	$('#search').click(function () {
+		// $('.live_search').toggleClass('display');
+	})
 
 	$('#search').blur(function () {
-		$('.live_search').toggleClass('display');
+		// $('.live_search').removeClass('display');
 	})
 
 	$('.search_param').click(function () {
@@ -65,6 +68,7 @@ $("document").ready(function () {
 		var sortText = $(this).children("li").html();
 		$('.sort_type').html(sortText);
 		$('#sort_list').removeClass('open');
+		return false;
 	});
 
 	$('#net').click(function () {
