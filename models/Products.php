@@ -583,7 +583,7 @@ WHERE prod.product_id=:product_id
 		}
 	}
 
-	public function queryGetAll($active_currency, $filter = false, $sort = false) {
+	public function queryGetAll($active_currency, $filter = false, $sort = false, $limit = false) {
 
 		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
 CEIL(
@@ -601,7 +601,8 @@ FROM {{%products}}  prod
 			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " GROUP BY prod.product_id" .
 			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
 			(!empty($filter['having']) ? " HAVING " . $filter['having'] . " " : " ") .
-			(!empty($sort['order']) ? $sort['order'] : " ");
+			(!empty($sort['order']) ? $sort['order'] : " ").
+			(!empty($limit) ? " LIMIT " . (int)$limit : " ");
 
 		$command = Yii::$app->db->createCommand($query);
 

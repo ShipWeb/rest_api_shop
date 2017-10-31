@@ -2,7 +2,7 @@
 	<?php if (!empty($product)) { ?>
 	<h3 id="ordering">Выбранные товары</h3>
 	<div class="goods_head">
-		<a href="#">
+		<a href="<?= Yii::$app->homeUrl . 'product/' . $product['product_id'] . '/' . $product['chpu'] ?>">
 			<div class="result_main order">
 				<div class="preview_cart main_search pull-left">
 
