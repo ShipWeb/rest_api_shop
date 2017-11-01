@@ -19,7 +19,7 @@ class ImagesSearch extends Images
     {
         return [
             [['image_id'], 'integer'],
-            [['title', 'name', 'path'], 'safe'],
+            [['image_title', 'image_name', 'image_path'], 'safe'],
         ];
     }
 
@@ -62,9 +62,9 @@ class ImagesSearch extends Images
             'image_id' => $this->image_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'path', $this->path]);
+        $query->andFilterWhere(['like', 'image_title', $this->image_title])
+            ->andFilterWhere(['like', 'image_name', $this->image_name])
+            ->andFilterWhere(['like', 'image_path', $this->image_path]);
 
         return $dataProvider;
     }

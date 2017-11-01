@@ -18,8 +18,8 @@ class PropertiesSearch extends Properties
     public function rules()
     {
         return [
-            [['property_id'], 'integer'],
-            [['property_title', 'property_name', 'type', 'filter', 'sort', 'active', 'show_index', 'show_view'], 'safe'],
+            [['property_id', 'count_values'], 'integer'],
+            [['property_title', 'property_name', 'type', 'filter', 'sort', 'active', 'show_index', 'show_view', 'technical_requirements'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class PropertiesSearch extends Properties
         // grid filtering conditions
         $query->andFilterWhere([
             'property_id' => $this->property_id,
+            'count_values' => $this->count_values,
         ]);
 
         $query->andFilterWhere(['like', 'property_title', $this->property_title])
@@ -69,7 +70,8 @@ class PropertiesSearch extends Properties
             ->andFilterWhere(['like', 'sort', $this->sort])
             ->andFilterWhere(['like', 'active', $this->active])
             ->andFilterWhere(['like', 'show_index', $this->show_index])
-            ->andFilterWhere(['like', 'show_view', $this->show_view]);
+            ->andFilterWhere(['like', 'show_view', $this->show_view])
+            ->andFilterWhere(['like', 'technical_requirements', $this->technical_requirements]);
 
         return $dataProvider;
     }

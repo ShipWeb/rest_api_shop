@@ -36,6 +36,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'show_view') ?>
 
+    <?php // echo $form->field($model, 'technical_requirements') ?>
+
+    <?php // echo $form->field($model, 'count_values') ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>

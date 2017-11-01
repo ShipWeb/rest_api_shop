@@ -22,17 +22,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_api_id') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'product_title') ?>
 
     <?= $form->field($model, 'chpu') ?>
 
     <?= $form->field($model, 'content') ?>
+
+    <?php // echo $form->field($model, 'content_activation') ?>
 
     <?php // echo $form->field($model, 'seo_title') ?>
 
     <?php // echo $form->field($model, 'seo_description') ?>
 
     <?php // echo $form->field($model, 'seo_keywords') ?>
+
+    <?php // echo $form->field($model, 'product_price') ?>
+
+    <?php // echo $form->field($model, 'product_discount') ?>
+
+    <?php // echo $form->field($model, 'product_thumbnail_path') ?>
+
+    <?php // echo $form->field($model, 'product_thumbnail_name') ?>
 
     <?php // echo $form->field($model, 'date_create') ?>
 

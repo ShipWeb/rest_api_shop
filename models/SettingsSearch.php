@@ -62,8 +62,9 @@ class SettingsSearch extends Settings
             'setting_id' => $this->setting_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'value', $this->value])
+        $query->andFilterWhere(['like', 'setting_title', $this->setting_title])
+            ->andFilterWhere(['like', 'setting_name', $this->setting_name])
+            ->andFilterWhere(['like', 'setting_value', $this->setting_value])
             ->andFilterWhere(['like', 'active', $this->active]);
 
         return $dataProvider;

@@ -20,11 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image_id') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'image_title') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'image_name') ?>
 
-    <?= $form->field($model, 'path') ?>
+    <?= $form->field($model, 'image_path') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
