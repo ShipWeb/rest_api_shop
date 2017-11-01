@@ -14,17 +14,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_api_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'product_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'chpu')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'content_activation')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_description')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_keywords')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'product_price')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'product_discount')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'product_thumbnail_path')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'product_thumbnail_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'date_create')->textInput() ?>
 

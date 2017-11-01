@@ -20,9 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'setting_id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'setting_title') ?>
 
-    <?= $form->field($model, 'value') ?>
+    <?= $form->field($model, 'setting_name') ?>
+
+    <?= $form->field($model, 'setting_value') ?>
 
     <?= $form->field($model, 'active') ?>
 

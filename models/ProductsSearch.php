@@ -19,7 +19,8 @@ class ProductsSearch extends Products
     {
         return [
             [['product_id', 'product_api_id'], 'integer'],
-            [['product_title', 'chpu', 'content', 'seo_title', 'seo_description', 'seo_keywords', 'date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
+            [['product_title', 'chpu', 'content', 'content_activation', 'seo_title', 'seo_description', 'seo_keywords', 'product_thumbnail_path', 'product_thumbnail_name', 'date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
+            [['product_price', 'product_discount'], 'number'],
         ];
     }
 
@@ -61,18 +62,23 @@ class ProductsSearch extends Products
         $query->andFilterWhere([
             'product_id' => $this->product_id,
             'product_api_id' => $this->product_api_id,
+            'product_price' => $this->product_price,
+            'product_discount' => $this->product_discount,
             'date_create' => $this->date_create,
             'date_create_gmt' => $this->date_create_gmt,
             'date_modified' => $this->date_modified,
             'date_modified_gmt' => $this->date_modified_gmt,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
+        $query->andFilterWhere(['like', 'product_title', $this->product_title])
             ->andFilterWhere(['like', 'chpu', $this->chpu])
             ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'content_activation', $this->content_activation])
             ->andFilterWhere(['like', 'seo_title', $this->seo_title])
             ->andFilterWhere(['like', 'seo_description', $this->seo_description])
-            ->andFilterWhere(['like', 'seo_keywords', $this->seo_keywords]);
+            ->andFilterWhere(['like', 'seo_keywords', $this->seo_keywords])
+            ->andFilterWhere(['like', 'product_thumbnail_path', $this->product_thumbnail_path])
+            ->andFilterWhere(['like', 'product_thumbnail_name', $this->product_thumbnail_name]);
 
         return $dataProvider;
     }
