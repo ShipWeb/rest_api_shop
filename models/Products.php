@@ -42,6 +42,7 @@ class Products extends \yii\db\ActiveRecord {
 			[['product_api_id'], 'integer'],
 			[['content', 'content_activation'], 'string'],
 			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
+			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'default', 'value' => date('Y-m-d H:i:s')],
 			[['product_title', 'chpu', 'seo_title', 'seo_keywords', 'product_thumbnail_name', 'product_thumbnail_path'], 'string', 'max' => 255],
 			[['seo_description'], 'string', 'max' => 512],
 			[['product_price', 'product_discount'], 'number'],
