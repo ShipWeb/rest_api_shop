@@ -33,10 +33,11 @@
 						</div>
 					<?php } ?>
 				</div>
-
-				<button class="buy">
-					<a href="<?= Yii::$app->homeUrl . 'basket?product_id=' . $product['product_id'] ?>">Купить</a>
-				</button>
+				<a href="<?= Yii::$app->homeUrl . 'basket?product_id=' . $product['product_id'] ?>" style="color: #fff">
+					<button class="buy">
+						Купить
+					</button>
+				</a>
 			</div>
 		</div>
 	</div>
