@@ -36,7 +36,7 @@ CAST(
 FROM {{%properties}} prop
 INNER JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id 
 INNER JOIN {{%products}} prod ON prod.product_id=prod_prop.product_id 
-WHERE property_name='data-vyhoda' AND prod_prop.value_date<=:actual_date
+WHERE property_name='data_vyhoda' AND prod_prop.value_date<=:actual_date
 ORDER BY prod_prop.value_date DESC LIMIT :limit";
 
 		$command = Yii::$app->db->createCommand($query);

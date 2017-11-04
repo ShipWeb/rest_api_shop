@@ -8,7 +8,7 @@
 				<div class="card_hover">
 					<h4><?= $products[0]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[0]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount"><?php if (!empty($products[0]['product_discount'])) { ?>
 							-<?= $products[0]['product_discount'] ?> %
 						<?php } else { ?>
@@ -25,7 +25,7 @@
 				<div class="card_hover">
 					<h4><?= $products[1]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[1]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount">
 						<?php if (!empty($products[1]['product_discount'])) { ?>
 							-<?= $products[1]['product_discount'] ?> %
@@ -42,7 +42,7 @@
 				<div class="card_hover">
 					<h4><?= $products[2]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[2]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount">
 						<?php if (!empty($products[2]['product_discount'])) { ?>
 							-<?= $products[2]['product_discount'] ?> %
@@ -63,7 +63,7 @@
 				<div class="card_hover">
 					<h4><?= $products[3]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[3]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount">
 						<?php if (!empty($products[3]['product_discount'])) { ?>
 							-<?= $products[3]['product_discount'] ?> %
@@ -80,7 +80,7 @@
 				<div class="card_hover">
 					<h4><?= $products[4]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[4]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount">
 						<?php if (!empty($products[4]['product_discount'])) { ?>
 							-<?= $products[4]['product_discount'] ?> %
@@ -97,7 +97,7 @@
 				<div class="card_hover">
 					<h4><?= $products[5]['product_title'] ?></h4>
 					<span class="slider_price">Купить за <?= $products[5]['final_product_price'] ?>
-						<span class="valuta">руб</span></span>
+						<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 					<span class="slider_discount">
 						<?php if (!empty($products[5]['product_discount'])) { ?>
 							-<?= $products[5]['product_discount'] ?> %
@@ -121,7 +121,7 @@
 						<div class="card_hover">
 							<h4><?= $products[6]['product_title'] ?></h4>
 							<span class="slider_price">Купить за <?= $products[6]['final_product_price'] ?>
-								<span class="valuta">руб</span></span>
+								<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 							<span class="slider_discount">
 								<?php if (!empty($products[6]['product_discount'])) { ?>
 									-<?= $products[6]['product_discount'] ?> %
@@ -138,7 +138,7 @@
 						<div class="card_hover">
 							<h4><?= $products[7]['product_title'] ?></h4>
 							<span class="slider_price">Купить за <?= $products[7]['final_product_price'] ?>
-								<span class="valuta">руб</span></span>
+								<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 							<span class="slider_discount">
 								<?php if (!empty($products[7]['product_discount'])) { ?>
 									-<?= $products[7]['product_discount'] ?> %
@@ -157,7 +157,7 @@
 						<div class="card_hover">
 							<h4><?= $products[8]['product_title'] ?></h4>
 							<span class="slider_price">Купить за <?= $products[8]['final_product_price'] ?>
-								<span class="valuta">руб</span></span>
+								<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 							<span class="slider_discount">
 								<?php if (!empty($products[8]['product_discount'])) { ?>
 									-<?= $products[8]['product_discount'] ?> %
@@ -174,7 +174,7 @@
 						<div class="card_hover">
 							<h4><?= $products[9]['product_title'] ?></h4>
 							<span class="slider_price">Купить за <?= $products[9]['final_product_price'] ?>
-								<span class="valuta">руб</span></span>
+								<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 							<span class="slider_discount">
 								<?php if (!empty($products[9]['product_discount'])) { ?>
 									-<?= $products[9]['product_discount'] ?> %
@@ -197,7 +197,7 @@
 						<div class="card_hover big_card">
 							<h4><?= $products[10]['product_title'] ?></h4>
 							<span class="slider_price">Купить за <?= $products[10]['final_product_price'] ?>
-								<span class="valuta">руб</span></span>
+								<span class="valuta"><?= ' ' . $active_currency['currency_title'] ?></span></span>
 							<span class="slider_discount">
 								<?php if (!empty($products[10]['product_discount'])) { ?>
 									-<?= $products[10]['product_discount'] ?> %
