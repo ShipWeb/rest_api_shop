@@ -22,13 +22,6 @@ $("document").ready(function () {
 		$("#currency").before(uah);
 		$(".valuta").html('₴');
 	});
-	$('#search').click(function () {
-		// $('.live_search').toggleClass('display');
-	})
-
-	$('#search').blur(function () {
-		// $('.live_search').removeClass('display');
-	})
 
 	$('.search_param').click(function () {
 		$(this).children('i').toggleClass('rotate');
@@ -68,7 +61,6 @@ $("document").ready(function () {
 		var sortText = $(this).children("li").html();
 		$('.sort_type').html(sortText);
 		$('#sort_list').removeClass('open');
-		return false;
 	});
 
 	$('#net').click(function () {
@@ -92,27 +84,14 @@ $("document").ready(function () {
 
 	$('#btn_start').click(function () {
 		$('#start').toggle();
-		// $('#end').hide();
 		$('.scroll-pane').jScrollPane();
-	});
-	$('#btn_start').blur(function () {
-		// $('#start').hide();
 	});
 
 
 	$('#btn_end').click(function () {
 		$('#end').toggle();
-		// $('#start').hide();
 		$('.scroll-pane').jScrollPane();
 	});
-
-	$('#btn_end').blur(function () {
-		// $('#end').hide();
-	});
-
-	// $('#start').on('click', 'a', function () {
-	// 	alert('fdkghsdlkg');
-	// })
 
 	$('.oplata').on('click', 'div', function () {
 		$('.payment_item').removeClass('payment_click');

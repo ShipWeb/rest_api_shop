@@ -7,8 +7,8 @@
 				<li class="active">Игры</li>
 			</ol>
 			<h2>Купить <?= $product['product_title'] ?></h2>
-			<?php if (!empty($image_main)) { ?>
-				<img src="<?= Yii::$app->homeUrl . $image_main['image_path'] . $image_main['image_name'] ?>" alt="Prey" class="img-responsive header_pic">
+			<?php if (!empty($product['product_thumbnail_path'])&&!empty($product['product_thumbnail_name'])) { ?>
+				<img src="<?= Yii::$app->homeUrl . $product['product_thumbnail_path'] . '/' . $product['product_thumbnail_name'] ?>" alt="<?= $product['product_title'] ?>" class="img-responsive header_pic">
 			<?php } ?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-lg-3">
