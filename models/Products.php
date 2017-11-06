@@ -636,4 +636,36 @@ FROM {{%products}}  prod
 
 	}
 
+	public function afterSave($insert, $changedAttributes) {
+
+		parent::afterSave($insert, $changedAttributes);
+
+		if (empty($_REQUEST['property']) || !is_array($_REQUEST['property'])
+			|| empty($_REQUEST['property_type']) || !is_array($_REQUEST['property_type'])
+			|| empty($_REQUEST['property_id']) || !is_array($_REQUEST['property_id'])
+		) {
+
+			return true;
+		}
+
+		foreach ($_REQUEST['property'] as $key => $property) {
+
+			ProductsProperties::deleteProductProperty($this->product_id, $_REQUEST['property_id'][$key]);
+
+			$property = explode(",", $property);
+
+			foreach ($property as $k => $v) {
+
+				if (!empty($v) && (($_REQUEST['property_filter'][$key] != "MULTISELECT" && $k == 0) || $_REQUEST['property_filter'][$key] == "MULTISELECT")) {
+					ProductsProperties::insertProductProperty($this->product_id, $_REQUEST['property_id'][$key], $_REQUEST['property_type'][$key], $v);
+				}
+
+			}
+
+		}
+
+		return false;
+
+	}
+
 }

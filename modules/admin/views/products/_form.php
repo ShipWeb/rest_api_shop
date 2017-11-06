@@ -44,6 +44,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'date_modified_gmt')->textInput() ?>
 
+	<h2>Свойства товара</h2>
+	<?php foreach ($properties as $key=>$property) { ?>
+		<div class="form-group field">
+			<label class="control-label">
+				<?= $property->property_title .
+				($property->filter === "MULTISELECT" ? " - множественное значение" : " - одиночное значение") .
+				"(" . ($property->type === "DATE" ? $property->type . " Дата формат 1999-12-31 00:00:00" :
+					($property->type === "FLOAT" || $property->type === "DECIMAL" ? $property->type . " Дробное число формат 12.34" :
+						($property->type === "INTEGER" ? $property->type . " Целое число формат 123" :
+							($property->type === "TEXT" ? $property->type . " Текст формат А-я123" : $property->type)))) . ")" ?>
+			</label>
+			<input type="text" class="form-control" name="property[<?= $property->property_name ?>]"
+				   value="<?= !empty($product_properties[$property->property_name]) ? $product_properties[$property->property_name] : "" ?>">
+			<input type="hidden" name="property_type[<?= $property->property_name ?>]"
+				   value="<?= !empty($properties_product_type[$property->property_name]) ? $properties_product_type[$property->property_name] : "" ?>">
+			<input type="hidden" name="property_id[<?= $property->property_name ?>]"
+				   value="<?= !empty($property->property_id) ? $property->property_id : "" ?>">
+			<input type="hidden" name="property_filter[<?= $property->property_name ?>]"
+				   value="<?= !empty($property->filter) ? $property->filter : "" ?>">
+			<div class="help-block"></div>
+		</div>
+	<?php } ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

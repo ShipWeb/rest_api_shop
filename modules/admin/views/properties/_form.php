@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->dropDownList([ 'INTEGER' => 'INTEGER', 'DECIMAL' => 'DECIMAL', 'FLOAT' => 'FLOAT', 'TEXT' => 'TEXT', 'DATE' => 'DATE', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'filter')->dropDownList([ 'SELECT' => 'SELECT', 'MULTISELECT' => 'MULTISELECT', 'RANGE' => 'RANGE', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'filter')->dropDownList([ 'SELECT' => 'SELECT', 'MULTISELECT' => 'MULTISELECT', 'LIST' => 'LIST', 'RANGE' => 'RANGE', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'sort')->dropDownList([ 'Y' => 'Y', 'N' => 'N', ], ['prompt' => '']) ?>
 
@@ -29,8 +29,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'show_view')->dropDownList([ 'Y' => 'Y', 'N' => 'N', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'technical_requirements')->dropDownList([ 'Y' => 'Y', 'N' => 'N', ], ['prompt' => '']) ?>
-
-    <?= $form->field($model, 'count_values')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
