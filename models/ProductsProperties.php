@@ -56,4 +56,77 @@ class ProductsProperties extends \yii\db\ActiveRecord
             'value_date' => Yii::t('app', 'Value Date'),
         ];
     }
+
+	public function getPropertiesProductType($properties) {
+
+		$products_properties_type = [];
+
+		foreach ($properties as $key => $property) {
+
+			$arr_type = Properties::getArrValueType();
+			$type = Properties::setValueType($arr_type, $property->type);
+
+			$products_properties_type[$property->property_name] = $type;
+		}
+
+		return $products_properties_type;
+	}
+
+	public function getPropertiesProduct($id, $properties, $products_properties_type) {
+
+		$properties_product = [];
+
+		foreach ($properties as $key => $property) {
+
+			$query = "
+SELECT " . $products_properties_type[$property->property_name] . " 
+FROM {{%products_properties}} 
+WHERE product_id=:product_id AND property_id=:property_id";
+
+			$command = Yii::$app->db->createCommand($query);
+			$command->bindValue(':product_id', $id);
+			$command->bindValue(':property_id', $property->property_id);
+			$result = $command->queryColumn();
+			$properties_product[$property->property_name] = implode(",", $result);
+
+		}
+
+		return $properties_product;
+	}
+
+	public function deleteProductProperty($product_id, $property_id) {
+
+		$query = "
+DELETE FROM {{%products_properties}} 
+WHERE product_id=:product_id AND property_id=:property_id
+		";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':product_id', $product_id);
+		$command->bindValue(':property_id', $property_id);
+
+		return $command->query();
+	}
+
+	public function insertProductProperty($product_id, $property_id, $type, $value) {
+
+		if (!in_array($type, Properties::getArrValueType())) {
+			return false;
+		}
+
+		$query = "
+INSERT INTO {{%products_properties}} 
+(product_id, property_id, " . $type . ") 
+VALUES 
+(:product_id, :property_id, :value) 
+		";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':product_id', $product_id);
+		$command->bindValue(':property_id', $property_id);
+		$command->bindValue(':value', $value);
+
+		return $command->query();
+	}
+
 }

@@ -4,6 +4,8 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Products;
+use app\models\Properties;
+use app\models\ProductsProperties;
 use app\models\ProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,113 +14,136 @@ use yii\filters\VerbFilter;
 /**
  * ProductsController implements the CRUD actions for Products model.
  */
-class ProductsController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class ProductsController extends Controller {
 
-    /**
-     * Lists all Products models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ProductsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+		return [
+			'verbs' => [
+				'class'   => VerbFilter::className(),
+				'actions' => [
+					'delete' => ['POST'],
+				],
+			],
+		];
+	}
 
-    /**
-     * Displays a single Products model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+	/**
+	 * Lists all Products models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
 
-    /**
-     * Creates a new Products model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Products();
+		$searchModel = new ProductsSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+		return $this->render('index', [
+			'searchModel'  => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
 
-    /**
-     * Updates an existing Products model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+	/**
+	 * Displays a single Products model.
+	 *
+	 * @param string $id
+	 *
+	 * @return mixed
+	 */
+	public function actionView($id) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->product_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+		return $this->render('view', [
+			'model' => $this->findModel($id),
+		]);
+	}
 
-    /**
-     * Deletes an existing Products model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+	/**
+	 * Creates a new Products model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate() {
 
-        return $this->redirect(['index']);
-    }
+		$model = new Products();
 
-    /**
-     * Finds the Products model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Products the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Products::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+		$properties = Properties::getAll();
+
+		$properties_product_type = ProductsProperties::getPropertiesProductType($properties);
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->product_id]);
+		} else {
+			return $this->render('create', [
+				'model'      => $model,
+				'properties' => $properties,
+				'properties_product_type' => $properties_product_type,
+			]);
+		}
+	}
+
+	/**
+	 * Updates an existing Products model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @param string $id
+	 *
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+
+		$model = $this->findModel($id);
+
+		$properties = Properties::getAll();
+
+		$properties_product_type = ProductsProperties::getPropertiesProductType($properties);
+
+		$product_properties = ProductsProperties::getPropertiesProduct($id, $properties, $properties_product_type);
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->product_id]);
+		} else {
+			return $this->render('update', [
+				'model'                   => $model,
+				'properties'              => $properties,
+				'properties_product_type' => $properties_product_type,
+				'product_properties'      => $product_properties,
+			]);
+		}
+	}
+
+	/**
+	 * Deletes an existing Products model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param string $id
+	 *
+	 * @return mixed
+	 */
+	public function actionDelete($id) {
+
+		$this->findModel($id)->delete();
+
+		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Finds the Products model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 *
+	 * @param string $id
+	 *
+	 * @return Products the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+
+		if (($model = Products::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
 }

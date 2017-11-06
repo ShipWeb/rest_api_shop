@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_api_id',
             'product_title',
             'chpu',
-            'content:ntext',
+            //'content:ntext',
+
             // 'content_activation:ntext',
             // 'seo_title',
             // 'seo_description',
@@ -39,9 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'product_discount',
             // 'product_thumbnail_path',
             // 'product_thumbnail_name',
-            // 'date_create',
+             'date_create',
             // 'date_create_gmt',
-            // 'date_modified',
+             'date_modified',
             // 'date_modified_gmt',
 
             ['class' => 'yii\grid\ActionColumn'],
