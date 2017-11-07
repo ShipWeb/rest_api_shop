@@ -11,7 +11,7 @@
 				<img src="<?= Yii::$app->homeUrl . $product['product_thumbnail_path'] . '/' . $product['product_thumbnail_name'] ?>" alt="<?= $product['product_title'] ?>" class="img-responsive header_pic">
 			<?php } ?>
 		</div>
-		<div class="col-sm-3 col-md-3 col-lg-3">
+		<div class="col-sm-3 col-md-3 col-lg-3" style="padding: 0">
 			<ul class="game_info">
 				<?php foreach ($product_not_tech_req as $key => $value): ?>
 					<li>
