@@ -185,11 +185,14 @@ class Products extends \yii\db\ActiveRecord {
 						$arr_type = Properties::getArrValueType();
 						$val_type = Properties::setValueType($arr_type, $fil_prop_value['type']);
 
+						$val_type = ($val_type === 'value_str' ? 'TRIM(prod_prop.' . $val_type . ')' : 'prod_prop.' . $val_type);
+
 						//Выбор типа фильтра
 						switch ($fil_prop_value['filter']) {
 							case "SELECT":
 								$list_filters['SELECT'][$fil_name] = $fil_value;
-								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . "=:" . $fil_name . ")";
+
+								$where[] = "(prop.property_name='" . $fil_name . "' AND " . $val_type . "=:" . $fil_name . ")";
 								$bind_param[':' . $fil_name] = $_COOKIE[$fil_name] = $_SESSION[$fil_name] = $list_filters['SELECT'][$fil_name];
 								$count_conditions++;
 								break;
@@ -205,19 +208,19 @@ class Products extends \yii\db\ActiveRecord {
 								if (!empty($sess)) {
 									$_COOKIE[$fil_name] = $_SESSION[$fil_name] = $sess;
 								}
-								$where[] = "(prop.property_name='" . $fil_name . "' AND prod_prop." . $val_type . " IN (" . implode(',', $prop_arr) . "))";
+								$where[] = "(prop.property_name='" . $fil_name . "' AND " . $val_type . " IN (" . implode(',', $prop_arr) . "))";
 								$count_conditions++;
 								break;
 							case "RANGE":
 								if (mb_strpos($fil_value, '|') !== false) {
 									$range = explode('|', $fil_value);
-									$arr=[];
+									$arr = [];
 									if (!empty($range[0])) {
 										$bind_param[':' . $fil_name . '_first'] = $_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = $range[0];
 										if ($fil_prop_value['type'] === 'DATE') {
 											$_COOKIE[$fil_name . '_first'] = $_SESSION[$fil_name . '_first'] = date('Y', strtotime($_SESSION[$fil_name . '_first']));
 										}
-										$arr[]="prod_prop." . $val_type . ">=:" .$fil_name . "_first";
+										$arr[] = $val_type . ">=:" . $fil_name . "_first";
 									} else {
 										if (!empty($_SESSION[$fil_name . '_first'])) {
 											unset($_SESSION[$fil_name . '_first']);
@@ -231,7 +234,7 @@ class Products extends \yii\db\ActiveRecord {
 										if ($fil_prop_value['type'] === 'DATE') {
 											$_COOKIE[$fil_name . '_last'] = $_SESSION[$fil_name . '_last'] = date('Y', strtotime($_SESSION[$fil_name . '_last']));
 										}
-										$arr[]="prod_prop." . $val_type . "<=:" . $fil_name . "_last";
+										$arr[] = $val_type . "<=:" . $fil_name . "_last";
 									} else {
 										if (!empty($_SESSION[$fil_name . '_last'])) {
 											unset($_SESSION[$fil_name . '_last']);
@@ -240,7 +243,7 @@ class Products extends \yii\db\ActiveRecord {
 											unset($_COOKIE[$fil_name . '_last']);
 										}
 									}
-									if (!empty($range[0])||!empty($range[1])) {
+									if (!empty($range[0]) || !empty($range[1])) {
 										$where[] = "(prop.property_name='" . $fil_name . "' AND " . implode(' AND ', $arr) . ")";
 										$count_conditions++;
 									}
@@ -258,7 +261,7 @@ class Products extends \yii\db\ActiveRecord {
 
 		if (!empty($count_conditions) && $count_conditions > 0) {
 			$bind_param[':filter_count_conditions'] = $count_conditions;
-			$having[]='count_conditions>=:filter_count_conditions';
+			$having[] = 'count_conditions>=:filter_count_conditions';
 		}
 
 		//Фильтр цен
@@ -279,7 +282,7 @@ class Products extends \yii\db\ActiveRecord {
 			if (!empty($range[1])) {
 				$bind_param[':product_price_last'] = $_COOKIE['product_price_last'] = $_SESSION['product_price_last'] = $range[1];
 				$arr[] = "final_product_price<=:product_price_last";
-			}  else {
+			} else {
 				if (!empty($_SESSION['product_price_last'])) {
 					unset($_SESSION['product_price_last']);
 				}
@@ -287,15 +290,15 @@ class Products extends \yii\db\ActiveRecord {
 					unset($_COOKIE['product_price_last']);
 				}
 			}
-			if (!empty($range[0])||!empty($range[1])) {
+			if (!empty($range[0]) || !empty($range[1])) {
 				$having[] = '(' . implode(' AND ', $arr) . ')';
 			}
 		}
 
 		//Фильтр поискового запроса
 		if (!empty($filters['search_text'])) {
-			$bind_param[':search_text'] = $_COOKIE['search_text'] = $_SESSION['search_text'] = '%'.$filters['search_text'].'%';
-			$having[]='prod.product_title LIKE :search_text';
+			$bind_param[':search_text'] = $_COOKIE['search_text'] = $_SESSION['search_text'] = '%' . $filters['search_text'] . '%';
+			$having[] = 'prod.product_title LIKE :search_text';
 		}
 
 		//Сброс фильтров
@@ -359,11 +362,12 @@ class Products extends \yii\db\ActiveRecord {
 
 		}
 
-		return ["data" => $list_filters,
-				"where" => implode(' OR ', $where),
-				"having" => implode(' AND ', $having),
-				"bind_param" => $bind_param,
-				"count_conditions" => $count_conditions
+		return [
+			"data"             => $list_filters,
+			"where"            => implode(' OR ', $where),
+			"having"           => implode(' AND ', $having),
+			"bind_param"       => $bind_param,
+			"count_conditions" => $count_conditions
 		];
 	}
 
@@ -586,7 +590,8 @@ WHERE prod.product_id=:product_id
 
 	public function queryGetAll($active_currency, $filter = false, $sort = false, $limit = false) {
 
-		$query = "SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount,
+		$query = "
+SELECT *, prod.product_id as product_id, CEIL (prod.product_discount) as product_discount, TRIM(prod_prop.value_str) as trim_value_str, 
 CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
@@ -599,10 +604,11 @@ CEIL(
 FROM {{%products}}  prod
 	LEFT JOIN {{%products_properties}} as prod_prop ON prod_prop.product_id=prod.product_id 
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' " .
-			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " GROUP BY prod.product_id" .
+			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " 
+GROUP BY prod.product_id " .
 			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
 			(!empty($filter['having']) ? " HAVING " . $filter['having'] . " " : " ") .
-			(!empty($sort['order']) ? $sort['order'] : " ").
+			(!empty($sort['order']) ? $sort['order'] : " ") .
 			(!empty($limit) ? " LIMIT " . (int)$limit : " ");
 
 		$command = Yii::$app->db->createCommand($query);

@@ -19,9 +19,18 @@ class MainGenreGames extends Widget {
 SELECT * 
 FROM {{%properties}} prop
 	INNER JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id 
-WHERE prop.property_name='genre'";
+WHERE prop.property_name='genre' 
+GROUP BY TRIM(prod_prop.value_str)  
+ORDER BY TRIM(prod_prop.value_str) ASC
+		";
 		$command = Yii::$app->db->createCommand($query);
 		$genres = $command->queryAll();
+
+		foreach ($genres as $key => $value) {
+			if (!empty($value['value_str'])) {
+				$filter_properties[$key]['value_str'] = trim($value['value_str']);
+			}
+		}
 
 		return $this->render('MainGenreGamesView', [
 			'genres' => $genres,

@@ -64,11 +64,21 @@ class Properties extends \yii\db\ActiveRecord
 	public function getAllFilters() {
 
 		$query = "
-SELECT * FROM {{%properties}} prop 
+SELECT * 
+FROM {{%properties}} prop 
 	LEFT JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id
-WHERE active='Y' AND show_index='Y' ORDER BY prop.property_id";
+WHERE active='Y' AND show_index='Y' 
+GROUP BY TRIM(prod_prop.value_str)  
+ORDER BY TRIM(prod_prop.value_str) ASC
+		";
 
 		$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
+
+		foreach ($filter_properties as $key => $value) {
+			if (!empty($value['value_str'])) {
+				$filter_properties[$key]['value_str'] = trim($value['value_str']);
+			}
+		}
 
 		return $filter_properties;
 
