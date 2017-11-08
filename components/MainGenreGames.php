@@ -28,7 +28,7 @@ ORDER BY TRIM(prod_prop.value_str) ASC
 
 		foreach ($genres as $key => $value) {
 			if (!empty($value['value_str'])) {
-				$filter_properties[$key]['value_str'] = trim($value['value_str']);
+				$genres[$key]['value_str'] = trim($value['value_str']);
 			}
 		}
 

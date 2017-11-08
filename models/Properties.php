@@ -68,8 +68,8 @@ SELECT *
 FROM {{%properties}} prop 
 	LEFT JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id
 WHERE active='Y' AND show_index='Y' 
-GROUP BY TRIM(prod_prop.value_str)  
-ORDER BY TRIM(prod_prop.value_str) ASC
+GROUP BY TRIM(prod_prop.value_str), value_int, value_dec, value_flt, value_date, value_ext_html
+ORDER BY TRIM(prod_prop.value_str), value_int, value_dec, value_flt, value_date, value_ext_html ASC
 		";
 
 		$filter_properties = Yii::$app->db->createCommand($query)->queryAll();
@@ -126,7 +126,9 @@ ORDER BY TRIM(prod_prop.value_str) ASC
 SELECT * 
 FROM {{%properties}} prop 
 	LEFT JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id
-WHERE active='Y' AND show_view='Y' and technical_requirements='Y' AND prod_prop.product_id=:product_id";
+WHERE active='Y' AND show_view='Y' and technical_requirements='Y' AND prod_prop.product_id=:product_id 
+GROUP BY TRIM(prod_prop.value_str), value_int, value_dec, value_flt, value_date, value_ext_html
+ORDER BY TRIM(prod_prop.value_str), value_int, value_dec, value_flt, value_date, value_ext_html ASC";
 
 		$command = Yii::$app->db->createCommand($query);
 		$command->bindValue(':product_id',(int)$id);
