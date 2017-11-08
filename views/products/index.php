@@ -13,7 +13,7 @@ JS;
 
 ?>
 
-<div class="container main catalog_wrapper row row-flex">
+<div class="container main catalog_wrapper row">
 	<div class="col-sm-4 col-md-4 col-lg-4">
 		<form class="list_sidebar" name="filtersproducts"  action="<?= Yii::$app->homeUrl . "product" ?>" method="get">
 			<input type="hidden" name="sort" <?= !empty($_SESSION['sort']) ? 'value="' . $_SESSION['sort'] . '"' : '' ?> >

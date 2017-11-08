@@ -728,7 +728,7 @@ footer {
 .price_range {
 	width: 42%;
 	float: left;
-	margin-left: 15px;
+	margin-right: 15px;
 }
 
 .show{
@@ -856,7 +856,6 @@ footer {
 	display: inline-block;
 	width: 200px;
 	height: 180px;
-	float: left;
 	padding: 10px;
 }
 
@@ -1374,6 +1373,16 @@ span.type{
 		font-size:20px;
 		padding:14px 5px;
 	}
+	.item_name {
+		font-size:14px;
+		width:40%;
+	}
+    .result_main{
+	    height:75px;
+    }
+    .module_view{
+	    height:180px !important;
+    }
 }
 
 /* Medium Devices, Desktops */
@@ -1470,8 +1479,8 @@ span.type{
 
 	.price_range {
 		margin-left: 5px;
+		margin-right: 0;
 	}
-
 	.years_end {
 		left: 98px;
 	}

@@ -47,7 +47,6 @@ $("document").ready(function () {
 		if (screen_size < 767) {
 			$('.filter>div').removeClass('in');
 			$('.fa.fa-angle-up').removeClass("rotate");
-
 			$('[data-view]').addClass('module_view');
 			$('.column hr').addClass('displayNone');
 			$('.main_search').removeClass('preview');
