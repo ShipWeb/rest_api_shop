@@ -13,7 +13,7 @@ JS;
 
 ?>
 
-<div class="container main catalog_wrapper row">
+<div class="container main catalog_wrapper row row-flex">
 	<div class="col-sm-4 col-md-4 col-lg-4">
 		<form class="list_sidebar" name="filtersproducts"  action="<?= Yii::$app->homeUrl . "product" ?>" method="get">
 			<input type="hidden" name="sort" <?= !empty($_SESSION['sort']) ? 'value="' . $_SESSION['sort'] . '"' : '' ?> >
@@ -47,7 +47,7 @@ JS;
 
 				?>
 
-				<div class="filter">
+				<!--<div class="filter">
 					<a class="search_param" data-toggle="collapse" href="#collapseActivate" aria-expanded="true" aria-controls="collapseExample">
 						<i class="fa fa-angle-up" aria-hidden="true"></i> Активация
 					</a>
@@ -61,49 +61,6 @@ JS;
 							<label for="uplay" class="label_check"><img src="images/uplay.png"> Uplay</label>
 							<input type="checkbox" class="check" id="battle">
 							<label for="battle" class="label_check"><img src="images/battlenet.png"> Battle.net</label>
-						</div>
-					</div>
-				</div>
-				<div class="filter">
-					<a class="search_param" data-toggle="collapse" href="#collapseRus" aria-expanded="true" aria-controls="collapseExample">
-						<i class="fa fa-angle-up" aria-hidden="true"></i> Наличие русского языка
-					</a>
-
-					<div class="collapse in" id="collapseRus">
-						<div class="well">
-							<input type="checkbox" class="check" id="rus">
-							<label for="rus" class="label_check"> Есть</label>
-							<input type="checkbox" class="check" id="no_rus">
-							<label for="no_rus" class="label_check"> Нет</label>
-						</div>
-					</div>
-				</div>
-				<div class="filter">
-					<a class="search_param" data-toggle="collapse" href="#collapseGenre" aria-expanded="true" aria-controls="collapseExample">
-						<i class="fa fa-angle-up" aria-hidden="true"></i> Жанры
-					</a>
-					<div class="collapse in" id="collapseGenre">
-						<div class="well row">
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<input type="checkbox" class="check" id="shoot">
-								<label for="shoot" class="label_check"> Шутер</label>
-								<input type="checkbox" class="check" id="action">
-								<label for="action" class="label_check"> Экшен</label>
-								<input type="checkbox" class="check" id="ride">
-								<label for="ride" class="label_check"> Гонки</label>
-								<input type="checkbox" class="check" id="adventure">
-								<label for="adventure" class="label_check"> Приклю&shy;чения</label>
-							</div>
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<input type="checkbox" class="check" id="rpg">
-								<label for="rpg" class="label_check"> РПГ</label>
-								<input type="checkbox" class="check" id="horror">
-								<label for="horror" class="label_check"> Хоррор</label>
-								<input type="checkbox" class="check" id="indi">
-								<label for="indi" class="label_check"> Инди</label>
-								<input type="checkbox" class="check" id="strat">
-								<label for="strat" class="label_check"> Стратегия</label>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -126,7 +83,8 @@ JS;
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
+
 				<div width="100%">
 					<button type="submit" onclick="calculateFields();" class="show">Показать</button>
 				</div>
