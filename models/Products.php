@@ -606,7 +606,7 @@ FROM {{%products}}  prod
 	LEFT JOIN {{%properties}} as prop ON prop.property_id=prod_prop.property_id AND prop.active='Y' " .
 			(!empty($filter['where']) ? " WHERE 1=1 AND " . $filter['where'] : "") . " 
 GROUP BY prod.product_id " .
-			(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
+			#(!empty($sort['value']) ? ",prod_prop." . $sort['value'] . " " : " ") .
 			(!empty($filter['having']) ? " HAVING " . $filter['having'] . " " : " ") .
 			(!empty($sort['order']) ? $sort['order'] : " ") .
 			(!empty($limit) ? " LIMIT " . (int)$limit : " ");

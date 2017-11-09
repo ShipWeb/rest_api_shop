@@ -22,18 +22,29 @@ function d($dump) {
 function rdate($date) {
 
 	$MonthNames = [
+		"January" => "Января",
+		"February" => "Февраля",
+		"March" => "Марта",
+		"April" => "Апреля",
+		"June" => "Июня",
+		"July" => "Июля",
+		"August" => "Августа",
+		"September" => "Сентября",
+		"October" => "Октября",
+		"November" => "Ноября",
+		"December" => "Декабря",
 		"Jan" => "Января",
 		"Feb" => "Февраля",
 		"Mar" => "Марта",
 		"Apr" => "Апреля",
 		"May" => "Мая",
 		"Jun" => "Июня",
-		"July" => "Июля",
-		"August" => "Августа",
+		"Jul" => "Июля",
+		"Aug" => "Августа",
 		"Sep" => "Сентября",
 		"Oct" => "Октября",
-		"November" => "Ноября",
-		"Dec" => "Декабря"
+		"Nov" => "Ноября",
+		"Dec" => "Декабря",
 	];
 	foreach ($MonthNames as $name => $replace) {
 		$date = str_replace($name, $replace, $date);
