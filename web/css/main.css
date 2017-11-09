@@ -1383,6 +1383,10 @@ span.type{
     .module_view{
 	    height:180px !important;
     }
+    .genre{
+	    font-size:12px;
+	    padding-bottom:8px !important;
+    }
 }
 
 /* Medium Devices, Desktops */
@@ -1417,6 +1421,13 @@ span.type{
 	.carousel-caption {
 		padding-left: 20px;
 		bottom: 0;
+	}
+	.katalog{
+		font-size:15px;
+	}
+	.genre{
+		font-size:11px;
+		padding-bottom:5px !important;
 	}
 
 	.silver,
