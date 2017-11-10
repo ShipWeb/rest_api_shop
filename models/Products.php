@@ -663,7 +663,9 @@ GROUP BY prod.product_id " .
 			foreach ($property as $k => $v) {
 
 				if (!empty($v) && (($_REQUEST['property_filter'][$key] != "MULTISELECT" && $k == 0) || $_REQUEST['property_filter'][$key] == "MULTISELECT")) {
-					ProductsProperties::insertProductProperty($this->product_id, $_REQUEST['property_id'][$key], $_REQUEST['property_type'][$key], $v);
+					ProductsProperties::insertProductProperty($this->product_id, $_REQUEST['property_id'][$key],
+						$_REQUEST['property_type'][$key], $v,
+						(!empty($_REQUEST['property_ext_html'][$key]) ? $_REQUEST['property_ext_html'][$key] : ""));
 				}
 
 			}

@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 		'model'               => $model,
 		'properties'          => $properties,
 		'properties_product_type' => $properties_product_type,
-		'product_properties' => $product_properties,
+		'property_value_product' => $property_value_product,
+		'property_value_ext_html_product' => $property_value_ext_html_product,
 	]) ?>
 
 </div>

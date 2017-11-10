@@ -72,14 +72,14 @@ class ProductsProperties extends \yii\db\ActiveRecord
 		return $products_properties_type;
 	}
 
-	public function getPropertiesProduct($id, $properties, $products_properties_type) {
+	public function getPropertyValueProduct($id, $properties, $products_properties_type) {
 
-		$properties_product = [];
+		$property_value_product = [];
 
 		foreach ($properties as $key => $property) {
 
 			$query = "
-SELECT " . $products_properties_type[$property->property_name] . " 
+SELECT " . $products_properties_type[$property->property_name] . ", value_ext_html
 FROM {{%products_properties}} 
 WHERE product_id=:product_id AND property_id=:property_id";
 
@@ -87,11 +87,35 @@ WHERE product_id=:product_id AND property_id=:property_id";
 			$command->bindValue(':product_id', $id);
 			$command->bindValue(':property_id', $property->property_id);
 			$result = $command->queryColumn();
-			$properties_product[$property->property_name] = implode(",", $result);
+
+			$property_value_product[$property->property_name] = implode(",", $result);
 
 		}
 
-		return $properties_product;
+		return $property_value_product;
+	}
+
+	public function getPropertyValueExtHtmlProduct($id, $properties) {
+
+		$property_value_ext_html_product = [];
+
+		foreach ($properties as $key => $property) {
+
+			$query = "
+SELECT value_ext_html
+FROM {{%products_properties}} 
+WHERE product_id=:product_id AND property_id=:property_id";
+
+			$command = Yii::$app->db->createCommand($query);
+			$command->bindValue(':product_id', $id);
+			$command->bindValue(':property_id', $property->property_id);
+			$result = $command->queryColumn();
+
+			$property_value_ext_html_product[$property->property_name] = implode(",", $result);
+
+		}
+
+		return $property_value_ext_html_product;
 	}
 
 	public function deleteProductProperty($product_id, $property_id) {
@@ -108,7 +132,7 @@ WHERE product_id=:product_id AND property_id=:property_id
 		return $command->query();
 	}
 
-	public function insertProductProperty($product_id, $property_id, $type, $value) {
+	public function insertProductProperty($product_id, $property_id, $type, $value, $value_ext_html = false) {
 
 		if (!in_array($type, Properties::getArrValueType())) {
 			return false;
@@ -116,15 +140,16 @@ WHERE product_id=:product_id AND property_id=:property_id
 
 		$query = "
 INSERT INTO {{%products_properties}} 
-(product_id, property_id, " . $type . ") 
+(product_id, property_id, " . $type . ", value_ext_html) 
 VALUES 
-(:product_id, :property_id, :value) 
+(:product_id, :property_id, :value, :value_ext_html) 
 		";
 
 		$command = Yii::$app->db->createCommand($query);
 		$command->bindValue(':product_id', $product_id);
 		$command->bindValue(':property_id', $property_id);
 		$command->bindValue(':value', $value);
+		$command->bindValue(':value_ext_html', !empty($value_ext_html) ? $value_ext_html : '');
 
 		return $command->query();
 	}

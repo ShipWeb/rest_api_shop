@@ -56,13 +56,22 @@ use yii\widgets\ActiveForm;
 							($property->type === "TEXT" ? $property->type . " Текст формат А-я123" : $property->type)))) . ")" ?>
 			</label>
 			<input type="text" class="form-control" name="property[<?= $property->property_name ?>]"
-				   value="<?= !empty($product_properties[$property->property_name]) ? $product_properties[$property->property_name] : "" ?>">
+				   value="<?= !empty($property_value_product[$property->property_name]) ? $property_value_product[$property->property_name] : "" ?>">
 			<input type="hidden" name="property_type[<?= $property->property_name ?>]"
 				   value="<?= !empty($properties_product_type[$property->property_name]) ? $properties_product_type[$property->property_name] : "" ?>">
 			<input type="hidden" name="property_id[<?= $property->property_name ?>]"
 				   value="<?= !empty($property->property_id) ? $property->property_id : "" ?>">
 			<input type="hidden" name="property_filter[<?= $property->property_name ?>]"
 				   value="<?= !empty($property->filter) ? $property->filter : "" ?>">
+
+			<?php if($property->use_value_ext_html==="Y") { ?>
+
+			<label class="control-label">Дополнительный HTML для свойства <?= $property->property_title; ?></label>
+			<input type="text" class="form-control" name="property_ext_html[<?= $property->property_name ?>]"
+				   value="<?= !empty($property_value_ext_html_product[$property->property_name]) ? $property_value_ext_html_product[$property->property_name] : "" ?>">
+
+			<?php } ?>
+
 			<div class="help-block"></div>
 		</div>
 	<?php } ?>

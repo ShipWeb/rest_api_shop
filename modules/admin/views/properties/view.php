@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'show_index',
             'show_view',
             'technical_requirements',
+            'single_value',
+            'use_value_ext_html',
         ],
     ]) ?>
 

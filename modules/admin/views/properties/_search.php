@@ -38,6 +38,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'technical_requirements') ?>
 
+    <?php // echo $form->field($model, 'single_value') ?>
+
+    <?php // echo $form->field($model, 'use_value_ext_html') ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>

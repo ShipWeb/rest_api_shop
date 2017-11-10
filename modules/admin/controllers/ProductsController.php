@@ -100,16 +100,19 @@ class ProductsController extends Controller {
 
 		$properties_product_type = ProductsProperties::getPropertiesProductType($properties);
 
-		$product_properties = ProductsProperties::getPropertiesProduct($id, $properties, $properties_product_type);
+		$property_value_product = ProductsProperties::getPropertyValueProduct($id, $properties, $properties_product_type);
+
+		$property_value_ext_html_product = ProductsProperties::getPropertyValueExtHtmlProduct($id, $properties, $properties_product_type);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->product_id]);
 		} else {
 			return $this->render('update', [
-				'model'                   => $model,
-				'properties'              => $properties,
-				'properties_product_type' => $properties_product_type,
-				'product_properties'      => $product_properties,
+				'model'                           => $model,
+				'properties'                      => $properties,
+				'properties_product_type'         => $properties_product_type,
+				'property_value_product'          => $property_value_product,
+				'property_value_ext_html_product' => $property_value_ext_html_product,
 			]);
 		}
 	}
