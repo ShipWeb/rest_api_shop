@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\AdminMenu;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Currencies */
+echo AdminMenu::widget();
 
 $this->title = $model->currency_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Currencies'), 'url' => ['index']];

@@ -36,7 +36,7 @@ class Properties extends \yii\db\ActiveRecord {
 	public function rules() {
 
 		return [
-			[['type', 'filter', 'sort', 'active', 'show_index', 'show_view', 'technical_requirements', 'single_value', 'use_value_ext_html'], 'string'],
+			[['type', 'filter', 'sort', 'active', 'show_index', 'show_view', 'technical_requirements', 'single_value', 'use_value_ext_html','single_value'], 'string'],
 			[['property_title', 'property_name'], 'string', 'max' => 255],
 		];
 	}

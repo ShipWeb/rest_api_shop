@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\AdminMenu;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Products */
+echo AdminMenu::widget();
 
 $this->title = $model->product_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];

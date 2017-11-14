@@ -1,12 +1,13 @@
 <div class="admin-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+    <h1>Управление интернет-магазином</h1>
+    <ul>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/products/index">Товары</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/properties/index">Свойства товаров</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/images/index">Изображения</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/currencies/index">Валюты</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/settings/index">Настройки</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/user/index">Пользователи</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/lock/index">Заблокированные IP</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/login/index">Журнал пользователей</a></li>
+	</ul>
 </div>

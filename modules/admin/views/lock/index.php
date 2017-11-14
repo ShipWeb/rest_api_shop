@@ -7,17 +7,17 @@ use app\components\AdminMenu;
 
 echo AdminMenu::widget();
 
-$this->title = Yii::t('app', 'Settings');
+$this->title = Yii::t('app', 'Locks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="settings-index">
+<div class="lock-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Settings'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Lock'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,11 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'setting_id',
-            'setting_title',
-            'setting_name',
-            'setting_value',
-            'active',
+            'id',
+            'ip',
+            'useragent:ntext',
+            'user_login',
+            'user_pass',
+            // 'unblock_date',
+            // 'permanent',
+            // 'hits',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

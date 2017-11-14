@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\AdminMenu;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Products */
+echo AdminMenu::widget();
 
 $this->title = Yii::t('app', 'Изменение товара: ', [
 		'modelClass' => 'Products',

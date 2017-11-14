@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\PropertiesSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\components\AdminMenu;
+
+echo AdminMenu::widget();
 
 $this->title = Yii::t('app', 'Properties');
 $this->params['breadcrumbs'][] = $this->title;

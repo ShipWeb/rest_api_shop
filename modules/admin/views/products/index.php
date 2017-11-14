@@ -3,15 +3,15 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\ProductsSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\components\AdminMenu;
+
+echo AdminMenu::widget();
 
 $this->title = Yii::t('app', 'Products');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="products-index">
 
+<div class="products-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

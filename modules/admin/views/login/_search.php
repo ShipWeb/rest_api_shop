@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CategoriesSearch */
+/* @var $model app\models\LoginSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="categories-search">
+<div class="login-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -18,11 +18,19 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'category_id') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'ip') ?>
 
-    <?= $form->field($model, 'number_products') ?>
+    <?= $form->field($model, 'useragent') ?>
+
+    <?= $form->field($model, 'user_login') ?>
+
+    <?= $form->field($model, 'user_pass') ?>
+
+    <?php // echo $form->field($model, 'login_date') ?>
+
+    <?php // echo $form->field($model, 'hits') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

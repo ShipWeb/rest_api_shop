@@ -3,21 +3,21 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\CategoriesSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\components\AdminMenu;
 
-$this->title = Yii::t('app', 'Categories');
+echo AdminMenu::widget();
+
+$this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="categories-index">
+<div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Categories'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,9 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'category_id',
-            'name',
-            'number_products',
+            'id',
+            'user_login',
+            'user_pass',
+            'user_salt',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
