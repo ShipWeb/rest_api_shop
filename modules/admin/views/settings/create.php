@@ -1,10 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\AdminMenu;
 
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Settings */
+echo AdminMenu::widget();
 
 $this->title = Yii::t('app', 'Create Settings');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];

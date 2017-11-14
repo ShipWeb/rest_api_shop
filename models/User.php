@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     public $id;
     public $username;
@@ -17,15 +19,43 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'password' => 'admin',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
+        ]
     ];
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName()
+	{
+		return '{{%user}}';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return [
+			[['id'], 'required'],
+			[['id'], 'integer'],
+			[['user_login'], 'string', 'max' => 60],
+			[['user_pass'], 'string', 'max' => 255],
+			[['user_salt'], 'string', 'max' => 250],
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => Yii::t('app', 'ID'),
+			'user_login' => Yii::t('app', 'User Login'),
+			'user_pass' => Yii::t('app', 'User Pass'),
+			'user_salt' => Yii::t('app', 'User Salt'),
+		];
+	}
 
 
     /**

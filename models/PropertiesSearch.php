@@ -19,7 +19,7 @@ class PropertiesSearch extends Properties
     {
         return [
             [['property_id'], 'integer'],
-            [['property_title', 'property_name', 'type', 'filter', 'sort', 'active', 'show_index', 'show_view', 'technical_requirements', 'single_value', 'use_value_ext_html'], 'safe'],
+            [['property_title', 'property_name', 'type', 'filter', 'sort', 'active', 'show_index', 'show_view', 'technical_requirements', 'single_value', 'use_value_ext_html','single_value'], 'safe'],
         ];
     }
 

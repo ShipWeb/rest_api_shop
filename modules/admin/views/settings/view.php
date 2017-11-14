@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\AdminMenu;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Settings */
+echo AdminMenu::widget();
 
 $this->title = $model->setting_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings'), 'url' => ['index']];
