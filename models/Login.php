@@ -50,7 +50,7 @@ class Login extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'ip' => Yii::t('app', 'Ip'),
             'useragent' => Yii::t('app', 'Useragent'),
-            'user_login' => Yii::t('app', 'User Login'),
+            'user_login' => Yii::t('app', 'User Name'),
             'user_pass' => Yii::t('app', 'User Pass'),
             'login_date' => Yii::t('app', 'Login Date'),
             'hits' => Yii::t('app', 'Hits'),

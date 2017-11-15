@@ -51,7 +51,7 @@ class Lock extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'ip' => Yii::t('app', 'Ip'),
             'useragent' => Yii::t('app', 'Useragent'),
-            'user_login' => Yii::t('app', 'User Login'),
+            'user_login' => Yii::t('app', 'User Name'),
             'user_pass' => Yii::t('app', 'User Pass'),
             'unblock_date' => Yii::t('app', 'Unblock Date'),
             'permanent' => Yii::t('app', 'Permanent'),
