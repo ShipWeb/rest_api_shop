@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_login',
+            'username',
             'user_pass',
             'user_salt',
+			'auth_key',
         ],
     ]) ?>
 
