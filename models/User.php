@@ -108,8 +108,6 @@ class User extends ActiveRecord implements IdentityInterface {
 	public function validatePassword($password, $user) {
 
 		$password = $this->generateHash($password, $user->user_salt);
-echo $password.'<br>';
-echo $user->user_pass.'<br>';
 
 		return $user->user_pass === $password;
 	}

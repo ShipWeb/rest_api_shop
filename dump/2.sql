@@ -39,3 +39,7 @@ CREATE TABLE `ras_user` (
 ALTER TABLE `ras_user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `user_login` (`user_login`);
+
+INSERT INTO `ras_user` (`id`, `username`, `user_pass`, `user_salt`, `auth_key`) VALUES
+(16, 'admin', 'e99f782af09e80ce30175a0f099b8eedd4f1bcd66c33a0270de4a8888d2dce9e068c7ff4e27c372551f36d87e8038683c0922f239fef45285d6e5aa166ba068c', '$2y$24$c38e4e68288446ed6129214581', 'ZTrI5m2Vk33ebW2uDbqHSg5jsNwqOeGB');
+
