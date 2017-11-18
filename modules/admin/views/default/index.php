@@ -8,6 +8,6 @@
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/settings/index">Настройки</a></li>
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/user/index">Пользователи</a></li>
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/lock/index">Заблокированные IP</a></li>
-		<li><a href="<?= Yii::$app->homeUrl ?>admin/login/index">Журнал пользователей</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/login/index">Лог входа в административную часть</a></li>
 	</ul>
 </div>

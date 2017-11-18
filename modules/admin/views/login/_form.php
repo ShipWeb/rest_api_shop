@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'useragent')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'user_login')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'user_pass')->textInput(['maxlength' => true]) ?>
 

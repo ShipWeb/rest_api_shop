@@ -32,10 +32,10 @@ class Login extends \yii\db\ActiveRecord
     {
         return [
             [['ip', 'hits'], 'integer'],
-            [['useragent', 'user_login', 'user_pass'], 'required'],
+            [['useragent', 'username', 'user_pass'], 'required'],
             [['useragent'], 'string'],
             [['login_date'], 'safe'],
-            [['user_login'], 'string', 'max' => 60],
+            [['username'], 'string', 'max' => 60],
             [['user_pass'], 'string', 'max' => 255],
             [['ip'], 'unique'],
         ];
@@ -50,10 +50,25 @@ class Login extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'ip' => Yii::t('app', 'Ip'),
             'useragent' => Yii::t('app', 'Useragent'),
-            'user_login' => Yii::t('app', 'User Name'),
+            'username' => Yii::t('app', 'User Name'),
             'user_pass' => Yii::t('app', 'User Pass'),
             'login_date' => Yii::t('app', 'Login Date'),
             'hits' => Yii::t('app', 'Hits'),
         ];
     }
+
+	public function registerIP($ip, $username) {
+
+		$query = 'SELECT * FROM {{%login}} WHERE ip = INET_ATON(:ip) AND username=:username';
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':ip', $ip);
+		$login = $command->queryOne();
+
+
+
+
+		return $ip;
+	}
+
 }

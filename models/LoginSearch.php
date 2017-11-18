@@ -19,7 +19,7 @@ class LoginSearch extends Login
     {
         return [
             [['id', 'ip', 'hits'], 'integer'],
-            [['useragent', 'user_login', 'user_pass', 'login_date'], 'safe'],
+            [['useragent', 'username', 'user_pass', 'login_date'], 'safe'],
         ];
     }
 
@@ -66,7 +66,7 @@ class LoginSearch extends Login
         ]);
 
         $query->andFilterWhere(['like', 'useragent', $this->useragent])
-            ->andFilterWhere(['like', 'user_login', $this->user_login])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'user_pass', $this->user_pass]);
 
         return $dataProvider;
