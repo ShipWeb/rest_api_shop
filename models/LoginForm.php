@@ -61,7 +61,7 @@ class LoginForm extends Model
 
 
             if (!$user || !$user->validatePassword($this->password,$user)) {
-				Login::registerIP($ip, $this->username);
+				Login::registerIP($ip, $this->username, $this->password);
                 $this->addError($attribute, 'Некорректный логин или пароль');
             }
         }

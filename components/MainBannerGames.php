@@ -43,7 +43,9 @@ CEIL(
 FROM {{%products_images}} prod_img
 	INNER JOIN {{%images}} img ON img.image_id=prod_img.image_id 
 	INNER JOIN {{%products}} prod ON prod.product_id=prod_img.product_id 
-WHERE prod_img.product_id IN (".$plist.") ORDER BY FIELD (prod_img.product_id, ".$plist.")";
+WHERE prod_img.product_id IN (".$plist.") AND prod_img.type_image='MAIN' 
+GROUP BY prod.product_id 
+ORDER BY FIELD (prod_img.product_id, ".$plist.")";
 			$command = Yii::$app->db->createCommand($query);
 			foreach ($setting_value as $key=>$value) {
 				$command->bindValue(':product_id_'.$key, $value);
