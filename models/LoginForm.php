@@ -47,8 +47,22 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
+			$ip = Yii::$app->request->userIP === "::1" ? "127.0.0.1" : Yii::$app->request->userIP;
+
+			if (empty($ip)){
+				$this->addError($attribute, 'С вашего IP доступ запрещен');
+			}
+
+            $lock = Lock::checkBanIp($ip);
+
+			if ($lock) {
+				$this->addError($attribute, $lock);
+			}
+
+
             if (!$user || !$user->validatePassword($this->password,$user)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+				Login::registerIP($ip, $this->username, $this->password);
+                $this->addError($attribute, 'Некорректный логин или пароль');
             }
         }
     }

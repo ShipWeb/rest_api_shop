@@ -112,6 +112,11 @@ class User extends ActiveRecord implements IdentityInterface {
 		return $user->user_pass === $password;
 	}
 
+	/**
+	 * @param bool $insert
+	 *
+	 * @return bool
+	 */
 	public function beforeSave($insert) {
 
 		if (parent::beforeSave($insert)) {
@@ -130,6 +135,9 @@ class User extends ActiveRecord implements IdentityInterface {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function generateSalt() {
 
 		$salt = '&%hdus' . substr(md5(uniqid(rand(), true)), 0, 21);
@@ -141,6 +149,12 @@ class User extends ActiveRecord implements IdentityInterface {
 		return $salt;
 	}
 
+	/**
+	 * @param $password
+	 * @param $salt
+	 *
+	 * @return string
+	 */
 	public function generateHash($password, $salt) {
 
 		$secretKey = md5("Its_secret_key_476");

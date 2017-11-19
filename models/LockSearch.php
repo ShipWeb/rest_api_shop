@@ -19,7 +19,7 @@ class LockSearch extends Lock
     {
         return [
             [['id', 'ip', 'permanent', 'hits'], 'integer'],
-            [['useragent', 'user_login', 'user_pass', 'unblock_date'], 'safe'],
+            [['useragent', 'username', 'user_pass', 'unblock_date'], 'safe'],
         ];
     }
 
@@ -67,7 +67,7 @@ class LockSearch extends Lock
         ]);
 
         $query->andFilterWhere(['like', 'useragent', $this->useragent])
-            ->andFilterWhere(['like', 'user_login', $this->user_login])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'user_pass', $this->user_pass]);
 
         return $dataProvider;

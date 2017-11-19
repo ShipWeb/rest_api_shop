@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'ip',
             'useragent:ntext',
-            'user_login',
+            'username',
             'user_pass',
             'unblock_date',
             'permanent',
