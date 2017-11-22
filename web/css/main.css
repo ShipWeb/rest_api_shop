@@ -184,6 +184,12 @@ hr {
 	text-transform: uppercase;
 }
 
+a.api_reg {
+	color: #fff;
+	text-decoration: none;
+}
+
+
 .cart {
 	background: #2bc7e8;
 }

@@ -43,17 +43,17 @@ AppAsset::register($this);
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Главная</a></li>
-					<li><a href="#">Гарантии</a></li>
-					<li><a href="#">Отзывы</a></li>
-					<li><a href="#">Скидка</a></li>
-					<li><a href="#">Как покупать?</a></li>
-					<li><a href="#">Помощь</a></li>
+					<li class="active"><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>garanty">Гарантии</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>feedbacks">Отзывы</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>discount">Скидка</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>howbuy">Как покупать?</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>help">Помощь</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="hidden-xs">
-						<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+						<a href="<?= Yii::$app->homeUrl ?>basket"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
 							Корзина
 						</a>
 					</li>
@@ -93,8 +93,8 @@ AppAsset::register($this);
 			<div class="btn-group">
 				<button class="hidden-lg hidden-md hidden-sm cart">
 					<i class="fa fa-shopping-cart" aria-hidden="true"></i> Корзина <span class="badge">4</span></button>
-				<button class="login">Вход</button>
-				<button class="reg">Регистрация</button>
+				<button class="login"><a class="api_reg" href="<?=Yii::$app->params['urlRegistrationApi'] ?>" target="_blank">Вход</a></button>
+				<button class="reg"><a class="api_reg" href="<?=Yii::$app->params['urlRegistrationApi'] ?>" target="_blank">Регистрация</a></button>
 			</div>
 		</div>
 	</div>
@@ -141,9 +141,6 @@ AppAsset::register($this);
 	?>
 -->
 	<div class="container">
-		<?= Breadcrumbs::widget([
-			'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-		]) ?>
 		<?= $content ?>
 	</div>
 </div>
@@ -158,20 +155,20 @@ AppAsset::register($this);
 			</div>
 			<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
 				<ul>
-					<li><a href="#">Главная</a></li>
-					<li><a href="#">Гарантии</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>garanty">Гарантии</a></li>
 				</ul>
 			</div>
 			<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
 				<ul>
-					<li><a href="#">Отзывы</a></li>
-					<li><a href="#">Скидки</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>feedbacks">Отзывы</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>discount">Скидки</a></li>
 				</ul>
 			</div>
 			<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
 				<ul>
-					<li><a href="#">Как покупать?</a></li>
-					<li><a href="#">Помощь</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>howbuy">Как покупать?</a></li>
+					<li><a href="<?= Yii::$app->homeUrl ?>help">Помощь</a></li>
 				</ul>
 			</div>
 		</div>

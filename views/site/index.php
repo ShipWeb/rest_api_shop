@@ -13,16 +13,8 @@ use app\components\MainGenreGames;
 
 <div class="container main wrapper">
 	<div class="row row-flex">
-		<?php
-
-		echo MainGenreGames::widget();
-
-		?>
-		<?php
-
-		echo MainSliderGames::widget();
-
-		?>
+		<?= MainGenreGames::widget(); ?>
+		<?= MainSliderGames::widget(); ?>
 	</div>
 	<h3>Испытай удачу!</h3>
 	<div class="row">

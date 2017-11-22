@@ -59,18 +59,24 @@ $config = [
 			'enableStrictParsing' => true,
 			'showScriptName'  => false,
 			'rules' => [
-				'<module:admin>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
+				'<module:admin>/<controller:\w+>/<id:\d+>'              => '<module>/<controller>/view',
 				'<module:admin>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-				'<module:admin>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
-				'<module:admin>' => '<module>/default/index',
-
+				'<module:admin>/<controller:\w+>/<action:\w+>'          => '<module>/<controller>/<action>',
+				'<module:admin>'                                        => '<module>/default/index',
 
 				'/product/<id:\d+>/<alias:.+>' => 'products/view',
 				'/product'                     => 'products/index',
-				'/basket'                     => 'products/basket',
-				'/site/login'                     => 'site/login',
-				'/site/logout'                     => 'site/logout',
-				''                     => 'site/index',
+				'/basket'                      => 'products/basket',
+
+				'/discount'  => 'site/discount',
+				'/feedbacks' => 'site/feedbacks',
+				'/garanty'   => 'site/garanty',
+				'/help'      => 'site/help',
+				'/howbuy'    => 'site/howbuy',
+
+				'/site/login'  => 'site/login',
+				'/site/logout' => 'site/logout',
+				''             => 'site/index',
 			]
 		],
 
