@@ -118,12 +118,53 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
+     * Страница - Скидка
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionDiscount()
     {
-        return $this->render('about');
+        return $this->render('discount');
     }
+
+	/**
+	 * Страница - Отзывы
+	 *
+	 * @return string
+	 */
+	public function actionFeedbacks()
+	{
+		return $this->render('feedbacks');
+	}
+
+	/**
+	 * Страница - Гарантии
+	 *
+	 * @return string
+	 */
+	public function actionGaranty()
+	{
+		return $this->render('garanty');
+	}
+
+	/**
+	 * Страница - Помощь
+	 *
+	 * @return string
+	 */
+	public function actionHelp()
+	{
+		return $this->render('help');
+	}
+
+	/**
+	 * Страница - Как покупать?
+	 *
+	 * @return string
+	 */
+	public function actionHowbuy()
+	{
+		return $this->render('howbuy');
+	}
+
 }

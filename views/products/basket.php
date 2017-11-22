@@ -1,3 +1,8 @@
+<ol class="breadcrumb">
+	<li><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+	<li><a href="<?= Yii::$app->homeUrl ?>product">Каталог</a></li>
+	<li class="active">Корзина</li>
+</ol>
 <div class="container main cart_detail">
 	<?php if (!empty($product)) { ?>
 	<h3 id="ordering">Выбранные товары</h3>

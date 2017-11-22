@@ -1,10 +1,16 @@
+<?php
+
+use app\components\BreadcrumbsProduct;
+
+?>
+
 <div class="container main product_card">
 	<div class="row goods_head">
 		<div class="col-sm-6 col-md-6 col-lg-6">
 			<ol class="breadcrumb">
-				<li><a href="#">Главная</a></li>
-				<li><a href="#">Каталог</a></li>
-				<li class="active">Игры</li>
+				<li><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
+				<li><a href="<?= Yii::$app->homeUrl ?>product">Каталог</a></li>
+				<li class="active"><?= $product['product_title'] ?></li>
 			</ol>
 			<h2>Купить <?= $product['product_title'] ?></h2>
 			<?php if (!empty($product['product_thumbnail_path'])&&!empty($product['product_thumbnail_name'])) { ?>
