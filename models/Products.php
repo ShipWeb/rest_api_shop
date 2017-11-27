@@ -514,6 +514,16 @@ WHERE prod.product_id=:product_id LIMIT 1
 		$command->bindValue(':product_id', (int)$id);
 		$product = $command->queryOne();
 
+		$active_currency['webmoney'] = "WMR";
+		switch ($active_currency['currency_name']) {
+			case "RUB":
+				$active_currency['webmoney'] = 'WMR';
+				break;
+			case "USD":
+				$active_currency['webmoney'] = 'WMZ';
+				break;
+		}
+
 		return [
 			'product'         => $product,
 			'currencies'      => $currencies,

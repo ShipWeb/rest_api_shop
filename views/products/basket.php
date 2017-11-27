@@ -4,7 +4,10 @@
 	<li class="active">Корзина</li>
 </ol>
 <div class="container main cart_detail">
-	<?php if (!empty($product)) { ?>
+	<?php if (!empty($_GET['failpay'])&&$_GET['failpay']==true) { ?>
+		<h3 id="ordering">Операция прошла не успешно, оплата не произведена</h3>
+		<p><a href="<?= Yii::$app->homeUrl ?>basket">Вернуться в корзину</a></p>
+	<?php } elseif (!empty($product)) { ?>
 	<h3 id="ordering">Выбранные товары</h3>
 	<div class="goods_head">
 		<a href="<?= Yii::$app->homeUrl . 'product/' . $product['product_id'] . '/' . $product['chpu'] ?>">
@@ -177,10 +180,20 @@
 	</div>
 	<h3 id="confirm">Подтверждение заказа</h3>
 	<div class="goods_head">
-		<form name="zakaz" action="">
+		<form name="zakaz" action="<?=Yii::$app->params['urlRegistrationApi'] ?>">
 			<div class="order_confirm">
 				<div class="email_wrapper">
-					<input type="email" id="email" placeholder="Введите E-mail">
+
+					<input type="hidden" name="id_d" value="<?= !empty($product['product_api_id']) ? $product['product_api_id'] : "" ?>"/>
+					<input type="hidden" name="cart_uid" value=""/>
+					<input type="hidden" name="typecurr" value="<?= !empty($active_currency['webmoney']) ? $active_currency['webmoney'] : "" ?>"/>
+					<input type="hidden" name="lang" value="<?= Yii::$app->params['language'] ?>"/>
+					<input type="hidden" name="failpage" value="<?= Yii::$app->homeUrl ?>basket?failpay=true"/>
+					<input type="hidden" name="agent" value="<?= Yii::$app->params['partnerID'] ?>"/>
+					<input type="hidden" name="promocode" value=""/>
+					<input type="hidden" name="unit_cnt" value=""/>
+					<input type="email" id="email" name="email" placeholder="Введите E-mail">
+
 				</div>
 				<input type="checkbox" class="check" id="agreement">
 				<label for="agreement" class="label_check label_agr"></label>
