@@ -578,7 +578,7 @@
         "version_normalized": "0.11.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/twitter/typeahead.js.git",
+            "url": "git@github.com:twitter/typeahead.js.git",
             "reference": "588440f66559714280628a4f9799f0c4eb880a4a"
         },
         "dist": {
@@ -3279,5 +3279,54 @@
             }
         ],
         "description": "BDD code blocks for PHPUnit and Codeception"
+    },
+    {
+        "name": "yiisoft/yii2-httpclient",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-httpclient.git",
+            "reference": "37fe544e37e3c4ae99d3b8405c21bec2d1c8731b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/37fe544e37e3c4ae99d3b8405c21bec2d1c8731b",
+            "reference": "37fe544e37e3c4ae99d3b8405c21bec2d1c8731b",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "~2.0.13"
+        },
+        "time": "2017-11-03T11:22:41+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\httpclient\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Paul Klimov",
+                "email": "klimov.paul@gmail.com"
+            }
+        ],
+        "description": "HTTP client extension for the Yii framework",
+        "keywords": [
+            "curl",
+            "http",
+            "httpclient",
+            "yii2"
+        ]
     }
 ]
