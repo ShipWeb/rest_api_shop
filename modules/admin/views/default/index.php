@@ -15,6 +15,7 @@ use yii\helpers\Html;
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/user/index">Пользователи</a></li>
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/lock/index">Заблокированные IP</a></li>
 		<li><a href="<?= Yii::$app->homeUrl ?>admin/login/index">Лог входа в административную часть</a></li>
+		<li><a href="<?= Yii::$app->homeUrl ?>admin/apilog/index">Лог запросов и ответов REST API</a></li>
 		<li><?= Html::a("Выйти из интернет-магазина", ['/site/logout'], [
 				'data'  => ['method' => 'post'],
 				'class' => 'white text-center',
