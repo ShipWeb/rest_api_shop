@@ -710,7 +710,7 @@ UPDATE {{%products}}
 SET " . implode(",", $sql) . "
 WHERE product_id=:product_id
 		";
-			d($query);
+
 			$command = Yii::$app->db->createCommand($query);
 			$command->bindValue(':product_id', $product['product_id']);
 			if (!empty($data['product_price'])) {

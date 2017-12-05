@@ -180,7 +180,7 @@
 	</div>
 	<h3 id="confirm">Подтверждение заказа</h3>
 	<div class="goods_head">
-		<form name="zakaz" action="<?=Yii::$app->params['urlRegistrationApi'] ?>">
+		<form id="digiselller_form" name="zakaz" method="post" action="<?=Yii::$app->params['urlBuyApi'] ?>">
 			<div class="order_confirm">
 				<div class="email_wrapper">
 
@@ -189,7 +189,7 @@
 					<input type="hidden" name="typecurr" value="<?= !empty($active_currency['webmoney']) ? $active_currency['webmoney'] : "" ?>"/>
 					<input type="hidden" name="lang" value="<?= Yii::$app->params['language'] ?>"/>
 					<input type="hidden" name="failpage" value="<?= Yii::$app->homeUrl ?>basket?failpay=true"/>
-					<input type="hidden" name="agent" value="<?= Yii::$app->params['partnerID'] ?>"/>
+					<input type="hidden" name="ai" value="<?= Yii::$app->params['partnerID'] ?>"/>
 					<input type="hidden" name="promocode" value=""/>
 					<input type="hidden" name="unit_cnt" value=""/>
 					<input type="email" id="email" name="email" placeholder="Введите E-mail">
