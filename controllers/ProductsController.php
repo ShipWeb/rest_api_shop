@@ -60,6 +60,7 @@ class ProductsController extends \yii\web\Controller {
 
 		$productInfo = ApiController::getProductInfo($product_all['product']['product_api_id']);
 
+
 		Products::updateProduct($product_all['product'], $productInfo);
 
 		return $this->render('view', [
