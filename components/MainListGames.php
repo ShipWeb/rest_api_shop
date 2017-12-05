@@ -31,7 +31,8 @@ SELECT *,
 CAST(
 	IF(prod.product_discount IS NULL ,
 	(prod.product_price * ".$active_currency['currency_course']."), 
-	(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - prod.product_discount)
+	(prod.product_price * ".$active_currency['currency_course'].")
+	" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 	) AS DECIMAL(12,2)) as final_product_price 
 FROM {{%properties}} prop
 INNER JOIN {{%products_properties}} prod_prop ON prod_prop.property_id=prop.property_id 
@@ -49,7 +50,8 @@ SELECT *,
 CAST(
 	IF(product_discount IS NULL ,
 	(product_price * ".$active_currency['currency_course']."), 
-	(product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+	(product_price * ".$active_currency['currency_course'].")
+	" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 	) AS DECIMAL(12,2)) as final_product_price 
 FROM {{%products}}
 ORDER BY product_discount DESC LIMIT :limit";
@@ -72,7 +74,8 @@ CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
 		(prod.product_price * ".$active_currency['currency_course']."), 
-		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		(prod.product_price * ".$active_currency['currency_course'].")
+		" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price 

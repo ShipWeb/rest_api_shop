@@ -39,7 +39,7 @@ class Products extends \yii\db\ActiveRecord {
 	public function rules() {
 
 		return [
-			[['product_api_id'], 'integer'],
+			[['product_api_id', 'in_stock'], 'integer'],
 			[['content', 'content_activation'], 'string'],
 			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
 			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'default', 'value' => date('Y-m-d H:i:s')],
@@ -66,6 +66,7 @@ class Products extends \yii\db\ActiveRecord {
 			'seo_keywords'           => Yii::t('app', 'Seo Keywords - Сео ключевые слов'),
 			'product_price'          => Yii::t('app', 'Product Price - Цена товара'),
 			'product_discount'       => Yii::t('app', 'Product Discount - Скидка на товар'),
+			'in_stock'               => Yii::t('app', 'In stock - Наличие товара'),
 			'product_thumbnail_name' => Yii::t('app', 'Product Thumbnail Name - Имя миниатюры с расширением'),
 			'product_thumbnail_path' => Yii::t('app', 'Product Thumbnail Path -  Путь до миниатюры'),
 			'date_create'            => Yii::t('app', 'Date Create - Дата Создания'),
@@ -464,7 +465,8 @@ CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
 		(prod.product_price * " . $active_currency['currency_course'] . "), 
-		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
+		(prod.product_price * " . $active_currency['currency_course'] . ")
+		" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price
@@ -502,7 +504,8 @@ CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
 		(prod.product_price * " . $active_currency['currency_course'] . "), 
-		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
+		(prod.product_price * " . $active_currency['currency_course'] . ")
+		" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price
@@ -606,7 +609,8 @@ CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
 		(prod.product_price * " . $active_currency['currency_course'] . "), 
-		(prod.product_price * " . $active_currency['currency_course'] . ") / 100 * (100 - product_discount)
+		(prod.product_price * " . $active_currency['currency_course'] . ")
+		" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price" .
@@ -683,6 +687,40 @@ GROUP BY prod.product_id " .
 		}
 
 		return false;
+
+	}
+
+	public function updateProduct($product, $productInfo) {
+
+		$data = [];
+		$sql = [];
+		if ($product['product_price'] != (float)$productInfo->prices->wmr) {
+			$data['product_price'] = (float)$productInfo->prices->wmr;
+			$sql[] = "product_price=:product_price";
+		}
+
+		if ($product['in_stock'] != (int)$productInfo->in_stock) {
+			$data['in_stock'] = (int)$productInfo->in_stock;
+			$sql[] = "in_stock=:in_stock";
+		}
+
+		if (!empty($data)) {
+			$query = "
+UPDATE {{%products}} 
+SET " . implode(",", $sql) . "
+WHERE product_id=:product_id
+		";
+			d($query);
+			$command = Yii::$app->db->createCommand($query);
+			$command->bindValue(':product_id', $product['product_id']);
+			if (!empty($data['product_price'])) {
+				$command->bindValue(':product_price', $data['product_price']);
+			}
+			if (!empty($data['in_stock'])) {
+				$command->bindValue(':in_stock', $data['in_stock']);
+			}
+			$command->query();
+		}
 
 	}
 

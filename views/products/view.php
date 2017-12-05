@@ -39,11 +39,17 @@ use app\components\BreadcrumbsProduct;
 						</div>
 					<?php } ?>
 				</div>
-				<a href="<?= Yii::$app->homeUrl . 'basket?product_id=' . $product['product_id'] ?>" style="color: #fff">
+				<?php if ($product['in_stock'] == 1) { ?>
+					<a href="<?= Yii::$app->homeUrl . 'basket?product_id=' . $product['product_id'] ?>" style="color: #fff">
+						<button class="buy">
+							Купить
+						</button>
+					</a>
+				<?php } else { ?>
 					<button class="buy">
-						Купить
+						Нет в наличии
 					</button>
-				</a>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

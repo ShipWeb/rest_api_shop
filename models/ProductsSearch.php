@@ -18,7 +18,7 @@ class ProductsSearch extends Products
     public function rules()
     {
         return [
-            [['product_id', 'product_api_id'], 'integer'],
+            [['product_id', 'product_api_id','in_stock'], 'integer'],
             [['product_title', 'chpu', 'content', 'content_activation', 'seo_title', 'seo_description', 'seo_keywords', 'product_thumbnail_path', 'product_thumbnail_name', 'date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
             [['product_price', 'product_discount'], 'number'],
         ];

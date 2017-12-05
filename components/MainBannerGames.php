@@ -36,7 +36,8 @@ CEIL(
 	CAST(
 		IF(product_discount IS NULL ,
 		(prod.product_price * ".$active_currency['currency_course']."), 
-		(prod.product_price * ".$active_currency['currency_course'].") / 100 * (100 - product_discount)
+		(prod.product_price * ".$active_currency['currency_course'].")
+		" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
 		) AS DECIMAL(12,2)
 	)
 ) as final_product_price  
