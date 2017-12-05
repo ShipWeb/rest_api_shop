@@ -39,7 +39,7 @@ class Products extends \yii\db\ActiveRecord {
 	public function rules() {
 
 		return [
-			[['product_api_id'], 'integer'],
+			[['product_api_id', 'in_stock'], 'integer'],
 			[['content', 'content_activation'], 'string'],
 			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'safe'],
 			[['date_create', 'date_create_gmt', 'date_modified', 'date_modified_gmt'], 'default', 'value' => date('Y-m-d H:i:s')],
@@ -66,6 +66,7 @@ class Products extends \yii\db\ActiveRecord {
 			'seo_keywords'           => Yii::t('app', 'Seo Keywords - Сео ключевые слов'),
 			'product_price'          => Yii::t('app', 'Product Price - Цена товара'),
 			'product_discount'       => Yii::t('app', 'Product Discount - Скидка на товар'),
+			'in_stock'       => Yii::t('app', 'In stock - Наличие товара'),
 			'product_thumbnail_name' => Yii::t('app', 'Product Thumbnail Name - Имя миниатюры с расширением'),
 			'product_thumbnail_path' => Yii::t('app', 'Product Thumbnail Path -  Путь до миниатюры'),
 			'date_create'            => Yii::t('app', 'Date Create - Дата Создания'),
@@ -683,6 +684,19 @@ GROUP BY prod.product_id " .
 		}
 
 		return false;
+
+	}
+
+	public function updateProduct($product, $productInfo) {
+
+		if ($product['product_price']!==(float)$productInfo->prices->wmr) {
+
+			$data['product_price']=(float)$productInfo->prices->wmr;
+		}
+
+		if ($product['in_stock']!==(int)$productInfo->in_stock) {
+			$data['in_stock']=(int)$productInfo->in_stock;
+		}
 
 	}
 

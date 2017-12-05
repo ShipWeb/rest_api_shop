@@ -15,8 +15,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class ProductsController extends \yii\web\Controller
-{
+class ProductsController extends \yii\web\Controller {
 
 	/**
 	 * Каталог товаров
@@ -58,6 +57,10 @@ class ProductsController extends \yii\web\Controller
 		$product_not_tech_req = Properties::getNotTechnicalProperties($id);
 
 		$images = Products::getImagesProduct($id);
+
+		$productInfo = ApiController::getProductInfo($product_all['product']['product_api_id']);
+
+		Products::updateProduct($product_all['product'], $productInfo);
 
 		return $this->render('view', [
 			'product'              => $product_all['product'],
@@ -104,7 +107,7 @@ class ProductsController extends \yii\web\Controller
 			$filter = Products::addFilters($_REQUEST);
 			$currencies = Yii::$app->db->createCommand("SELECT * FROM {{%currencies}}")->queryAll();
 			$active_currency = Currencies::activeCurrency();
-			$result['data']=false;
+			$result['data'] = false;
 			$result = Products::queryGetAll($active_currency, $filter, false, 10);
 			ob_clean();
 			if (!empty($result['data'])) {
@@ -120,5 +123,5 @@ class ProductsController extends \yii\web\Controller
 		}
 
 	}
-	
+
 }
