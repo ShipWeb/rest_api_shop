@@ -6,6 +6,7 @@ use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\data\SqlDataProvider;
+use app\controllers\ApiController;
 
 /**
  * This is the model class for table "{{%products}}".
@@ -696,30 +697,31 @@ GROUP BY prod.product_id " .
 		$sql = [];
 		if ($product['product_price'] != (float)$productInfo->prices->wmr) {
 			$data['product_price'] = (float)$productInfo->prices->wmr;
-			$sql[] = "product_price=:product_price";
+			$sql[] = "product_price=".$data['product_price'];
 		}
 
 		if ($product['in_stock'] != (int)$productInfo->in_stock) {
 			$data['in_stock'] = (int)$productInfo->in_stock;
-			$sql[] = "in_stock=:in_stock";
+			$sql[] = "in_stock=".$data['in_stock'];
 		}
 
 		if (!empty($data)) {
-			$query = "
-UPDATE {{%products}} 
-SET " . implode(",", $sql) . "
-WHERE product_id=:product_id
-		";
-
+			$query = "UPDATE {{%products}} SET " . implode(",", $sql) . " WHERE product_id=:product_id";
 			$command = Yii::$app->db->createCommand($query);
 			$command->bindValue(':product_id', $product['product_id']);
-			if (!empty($data['product_price'])) {
-				$command->bindValue(':product_price', $data['product_price']);
-			}
-			if (!empty($data['in_stock'])) {
-				$command->bindValue(':in_stock', $data['in_stock']);
-			}
 			$command->query();
+		}
+
+	}
+
+	public function updateProductsAll() {
+
+		$query = "SELECT product_id, product_api_id, product_price, in_stock FROM {{%products}}";
+		$result = Yii::$app->db->createCommand($query)->queryAll();
+
+		foreach ($result as $value){
+			$productInfo = ApiController::getProductInfo($value['product_api_id']);
+			self::updateProduct($value, $productInfo);
 		}
 
 	}

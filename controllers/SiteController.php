@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Currencies;
+use app\models\Products;
 
 class SiteController extends Controller
 {
@@ -165,6 +166,27 @@ class SiteController extends Controller
 	public function actionHowbuy()
 	{
 		return $this->render('howbuy');
+	}
+
+	/**
+	 * Сервис обновления
+	 *
+	 * @return string
+	 */
+	public function actionService() {
+
+		set_time_limit(600);
+
+		if (empty($_REQUEST['start']) || $_REQUEST['start'] != 1) {
+			return;
+		}
+
+		//Обновление информации о товарах
+		Products::updateProductsAll();
+
+		//Обновление информации о валютах
+		Currencies::updateCurrencies();
+
 	}
 
 }
