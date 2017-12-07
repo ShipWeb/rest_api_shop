@@ -95,6 +95,13 @@ $("document").ready(function () {
 	$('.oplata').on('click', 'div', function () {
 		$('.payment_item').removeClass('payment_click');
 		$(this).children('div.payment_item').toggleClass('payment_click');
+
+		var type_pay_product=$(this).children('div.payment_item').attr('data-curr');
+
+		if (type_pay_product!== undefined) {
+			$("#digiselller_form input[name='typecurr']").val(type_pay_product);
+		}
+
 	})
 });
 

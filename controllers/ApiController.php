@@ -25,9 +25,28 @@ class ApiController extends ActiveController {
 		';
 
 		$answer = self::getAnswerXml(Yii::$app->params['urlProductInfo'], $xml);
+
+		if (empty($answer)) {
+			return false;
+		}
+
 		$xmlResult = simplexml_load_string($answer);
 
 		return $xmlResult->product;
+
+	}
+
+	public function getCurrenciesInfo() {
+
+		$answer = self::getAnswer(Yii::$app->params['urlCurrenciesService']);
+
+		if (empty($answer)) {
+			return false;
+		}
+
+		$result=(array)simplexml_load_string($answer);
+
+		return $result['Valute'];
 
 	}
 
@@ -38,6 +57,16 @@ class ApiController extends ActiveController {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+		$result = curl_exec($ch);
+
+		return $result;
+	}
+
+	public function getAnswer($address) {
+
+		$ch = curl_init($address);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$result = curl_exec($ch);
 
 		return $result;

@@ -103,8 +103,8 @@ use app\components\BreadcrumbsProduct;
 			<div class="inner">
 				<!--Рекламные блоки 170x220px-->
 				<div class="adv">
-					<a href="#"><img src="<?= Yii::$app->homeUrl ?>images/prey_banner.jpg" alt="Купить Prey за 999р"></a>
-					<a href="#"><img src="<?= Yii::$app->homeUrl ?>images/rust_bunner.jpg" alt="Купить Rust за 295р"></a>
+					<a href="<?= Yii::$app->homeUrl ?>product/9/prey"><img src="<?= Yii::$app->homeUrl ?>images/prey_banner.jpg" alt="Купить Prey за 999р"></a>
+					<a href="<?= Yii::$app->homeUrl ?>product/26/rust"><img src="<?= Yii::$app->homeUrl ?>images/rust_bunner.jpg" alt="Купить Rust за 295р"></a>
 				</div>
 				<span class="goods_info">Скриншоты</span>
 				<div class="galery">

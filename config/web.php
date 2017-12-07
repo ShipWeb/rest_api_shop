@@ -71,11 +71,14 @@ $config = [
 				'/product'                     => 'products/index',
 				'/basket'                      => 'products/basket',
 
+				'/service'             => 'site/service',
+
 				'/discount'  => 'site/discount',
 				'/feedbacks' => 'site/feedbacks',
 				'/garanty'   => 'site/garanty',
 				'/help'      => 'site/help',
 				'/howbuy'    => 'site/howbuy',
+
 
 				'/site/login'  => 'site/login',
 				'/site/logout' => 'site/logout',

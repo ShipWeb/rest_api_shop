@@ -43,7 +43,7 @@
 	</div>
 	<h3 id="pay">Способ оплаты</h3>
 	<div class="goods_head">
-		<div class="row oplata">
+		<div class="row oplata" id="type_pay_product">
 			<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
 				<div class="payment_item" data-curr="WMR">
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -186,7 +186,7 @@
 
 					<input type="hidden" name="id_d" value="<?= !empty($product['product_api_id']) ? $product['product_api_id'] : "" ?>"/>
 					<input type="hidden" name="cart_uid" value=""/>
-					<input type="hidden" name="typecurr" value="<?= !empty($active_currency['webmoney']) ? $active_currency['webmoney'] : "" ?>"/>
+					<input type="hidden" name="typecurr" value=""/>
 					<input type="hidden" name="lang" value="<?= Yii::$app->params['language'] ?>"/>
 					<input type="hidden" name="failpage" value="<?= Yii::$app->homeUrl ?>basket?failpay=true"/>
 					<input type="hidden" name="ai" value="<?= Yii::$app->params['partnerID'] ?>"/>

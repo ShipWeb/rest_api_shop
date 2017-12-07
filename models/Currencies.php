@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\controllers\ApiController;
 
 /**
  * This is the model class for table "{{%currencies}}".
@@ -14,43 +15,43 @@ use Yii;
  * @property string $currency_active
  * @property string $currency_main
  */
-class Currencies extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%currencies}}';
-    }
+class Currencies extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['currency_course'], 'number'],
-            [['currency_active', 'currency_main'], 'string'],
-            [['currency_title'], 'string', 'max' => 100],
-            [['currency_name'], 'string', 'max' => 50],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName() {
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'currency_id' => Yii::t('app', 'Currency ID'),
-            'currency_title' => Yii::t('app', 'Currency Title'),
-            'currency_name' => Yii::t('app', 'Currency Name'),
-            'currency_course' => Yii::t('app', 'Currency Course'),
-            'currency_active' => Yii::t('app', 'Currency Active'),
-            'currency_main' => Yii::t('app', 'Currency Main'),
-        ];
-    }
+		return '{{%currencies}}';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules() {
+
+		return [
+			[['currency_course'], 'number'],
+			[['currency_active', 'currency_main'], 'string'],
+			[['currency_title'], 'string', 'max' => 100],
+			[['currency_name'], 'string', 'max' => 50],
+		];
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels() {
+
+		return [
+			'currency_id'     => Yii::t('app', 'Currency ID'),
+			'currency_title'  => Yii::t('app', 'Currency Title'),
+			'currency_name'   => Yii::t('app', 'Currency Name'),
+			'currency_course' => Yii::t('app', 'Currency Course'),
+			'currency_active' => Yii::t('app', 'Currency Active'),
+			'currency_main'   => Yii::t('app', 'Currency Main'),
+		];
+	}
 
 	/**
 	 * @return array|false
@@ -95,6 +96,31 @@ class Currencies extends \yii\db\ActiveRecord
 		if (!empty($_REQUEST['active_currency'])) {
 			if ($res = Currencies::changeCurrency($_REQUEST['active_currency'])) {
 				$_COOKIE['active_currency'] = $_SESSION['active_currency'] = $_REQUEST['active_currency'];
+			}
+		}
+
+	}
+
+	public function updateCurrencies() {
+
+		$result = ApiController::getCurrenciesInfo();
+
+		$query = "SELECT currency_name FROM {{%currencies}} WHERE currency_name<>'RUB'";
+		$currencies = Yii::$app->db->createCommand($query)->queryColumn();
+
+		$data = [];
+		foreach ($currencies as $value) {
+			foreach ($result as $val) {
+				if ($val->CharCode == $value) {
+					$data[$value] = 1 / (float)$val->Value;
+				}
+			}
+		}
+
+		if (!empty($data)) {
+			foreach ($data as $key=>$value) {
+				$query = "UPDATE {{%currencies}} SET currency_course=:currency_course WHERE currency_name=:currency_name";
+				Yii::$app->db->createCommand($query)->bindValue(':currency_course', $value)->bindValue(':currency_name', $key)->query();
 			}
 		}
 

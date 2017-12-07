@@ -6,6 +6,7 @@ return [
 	'urlBuyApi'              => 'https://www.oplata.info/asp2/pay.asp',
 	'urlProductInfo'         => 'http://shop.digiseller.ru/xml/shop_product_info.asp',
 	'urlProductDiscountInfo' => 'http://shop.digiseller.ru/xml/shop_discount.asp',
+	'urlCurrenciesService'   => 'http://www.cbr.ru/scripts/XML_daily.asp',
 	'partnerID'              => 123,
 	'language'               => 'ru-RU',
 	'enableCalcDiscount'     => false,
