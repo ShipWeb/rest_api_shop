@@ -695,14 +695,14 @@ GROUP BY prod.product_id " .
 
 		$data = [];
 		$sql = [];
-		if ($product['product_price'] != (float)$productInfo->prices->wmr) {
+		if (!empty($productInfo->prices->wmr) && $product['product_price'] != (float)$productInfo->prices->wmr) {
 			$data['product_price'] = (float)$productInfo->prices->wmr;
-			$sql[] = "product_price=".$data['product_price'];
+			$sql[] = "product_price=" . $data['product_price'];
 		}
 
-		if ($product['in_stock'] != (int)$productInfo->in_stock) {
+		if (!empty($productInfo->in_stock) && $product['in_stock'] != (int)$productInfo->in_stock) {
 			$data['in_stock'] = (int)$productInfo->in_stock;
-			$sql[] = "in_stock=".$data['in_stock'];
+			$sql[] = "in_stock=" . $data['in_stock'];
 		}
 
 		if (!empty($data)) {

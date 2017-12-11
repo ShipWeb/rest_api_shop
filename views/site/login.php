@@ -7,8 +7,19 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Авторизация '.Yii::$app->homeUrl;
+$description='Авторизация';
+$keywords='Авторизация';
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => $description
+]);
+
+$this->registerMetaTag([
+	'name' => 'keywords',
+	'content' => $keywords
+]);
+
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>

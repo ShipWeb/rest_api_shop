@@ -11,6 +11,20 @@ JS;
 	$this->registerJs($script, yii\web\View::POS_READY);
 }
 
+$this->title = Yii::$app->homeUrl . ' - каталог игр' . (!empty($_REQUEST['page']) ? ' - страница ' . (int)$_REQUEST['page'] : '');
+$description='Каталог игр из Steam';
+$keywords='Каталог игр';
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => $description
+]);
+
+$this->registerMetaTag([
+	'name' => 'keywords',
+	'content' => $keywords
+]);
+
+
 ?>
 
 <div class="container main catalog_wrapper row">
