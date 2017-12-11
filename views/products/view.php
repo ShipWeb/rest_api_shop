@@ -2,6 +2,19 @@
 
 use app\components\BreadcrumbsProduct;
 
+$this->title=!empty($product['seo_title'])?$product['seo_description']:$product['product_title'];
+$description=!empty($product['seo_description'])?$product['seo_description']:'Купить игру '.$product['product_title'];
+$keywords=!empty($product['seo_keywords'])?$product['seo_keywords']:$product['product_title'];
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => $description
+]);
+
+$this->registerMetaTag([
+	'name' => 'keywords',
+	'content' => $keywords
+]);
+
 ?>
 
 <div class="container main product_card">

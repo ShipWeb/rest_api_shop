@@ -2,6 +2,9 @@
 
 return [
 	'adminEmail'             => 'admin@example.com',
+	'mainPageTitle'          => '1',
+	'mainPageDescription'    => '2',
+	'mainPageKeywords'       => '3',
 	'urlRegistrationApi'     => 'https://www.oplata.info/info/',
 	'urlBuyApi'              => 'https://www.oplata.info/asp2/pay.asp',
 	'urlProductInfo'         => 'http://shop.digiseller.ru/xml/shop_product_info.asp',

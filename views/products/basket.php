@@ -1,3 +1,20 @@
+<?php
+
+$this->title = 'Корзина '.Yii::$app->homeUrl;
+$description='Корзина';
+$keywords='Корзина';
+$this->registerMetaTag([
+'name' => 'description',
+'content' => $description
+]);
+
+$this->registerMetaTag([
+'name' => 'keywords',
+'content' => $keywords
+]);
+
+?>
+
 <ol class="breadcrumb">
 	<li><a href="<?= Yii::$app->homeUrl ?>">Главная</a></li>
 	<li><a href="<?= Yii::$app->homeUrl ?>product">Каталог</a></li>
