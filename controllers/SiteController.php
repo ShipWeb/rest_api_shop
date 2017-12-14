@@ -181,11 +181,18 @@ class SiteController extends Controller
 			return;
 		}
 
+		$query = "SELECT * FROM {{%products}}";
+		$products = Yii::$app->db->createCommand($query)->queryAll();
+
 		//Обновление информации о товарах
-		Products::updateProductsAll();
+		Products::updateProductsAll($products);
+
+		Products::generateSitemap($products);
 
 		//Обновление информации о валютах
 		Currencies::updateCurrencies();
+
+		echo 'ok';
 
 	}
 

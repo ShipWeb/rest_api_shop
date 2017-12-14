@@ -714,14 +714,99 @@ GROUP BY prod.product_id " .
 
 	}
 
-	public function updateProductsAll() {
+	public function updateProductsAll($products) {
 
-		$query = "SELECT product_id, product_api_id, product_price, in_stock FROM {{%products}}";
-		$result = Yii::$app->db->createCommand($query)->queryAll();
-
-		foreach ($result as $value){
+		foreach ($products as $value) {
 			$productInfo = ApiController::getProductInfo($value['product_api_id']);
 			self::updateProduct($value, $productInfo);
+		}
+
+	}
+
+	public function generateSitemap($products) {
+
+		$pages = [
+			'discount',
+			'feedbacks',
+			'garanty',
+			'help',
+			'howbuy',
+		];
+
+		foreach ($products as $value) {
+			$pages[] = 'product/' . $value['product_id'] . '/' . $value['chpu'];
+		}
+
+		$xmlPages = ceil((int)count($pages) / (int)Yii::$app->params['countPageSitemap']);
+
+		$mainXmlSitemap = '<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+		for ($page = 1; $page <= $xmlPages; $page++) {
+
+			$mainXmlSitemap .= ' <sitemap>
+      <loc>' . Yii::$app->homeUrl . 'sitemap' . $page . '.xml</loc>
+      <lastmod>' . date("Y-m-d\TH:i:s+03:00") . '</lastmod>
+   </sitemap>
+';
+		}
+
+		$mainXmlSitemap .= '</sitemapindex>';
+
+		// запись в файл главной карты карт сайта
+		$file_name = "sitemap.xml";
+		$one_file = fopen($file_name, "w");
+		fwrite($one_file, $mainXmlSitemap);
+		fclose($one_file);
+
+		$urlPage = 0;
+		$numberSitemap = 1;
+
+		foreach ($pages as $key => $value) {
+
+			if ($key == 0) {
+				$s_map = '<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+ 
+http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\r\n";
+
+				$s_map .= '
+<url>
+    <loc>' . Yii::$app->homeUrl . '</loc>
+    <lastmod>' . date("Y-m-d\TH:i:s+03:00") . '</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+</url>' . "\r\n";
+				$urlPage++;
+			}
+
+			$s_map .= '<url>' . "\r\n";
+			$s_map .= '    <loc>' . Yii::$app->homeUrl . $value . '/</loc>' . "\r\n";
+			$s_map .= '    <lastmod>' . date("Y-m-d\TH:i:s+03:00") . '</lastmod>' . "\r\n";
+			$s_map .= '    <changefreq>weekly</changefreq>' . "\r\n";
+			$s_map .= '    <priority>0.50</priority>' . "\r\n";
+			$s_map .= '</url>' . "\r\n";
+
+			$urlPage++;
+
+			if ($urlPage == (int)Yii::$app->params['countPageSitemap'] || $urlPage == (int)count($pages) - 1) {
+
+				$s_map .= '</urlset>';
+
+				// запись в файл карт сайта
+				$file_name = "sitemap" . $numberSitemap . ".xml";
+				$one_file = fopen($file_name, "w");
+				fwrite($one_file, $s_map);
+				fclose($one_file);
+
+				$urlPage = 0;
+				$numberSitemap++;
+
+			}
+
 		}
 
 	}

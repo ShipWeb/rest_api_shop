@@ -13,4 +13,5 @@ return [
 	'partnerID'              => 123,
 	'language'               => 'ru-RU',
 	'enableCalcDiscount'     => false,
+	'countPageSitemap'       => 1000,
 ];
