@@ -125,7 +125,30 @@ class SiteController extends Controller
      */
     public function actionDiscount()
     {
-        return $this->render('discount');
+
+    	$limit=20;
+
+		$active_currency = Currencies::activeCurrency();
+
+		$query = "
+SELECT *,
+CAST(
+	IF(product_discount IS NULL ,
+	(product_price * ".$active_currency['currency_course']."), 
+	(product_price * ".$active_currency['currency_course'].")
+	" . (Yii::$app->params['enableCalcDiscount'] == true ? "/ 100 * (100 - product_discount)" : "") . "
+	) AS DECIMAL(12,2)) as final_product_price 
+FROM {{%products}}
+ORDER BY product_discount DESC LIMIT :limit";
+
+		$command = Yii::$app->db->createCommand($query);
+		$command->bindValue(':limit',(int)$limit);
+		$discount_products = $command->queryAll();
+
+        return $this->render('discount',[
+			'discount_products'=>$discount_products,
+			'active_currency'=>$active_currency,
+		]);
     }
 
 	/**
